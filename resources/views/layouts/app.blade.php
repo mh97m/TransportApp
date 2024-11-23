@@ -1,36 +1,112 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <livewire:layout.navigation />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/assets/vendor/animate/animate.min.css">
+    <link rel="stylesheet" href="/assets/vendor/simple-line-icons/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="/assets/vendor/owl.carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/vendor/owl.carousel/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/vendor/magnific-popup/magnific-popup.min.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="/assets/css/theme.css">
+    <link rel="stylesheet" href="/assets/css/theme-elements.css">
+    <link rel="stylesheet" href="/assets/css/theme-blog.css">
+    <link rel="stylesheet" href="/assets/css/theme-shop.css">
+
+    <!-- Current Page CSS -->
+    <link rel="stylesheet" href="/assets/vendor/rs-plugin/css/settings.css">
+    <link rel="stylesheet" href="/assets/vendor/rs-plugin/css/layers.css">
+    <link rel="stylesheet" href="/assets/vendor/rs-plugin/css/navigation.css">
+
+    <!-- Demo CSS -->
+    <link rel="stylesheet" href="/assets/css/demo-real-estate.css">
+
+    <!-- Skin CSS -->
+    <link rel="stylesheet" href="/assets/css/skin-real-estate.css">
+
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <!-- Head Libs -->
+    <script src="/assets/vendor/modernizr/modernizr.min.js"></script>
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+
+<body class="loading-overlay-showing" data-loading-overlay data-plugin-options="{'hideDelay': 500}">
+    <div class="loading-overlay">
+        <div class="bounce-loader">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
         </div>
-    </body>
+    </div>
+
+    <div class="body">
+        <livewire:layout.header />
+        <div role="main" class="main">
+            <livewire:layout.slider />
+            <div class="container">
+                {{ $slot }}
+            </div>
+            <livewire:layout.footer />
+        </div>
+    </div>
+
+    <!-- Vendor -->
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery.appear/jquery.appear.min.js"></script>
+    <script src="/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="/assets/vendor/jquery.cookie/jquery.cookie.min.js"></script>
+    <script src="/assets/vendor/popper/umd/popper.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/vendor/common/common.min.js"></script>
+    <script src="/assets/vendor/jquery.validation/jquery.validate.min.js"></script>
+    <script src="/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+    <script src="/assets/vendor/jquery.gmap/jquery.gmap.min.js"></script>
+    <script src="/assets/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
+    <script src="/assets/vendor/isotope/jquery.isotope.min.js"></script>
+    <script src="/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="/assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/vendor/vide/jquery.vide.min.js"></script>
+    <script src="/assets/vendor/vivus/vivus.min.js"></script>
+
+    <!-- Theme Base, Components and Settings -->
+    <script src="/assets/js/theme.js"></script>
+
+    <!-- Current Page Vendor and Views -->
+    <script src="/assets/vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script src="/assets/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+    <!-- Current Page Vendor and Views -->
+    <script src="/assets/js/view.contact.js"></script>
+
+    <!-- Demo -->
+    <script src="/assets/js/demo-real-estate.js"></script>
+
+    <!-- Theme Custom -->
+    <script src="/assets/js/custom.js"></script>
+
+    <!-- Theme Initialization Files -->
+    <script src="/assets/js/theme.init.js"></script>
+</body>
+
 </html>
