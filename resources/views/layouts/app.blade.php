@@ -63,10 +63,15 @@
     <div class="body">
         <livewire:layout.header />
         <div role="main" class="main">
-            <livewire:layout.slider />
+
+            @if (isset($slider))
+                <livewire:layout.slider />
+            @endif
+
             <div class="container">
                 {{ $slot }}
             </div>
+
             <livewire:layout.footer />
         </div>
     </div>
