@@ -1,72 +1,71 @@
 <?php
 
+use App\Models\User;
 use App\Livewire\Forms\LoginForm;
-use Illuminate\Support\Facades\Session;
+use App\Livewire\Forms\RegisterForm;
+use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
 new #[Layout('layouts.app')] class extends Component {
-    public LoginForm $form;
-
-    // public string $name = '';
-    // public string $email = '';
-    // public string $password = '';
-    // public string $password_confirmation = '';
+    public LoginForm $loginForm;
+    public RegisterForm $registerForm;
 
     /**
      * Handle an incoming authentication request.
      */
     public function login(): void
     {
-        $this->validate();
+        $this->validate([
+            'loginForm.mobile' => 'required|string',
+            'loginForm.password' => 'required|string',
+            'loginForm.remember' => 'boolean',
+        ]);
 
-        $this->form->authenticate();
-
-        Session::regenerate();
+        $this->loginForm->authenticate();
 
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
 
-    // /**
-    //  * Handle an incoming registration request.
-    //  */
-    // public function register(): void
-    // {
-    //     $validated = $this->validate([
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-    //         'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-    //     ]);
+    /**
+     * Handle an incoming registeration request.
+     */
+    public function register(): void
+    {
+        $this->validate([
+            'registerForm.name' => ['required', 'string', 'max:255'],
+            'registerForm.mobile' => ['required', 'string', 'regex:/^09\d{9}$/i', 'unique:' . User::class . ',mobile'],
+            'registerForm.password' => ['required', 'string', 'confirmed', Rules\Password::min(4)],
+        ]);
+        dd(1212);
 
-    //     $validated['password'] = Hash::make($validated['password']);
+        $this->registerForm->registeration();
 
-    //     event(new Registered(($user = User::create($validated))));
-
-    //     Auth::login($user);
-
-    //     $this->redirect(route('dashboard', absolute: false), navigate: true);
-    // }
+        $this->redirect(route('dashboard', absolute: false), navigate: true);
+    }
 }; ?>
 
 <div class="row">
     <div class="col">
+        <x-session-status :message="session('status')" />
         <div class="featured-boxes">
             <div class="row">
                 <div class="col-md-6">
                     <div class="featured-box featured-box-primary text-left mt-5">
-                        <div class="box-content">
-                            {{-- <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">من مشتری ثابت شما هستم</h4> --}}
 
-                            <x-session-status :message="session('status')" />
+                        <div class="box-content">
+                            <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">
+                                ورود
+                            </h4>
 
                             <form wire:submit="login">
                                 <div class="form-row">
                                     <x-text-input
                                         :label="__('Mobile')"
-                                        id="mobile"
+                                        id="loginFormMobile"
                                         name="mobile"
-                                        wire:model="form.mobile"
-                                        :errors="$errors->get('form.mobile')"
+                                        wire:model="loginForm.mobile"
+                                        :errors="$errors->get('loginForm.mobile')"
                                         autocomplete="username"
                                     />
                                 </div>
@@ -74,10 +73,10 @@ new #[Layout('layouts.app')] class extends Component {
                                     <x-text-input
                                         :label="__('Password')"
                                         type="password"
-                                        id="password"
+                                        id="loginFormPassword"
                                         name="password"
-                                        wire:model="form.password"
-                                        :errors="$errors->get('form.password')"
+                                        wire:model="loginForm.password"
+                                        :errors="$errors->get('loginForm.password')"
                                         autocomplete="current-password"
                                     >
                                         <a class="float-right" href="{{ route('password.request') }}" wire:navigate>
@@ -89,7 +88,7 @@ new #[Layout('layouts.app')] class extends Component {
                                     <div class="form-group col-lg-6">
                                         <x-checkbox-input
                                             :label="__('Remember me')"
-                                            wire:model="form.remember"
+                                            wire:model="loginForm.remember"
                                         />
                                     </div>
                                     <x-button
@@ -103,27 +102,39 @@ new #[Layout('layouts.app')] class extends Component {
                 <div class="col-md-6">
                     <div class="featured-box featured-box-primary text-left mt-5">
                         <div class="box-content">
-                            <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">یک حساب ثبت کنید
+                            <h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">
+                                ثبت نام
                             </h4>
-                            <form action="/" id="frmSignUp" method="post" class="needs-validation">
+                            <form wire:submit="register">
                                 <div class="form-row">
-                                    <div class="form-group col">
-                                        <label class="font-weight-bold text-dark text-2">آدرس ایمیل</label>
-                                        <input type="text" value=""
-                                            class="form-control form-control-lg text-left" dir="ltr" required>
-                                    </div>
+                                    <x-text-input
+                                        :label="__('Mobile')"
+                                        id="registerFormMobile"
+                                        name="mobile"
+                                        wire:model="registerForm.mobile"
+                                        :errors="$errors->get('registerForm.mobile')"
+                                        autocomplete="username"
+                                    />
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-lg-6">
-                                        <label class="font-weight-bold text-dark text-2">رمز عبور</label>
-                                        <input type="password" value=""
-                                            class="form-control form-control-lg text-left" dir="ltr" required>
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <label class="font-weight-bold text-dark text-2">تکرار رمز عبور</label>
-                                        <input type="password" value=""
-                                            class="form-control form-control-lg text-left" dir="ltr" required>
-                                    </div>
+                                    <x-text-input
+                                        :label="__('Password')"
+                                        type="password"
+                                        id="registerFormPassword"
+                                        name="password"
+                                        wire:model="registerForm.password"
+                                        :errors="$errors->get('registerForm.password')"
+                                        autocomplete="new-password"
+                                    />
+                                    <x-text-input
+                                        :label="__('Confirm Password')"
+                                        type="password"
+                                        id="registerFormPasswordConfirmation"
+                                        name="password_confirmation"
+                                        wire:model="registerForm.password_confirmation"
+                                        :errors="$errors->get('registerForm.password_confirmation')"
+                                        autocomplete="new-password"
+                                    />
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-lg-9">
@@ -133,11 +144,10 @@ new #[Layout('layouts.app')] class extends Component {
                                                     href="#">قوانین و مقررات</a> را خوانده و موافقم</label>
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-3">
-                                        <input type="submit" value="ثبت نام"
-                                            class="btn btn-primary btn-modern float-right"
-                                            data-loading-text="در حال بارگذاری ...">
-                                    </div>
+                                    <x-button
+                                        :containerClass="__('form-group col-lg-3')"
+                                        :label="__('Register')"
+                                    />
                                 </div>
                             </form>
                         </div>

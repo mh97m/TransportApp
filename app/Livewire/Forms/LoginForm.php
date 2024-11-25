@@ -5,20 +5,17 @@ namespace App\Livewire\Forms;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class LoginForm extends Form
 {
-    #[Validate('required|string')]
     public string $mobile = '';
 
-    #[Validate('required|string')]
     public string $password = '';
 
-    #[Validate('boolean')]
     public bool $remember = false;
 
     /**
@@ -33,7 +30,7 @@ class LoginForm extends Form
         // Check if the mobile number matches the required pattern
         if (! preg_match('/^09\d{9}$/', $this->mobile)) {
             throw ValidationException::withMessages([
-                'form.mobile' => trans('validation.regex', ['attribute' => __('Mobile')]),
+                'loginForm.mobile' => trans('validation.regex', ['attribute' => __('Mobile')]),
             ]);
         }
 
@@ -41,11 +38,13 @@ class LoginForm extends Form
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'form.mobile' => trans('auth.failed'),
+                'loginForm.mobile' => trans('auth.failed'),
             ]);
         }
 
         RateLimiter::clear($this->throttleKey());
+
+        Session::regenerate();
     }
 
     /**
@@ -62,7 +61,7 @@ class LoginForm extends Form
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'form.mobile' => trans('auth.throttle', [
+            'loginForm.mobile' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
