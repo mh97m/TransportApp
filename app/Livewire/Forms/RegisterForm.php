@@ -25,7 +25,6 @@ class RegisterForm extends Form
      */
     public function registeration(): void
     {
-        dd($this->only(['name', 'mobile', 'password']));
         event(new Registered(($user = User::create(
             $this->only(['name', 'mobile', 'password'])
         ))));

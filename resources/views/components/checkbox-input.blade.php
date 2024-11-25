@@ -1,5 +1,4 @@
 @props([
-    'label' => '',
     'id' => 'inputId',
     'name' => 'input',
     'disabled' => false,
@@ -14,6 +13,6 @@
         @disabled($disabled)
     />
     <label class="custom-control-label text-2" for="{{ $id }}">
-        {{ $label }}
+        {{ $slot }}
     </label>
 </div>

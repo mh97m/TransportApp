@@ -37,7 +37,6 @@ new #[Layout('layouts.app')] class extends Component {
             'registerForm.mobile' => ['required', 'string', 'regex:/^09\d{9}$/i', 'unique:' . User::class . ',mobile'],
             'registerForm.password' => ['required', 'string', 'confirmed', Rules\Password::min(4)],
         ]);
-        dd(1212);
 
         $this->registerForm->registeration();
 
@@ -87,9 +86,10 @@ new #[Layout('layouts.app')] class extends Component {
                                 <div class="form-row">
                                     <div class="form-group col-lg-6">
                                         <x-checkbox-input
-                                            :label="__('Remember me')"
                                             wire:model="loginForm.remember"
-                                        />
+                                        >
+                                            {{ __('Remember me') }}
+                                        </x-checkbox-input>
                                     </div>
                                     <x-button
                                         :label="__('Log in')"
@@ -115,6 +115,14 @@ new #[Layout('layouts.app')] class extends Component {
                                         :errors="$errors->get('registerForm.mobile')"
                                         autocomplete="username"
                                     />
+                                    <x-text-input
+                                        :label="__('Name')"
+                                        id="registerFormName"
+                                        name="name"
+                                        wire:model="registerForm.name"
+                                        :errors="$errors->get('registerForm.name')"
+                                        autocomplete="username"
+                                    />
                                 </div>
                                 <div class="form-row">
                                     <x-text-input
@@ -138,11 +146,12 @@ new #[Layout('layouts.app')] class extends Component {
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-lg-9">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="terms">
-                                            <label class="custom-control-label text-2" for="terms">من <a
-                                                    href="#">قوانین و مقررات</a> را خوانده و موافقم</label>
-                                        </div>
+                                        <x-checkbox-input
+                                            :label="__('Remember me')"
+                                            wire:model="loginForm.remember"
+                                        >
+                                            من <a href="#">قوانین و مقررات</a> را خوانده و موافقم
+                                        </x-checkbox-input>
                                     </div>
                                     <x-button
                                         :containerClass="__('form-group col-lg-3')"
