@@ -57,9 +57,18 @@
         <livewire:layout.header />
         <div role="main" class="main">
 
-            @if (isset($slider))
-                <livewire:layout.slider />
+            <!-- Page Heading -->
+            @if (isset($header))
+                <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
+                    <div class="container">
+                        {{ $header }}
+                    </div>
+                </section>
             @endif
+
+            {{-- @if (isset($slider))
+                <livewire:layout.slider />
+            @endif --}}
 
             <div class="container">
                 {{ $slot }}
