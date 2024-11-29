@@ -78,7 +78,7 @@ new #[Layout('layouts.app')] class extends Component {
                                         :errors="$errors->get('loginForm.password')"
                                         autocomplete="current-password"
                                     >
-                                        <a class="float-right" href="{{ route('password.request') }}" wire:navigate>
+                                        <a class="float-right" href="{{ route('password.request') }}">
                                             {{ __('Forgot your password?') }}
                                         </a>
                                     </x-text-input>

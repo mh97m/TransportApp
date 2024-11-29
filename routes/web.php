@@ -1,11 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Livewire\Volt\Volt;
 
-Route::view('/', 'welcome');
+Route::group([
+    'middleware' => ['auth', 'verified'],
+], function() {
+    Route::view('/', 'home');
+    Route::view('dashboard', 'dashboard')->name('dashboard');
 
-Route::view('home', 'home');
-
+    Volt::route('cargo/create', 'pages.cargo.create');
+});
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');

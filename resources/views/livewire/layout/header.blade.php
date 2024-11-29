@@ -43,15 +43,15 @@ new class extends Component {
                 <div class="header-column">
                     <div class="header-row">
                         <div class="header-logo">
-                            <a href="demo-real-estate.html">
+                            <a href="/">
                                 <img alt="Porto" width="80" height="80"
                                     src="/assets/img/demos/real-estate/logo-symbol-light.png">
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="header-column justify-content-end">
-                    {{-- <div class="header-row">
+                {{-- <div class="header-column justify-content-end">
+                    <div class="header-row">
                         <div
                             class="header-nav header-nav-stripe header-nav-force-light-text header-nav-dropdowns-dark header-nav-no-space-dropdown order-2 order-lg-1">
                             <div
@@ -93,22 +93,19 @@ new class extends Component {
                                 <i class="fas fa-bars"></i>
                             </button>
                         </div>
-                    </div> --}}
-                </div>
-                <div class="header-nav-features header-nav-features-no-border order-1 order-lg-2">
-                    <div class="header-nav-feature header-nav-features-user d-inline-flex mx-2 pr-2 signin" id="headerAccount">
-                        @auth
-                            <a class="header-nav-features-toggle" style="color: white" href="/profile" wire:navigate>
-                                <i class="far fa-user"></i> {{ Auth::user()->name }}
-                            </a>
-                        @else
-                            <a class="header-nav-features-toggle" style="color: white" href="/auth" wire:navigate>
-                                <i class="far fa-user"></i> {{ __("Login") }}
-                            </a>
-                        @endauth
                     </div>
-                </div>
+                </div> --}}
+                <livewire:layout.navigation />
             </div>
+            @auth
+                <a
+                    class="btn btn-xl btn-outline btn-rounded btn-info text-1 ml-3 font-weight-bold text-uppercase text-white"
+                    style="background-color: #777; border: black;"
+                    href="/cargo/create"
+                >
+                    اعلام بار
+                </a>
+            @endauth
         </div>
     </div>
 </header>
