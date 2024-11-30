@@ -159,46 +159,62 @@ new #[Layout('layouts.app')] class extends Component {
             <div class="col-md-6 col-lg-4 p-3 isotope-item">
                 <div class="listing-item">
                     <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
-                        <div class="thumb-info thumb-info-lighten border">
-                            <div class="thumb-info-wrapper m-0">
+                        <div class="thumb-info thumb-info-lighten border" style="border: 1px solid rgba(0, 0, 0, 0.13) !important;">
+                            {{-- <div class="thumb-info-wrapper m-0">
                                 <img src="img/demos/real-estate/listings/listing-1.jpg" class="img-fluid" alt="">
                                 <div
                                     class="thumb-info-listing-type bg-color-secondary text-uppercase text-color-light font-weight-semibold p-1 pl-3 pr-3">
                                     برای فروش
                                 </div>
+                            </div> --}}
+                            <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4 mb-2 d-flex justify-content-between">
+                                مبدا : {{ $cargo->originProvince->name . ' - ' .  $cargo->originCity->name }}
+                                <i class="icon-paper-plane icons mx-4"></i>
                             </div>
-                            <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4">
-                                530,000,000 تومان
-                                <i class="fas fa-caret-right text-color-secondary float-right"></i>
+                            <div class="thumb-info-price bg-color-secondary text-color-light text-4 p-2 pl-4 pr-4 d-flex justify-content-between">
+                                مقصد : {{ $cargo->destinationProvince->name . ' - ' .  $cargo->destinationCity->name }}
+                                <i class="icon-drawer icons mx-4"></i>
                             </div>
                             <div class="custom-thumb-info-title b-normal p-4">
-                                <div class="thumb-info-inner text-3">جنوب تبریز</div>
+                                <div class="thumb-info-inner text-3">
+                                    <p class="text-black">
+                                        ماشین : {{ $cargo->carType->name }}
+                                    </p>
+                                    <p class="text-black">
+                                        نوع باربر : {{ $cargo->loaderType->name }}
+                                    </p>
+                                </div>
                                 <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
                                     <li>
                                         <span class="accomodation-title">
-                                            اتاق:
+                                            نوع:
                                         </span>
                                         <span class="accomodation-value custom-color-1">
-                                            3
+                                            {{ $cargo->cargoType->name }}
                                         </span>
                                     </li>
                                     <li>
                                         <span class="accomodation-title">
-                                            سرویس بهداشتی:
+                                            وزن:
                                         </span>
                                         <span class="accomodation-value custom-color-1">
-                                            2
+                                            {{ number_format($cargo->weight) }}
                                         </span>
                                     </li>
                                     <li>
                                         <span class="accomodation-title">
-                                            متراژ:
+                                            قیمت:
                                         </span>
                                         <span class="accomodation-value custom-color-1">
-                                            500
+                                            {{ number_format($cargo->price) }}
                                         </span>
                                     </li>
                                 </ul>
+                                <div class="thumb-info-inner text-3 pt-3">
+                                    <p class="text-black">
+                                        توضیحات : {{ Str::limit($cargo->desc, 50, preserveWords: true) }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </a>

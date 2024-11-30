@@ -199,9 +199,9 @@ html .scroll-to-top:hover, html .scroll-to-top:focus {
 .properties-listing .listing-item .thumb-info .thumb-info-price i {
   position: relative;
   margin-top: 5px;
-  -webkit-transform: rotate(180deg);
+  /* -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
-          transform: rotate(180deg);
+          transform: rotate(180deg); */
 }
 
 .properties-listing .listing-item .thumb-info .thumb-info-price i:after {
@@ -211,11 +211,11 @@ html .scroll-to-top:hover, html .scroll-to-top:focus {
   top: 50%;
   right: 1px;
   width: 40px;
-  border-bottom: 1px solid #219cd2;
-  -webkit-transform: translateY(-50%);
+  /* border-bottom: 1px solid #219cd2; */
+  /* -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
-  -webkit-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease; */
   transition: all 0.3s ease;
 }
 
