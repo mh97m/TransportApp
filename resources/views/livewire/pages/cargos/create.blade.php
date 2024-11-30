@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\City;
-use App\Models\LoadType;
+use App\Models\CargoType;
 use App\Models\CarType;
 use App\Models\LoaderType;
 use App\Models\Province;
@@ -24,7 +24,7 @@ new #[Layout('layouts.app')] class extends Component {
     public $carTypes = [];
     public $loaderTypes = [];
 
-    public $loadTypes = [];
+    public $cargoTypes = [];
 
     public function mount()
     {
@@ -39,7 +39,7 @@ new #[Layout('layouts.app')] class extends Component {
             ->orderBy('name', 'asc')
             ->get();
 
-        $this->loadTypes = LoadType::query()
+        $this->cargoTypes = CargoType::query()
             ->orderBy('name', 'asc')
             ->get();
     }
@@ -71,7 +71,7 @@ new #[Layout('layouts.app')] class extends Component {
 
         $this->form->register();
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        $this->redirect(route('cargos/all', absolute: false), navigate: true);
     }
 }; ?>
 
@@ -101,11 +101,11 @@ new #[Layout('layouts.app')] class extends Component {
                     :size="__('md')"
                     :lgLength="__('6')"
                     :label="__('نوع بار')"
-                    id="loadType"
-                    name="loadType"
-                    wire:model="form.loadType"
-                    :errors="$errors->get('form.loadType')"
-                    :options="$this->loadTypes"
+                    id="cargoType"
+                    name="cargoType"
+                    wire:model="form.cargoType"
+                    :errors="$errors->get('form.cargoType')"
+                    :options="$this->cargoTypes"
                 />
             </div>
 
@@ -197,20 +197,20 @@ new #[Layout('layouts.app')] class extends Component {
                     :lgLength="__('6')"
                     :label="__('وزن (تن)')"
                     type="number"
-                    id="loadWeight"
-                    name="loadWeight"
-                    wire:model="form.loadWeight"
-                    :errors="$errors->get('form.loadWeight')"
+                    id="weight"
+                    name="weight"
+                    wire:model="form.weight"
+                    :errors="$errors->get('form.weight')"
                 />
                 <x-text-input
                     :size="__('md')"
                     :lgLength="__('6')"
                     :label="__('مبلغ')"
                     type="number"
-                    id="loadPrice"
-                    name="loadPrice"
-                    wire:model="form.loadPrice"
-                    :errors="$errors->get('form.loadPrice')"
+                    id="price"
+                    name="price"
+                    wire:model="form.price"
+                    :errors="$errors->get('form.price')"
                 />
             </div>
 
@@ -218,22 +218,22 @@ new #[Layout('layouts.app')] class extends Component {
                 <x-textarea-input
                     :size="__('md')"
                     :lgLength="__('12')"
+                    :rows="__('6')"
                     :label="__('توضیحات')"
                     id="desc"
                     name="desc"
                     wire:model="form.desc"
                     :errors="$errors->get('form.desc')"
-                    style="height: 80px"
                 />
             </div>
 
             <div class="form-group row mb-0">
-                <div class="form-group col-lg-6">
-                    
-                </div>
+                {{-- <div class="form-group col-lg-6"></div> --}}
 
                 <x-button
                     :label="__('Save')"
+                    :size="__('btn-block')"
+                    :containerClass="__('form-group col-lg-12')"
                 />
             </div>
         </form>

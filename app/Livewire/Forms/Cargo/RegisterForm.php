@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms\Cargo;
 
+use App\Models\Cargo;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -66,25 +67,52 @@ class RegisterForm extends Form
     #[Validate([
         'required',
         'string',
-        // 'exists:load_types',
+        // 'exists:cargo_types',
     ])]
-    public $loadType;
+    public $cargoType;
 
     #[Validate([
         'required',
         'integer',
     ])]
-    public $loadWeight;
+    public $weight;
 
     #[Validate([
         'required',
         'integer',
     ])]
-    public $loadPrice;
+    public $price;
+
+    #[Validate([
+        'required',
+        'string',
+    ])]
+    public $desc;
 
 
     public function register(): void
     {
-        
+        Cargo::create([
+            'mobile' => $this->mobile,
+
+            'origin_province_id' => $this->originProvince,
+            'origin_city_id' => $this->originCity,
+
+            'destination_province_id' => $this->destinationProvince,
+            'destination_city_id' => $this->destinationCity,
+
+            'car_type_id' => $this->carType,
+            'loader_type_id' => $this->loaderType,
+
+            'cargo_type_id' => $this->cargoType,
+
+            'weight' => $this->weight,
+
+            'price' => $this->price,
+
+            'desc' => $this->desc,
+
+            'user_id' => Auth::user()->id,
+        ]);
     }
 }

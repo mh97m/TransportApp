@@ -1,3 +1,3 @@
 <x-app-layout>
-    <livewire:pages.cargo.all />
+    <livewire:pages.cargos.all />
 </x-app-layout>

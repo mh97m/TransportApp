@@ -2,10 +2,10 @@
 
 use App\Models\City;
 use App\Models\Province;
+use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new class extends Component
-{
+new #[Layout('layouts.app')] class extends Component {
     public $cargos;
 
     public function mount()

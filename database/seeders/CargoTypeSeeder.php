@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\LoadType;
+use App\Models\CargoType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class LoadTypeSeeder extends Seeder
+class CargoTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        LoadType::truncate();
+        CargoType::truncate();
 
         $items = [
             'مواد غذایی',
@@ -50,7 +50,7 @@ class LoadTypeSeeder extends Seeder
         ];
 
         foreach ($items as $item) {
-            LoadType::create([
+            CargoType::create([
                 'name' => $item,
             ]);
         }

@@ -39,7 +39,7 @@ new class extends Component
                             <ul class="nav nav-list-simple flex-column text-3">
                                 <li class="nav-item"><a class="nav-link" href="/profile">پروفایل من</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#">سفارشات من</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">خروج</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" wire:click="logout">خروج</a></li>
                             </ul>
                         </div>
                     </div>

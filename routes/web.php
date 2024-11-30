@@ -9,7 +9,8 @@ Route::group([
     Route::view('/', 'home');
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
-    Volt::route('cargo/create', 'pages.cargo.create');
+    Volt::route('cargos/create', 'pages.cargos.create');
+    Volt::route('cargos/all', 'pages.cargos.all');
 });
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

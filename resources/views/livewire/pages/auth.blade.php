@@ -24,7 +24,7 @@ new #[Layout('layouts.app')] class extends Component {
 
         $this->loginForm->authenticate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: false);
     }
 
     /**
@@ -40,7 +40,7 @@ new #[Layout('layouts.app')] class extends Component {
 
         $this->registerForm->registeration();
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        $this->redirect(route('dashboard', absolute: false), navigate: false);
     }
 }; ?>
 

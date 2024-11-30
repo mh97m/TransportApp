@@ -3,6 +3,7 @@
     'lgLength' => '12',
     'mdLength' => '12',
     'smLength' => '12',
+    'rows' => '8',
     'label' => '',
     'disabled' => false,
     'errors' => null,
@@ -20,7 +21,7 @@
         class="form-control form-control-{{ $size }} text-left @if ($errors) is-invalid @endif"
         @disabled($disabled)
         maxlength="5000"
-        rows="8"
+        rows="{{ $rows }}"
         required
         autofocus
     ></textarea>

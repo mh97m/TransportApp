@@ -101,7 +101,7 @@ new class extends Component {
                 <a
                     class="btn btn-xl btn-outline btn-rounded btn-info text-1 ml-3 font-weight-bold text-uppercase text-white"
                     style="background-color: #777; border: black;"
-                    href="/cargo/create"
+                    href="/cargos/create"
                 >
                     اعلام بار
                 </a>
