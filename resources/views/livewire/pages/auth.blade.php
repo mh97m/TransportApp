@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\User;
-use App\Livewire\Forms\LoginForm;
-use App\Livewire\Forms\RegisterForm;
+use App\Livewire\Forms\Auth\LoginForm;
+use App\Livewire\Forms\Auth\RegisterForm;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;

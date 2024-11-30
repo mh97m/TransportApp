@@ -11,7 +11,7 @@
 <div class="form-group col-lg-{{ $lgLength }} col-md-{{ $mdLength }} col-sm-{{ $smLength }}">
     {{ $slot }}
     <label class="font-weight-bold text-dark text-2">{{ $label }}</label>
-    <input
+    <textarea
         {{ $attributes->merge([
             'dir' => 'rtl',
             'id' => 'inputId',
@@ -19,9 +19,11 @@
         ]) }}
         class="form-control form-control-{{ $size }} text-left @if ($errors) is-invalid @endif"
         @disabled($disabled)
+        maxlength="5000"
+        rows="8"
         required
         autofocus
-    />
+    ></textarea>
     @if ($errors)
         @foreach ($errors as $error)
             <span class="invalid-feedback" role="alert">

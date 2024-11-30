@@ -13,8 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(ProvinceSeeder::class);
-        $this->call(CitySeeder::class);
+        // $this->call(ProvinceSeeder::class);
+        // $this->call(CitySeeder::class);
+        // $this->call(CarTypeSeeder::class);
+        // $this->call(LoadTypeSeeder::class);
+
+
+
+
+
+
+
 
         // User::factory(10)->create();
 
