@@ -12,7 +12,7 @@ new class extends Component
     {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect('/', navigate: false);
     }
 }; ?>
 
@@ -26,7 +26,7 @@ new class extends Component
                     <div class="row">
                         <div class="col-8">
                             <p class="mb-0 pb-0 text-2 line-height-7">سلام</p>
-                            <p><strong class="text-color-dark text-4">جان اسنو</strong></p>
+                            <p><strong class="text-color-dark text-4">{{ Auth::user()->name }}</strong></p>
                         </div>
                         <div class="col-4">
                             <div class="d-flex justify-content-end">

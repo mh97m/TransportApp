@@ -6,7 +6,7 @@ use Livewire\Volt\Volt;
 Route::group([
     'middleware' => ['auth', 'verified'],
 ], function() {
-    Route::view('/', 'home');
+    Route::view('/', 'home')->name('home');
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
     Volt::route('cargos/create', 'pages.cargos.create');

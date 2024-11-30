@@ -114,5 +114,9 @@ class RegisterForm extends Form
 
             'user_id' => Auth::user()->id,
         ]);
+
+        session()->flash('session-message', 'بار با موفقیت ثبت شد.');
+        session()->flash('session-title', ' عالیه');
+        session()->flash('session-color', 'success');
     }
 }

@@ -1,12 +1,11 @@
 <?php
 
-use App\Livewire\Actions\Logout;
 use Livewire\Volt\Component;
 
 new class extends Component {}; ?>
 
 <footer id="footer" class="m-0 custom-bg-color-1 py-4">
-    <div class="container">
+    {{-- <div class="container">
         <div class="row py-4 mt-3">
             <div class="col-md-4 col-lg-3">
                 <h4 class="mb-3">مشاور املاک پورتو</h4>
@@ -64,12 +63,12 @@ new class extends Component {}; ?>
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="footer-copyright custom-bg-color-1 pb-0">
         <div class="container">
             <div class="row pt-3 pb-4">
                 <div class="col-lg-12 left m-0 pb-3">
-                    <p>ارائه شده در وب‌سایت راست‌چین</p>
+                    <p>ارائه شده توسط <a href="https://github.com/mh97m">پژمان</a></p>
                 </div>
             </div>
         </div>

@@ -56,14 +56,15 @@
     <div class="body">
         <livewire:layout.header />
         <div role="main" class="main">
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
-                    <div class="container">
-                        {{ $header }}
+            @if (session('session-message'))
+                <div class="row m-3">
+                    <div class="col-lg-12">
+                        <div class="alert alert-{{ session('session-color') }} alert-dismissible m-2" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <strong>{{ session('session-title') }}</strong> {{ session('session-message') }}
+                        </div>
                     </div>
-                </section>
+                </div>
             @endif
 
             {{-- @if (isset($slider))
