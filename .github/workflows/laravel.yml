@@ -76,6 +76,10 @@ jobs:
       run: |
         mkdir public-deploy
         cp -R public/* public-deploy/
+        touch public-deploy/.nojekyll
+
+    - name: Debug Deployment Directory
+      run: ls -la public-deploy
 
     # Step 15: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
