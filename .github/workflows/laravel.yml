@@ -21,59 +21,63 @@ jobs:
       with:
         php-version: '8.2'
 
-    # Step 3: Install Laravel Dependencies
+    # Step 4: Copy .env File
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+    # Step 5: Install Laravel Dependencies
     - name: Install PHP Dependencies
       run: composer install --no-dev --prefer-dist
 
-    # Step 4: Generate Application Key
+    # Step 6: Generate Application Key
     - name: Generate Application Key
       run: php artisan key:generate
 
-    # Step 5: Set Directory Permissions
+    # Step 7: Set Directory Permissions
     - name: Set Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
 
-    # Step 6: Set Up SQLite Database
+    # Step 8: Set Up SQLite Database
     - name: Setup SQLite Database
       run: |
         mkdir -p database
         touch database/database.sqlite
 
-    # Step 7: Run Migrations and Seeders
+    # Step 9: Run Migrations and Seeders
     - name: Run Migrations and Seeders
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: php artisan migrate --seed
 
-    # Step 8: Run Tests
+    # Step 10: Run Tests
     # - name: Run Tests
     #   env:
     #     DB_CONNECTION: sqlite
     #     DB_DATABASE: database/database.sqlite
     #   run: php artisan test
 
-    # Step 9: Set Up Node.js
+    # Step 11: Set Up Node.js
     - name: Set Up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: "18"
 
-    # Step 10: Install Node.js Dependencies
+    # Step 12: Install Node.js Dependencies
     - name: Install Node Dependencies
       run: npm install
 
-    # Step 11: Build Frontend Assets
+    # Step 13: Build Frontend Assets
     - name: Build Frontend Assets
       run: npm run build
 
-    # Step 12: Prepare Deployment Directory
+    # Step 14: Prepare Deployment Directory
     - name: Copy Frontend Files
       run: |
         mkdir public-deploy
         cp -R public/* public-deploy/
 
-    # Step 13: Deploy to GitHub Pages
+    # Step 15: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
