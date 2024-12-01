@@ -1,517 +1,108 @@
 <x-app-layout>
-    <x-slot name="slider"></x-slot>
-    <div class="row mt-5">
-        <div class="col-lg-9">
+    <!-- Demo CSS -->
+    <link rel="stylesheet" href="/assets/css/demo-digital-agency-2-dark.css">
+
+    <section class="custom-cards p-relative mb-xl-5 pb-5 pt-5 z-index-2">
+        <div class="container">
             <div class="row">
-                <div class="col">
-                    <h2 class="font-weight-normal mb-2 pb-1 text-7">
-                        ملک های <strong class="text-color-secondary font-weight-extra-bold">فروشی</strong> <span
-                            class="font-weight-light">و</span> <strong
-                            class="text-color-secondary font-weight-extra-bold">اجاره‌ای</strong>
-                    </h2>
-                </div>
-            </div>
-            <div id="listingLoadMoreWrapper" class="row properties-listing sort-destination p-0" data-total-pages="2">
-                <div class="col-md-6 col-lg-4 p-3 isotope-item">
-                    <div class="listing-item">
-                        <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
-                            <div class="thumb-info thumb-info-lighten border">
-                                <div class="thumb-info-wrapper m-0">
-                                    <img src="/assets/img/demos/real-estate/listings/listing-1.jpg" class="img-fluid"
-                                        alt="">
-                                    <div
-                                        class="thumb-info-listing-type bg-color-secondary text-uppercase text-color-light font-weight-semibold p-1 pl-3 pr-3">
-                                        برای فروش
-                                    </div>
-                                </div>
-                                <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4">
-                                    530,000,000 <small>تومان</small>
-                                    <i class="fas fa-caret-right text-color-secondary float-right"></i>
-                                </div>
-                                <div class="custom-thumb-info-title b-normal p-4">
-                                    <div class="thumb-info-inner text-3">جنوب تبریز</div>
-                                    <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
-                                        <li>
-                                            <span class="accomodation-title">
-                                                اتاق:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                3
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                سرویس:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                2
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                متراژ:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                500
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 p-3 isotope-item">
-                    <div class="listing-item">
-                        <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
-                            <div class="thumb-info thumb-info-lighten border">
-                                <div class="thumb-info-wrapper m-0">
-                                    <img src="/assets/img/demos/real-estate/listings/listing-2.jpg" class="img-fluid"
-                                        alt="">
-                                    <div
-                                        class="thumb-info-listing-type bg-color-secondary text-uppercase text-color-light font-weight-semibold p-1 pl-3 pr-3">
-                                        برای فروش
-                                    </div>
-                                </div>
-                                <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4">
-                                    320,000,000 <small>تومان</small>
-                                    <i class="fas fa-caret-right text-color-secondary float-right"></i>
-                                </div>
-                                <div class="custom-thumb-info-title b-normal p-4">
-                                    <div class="thumb-info-inner text-3">شرق تهران</div>
-                                    <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
-                                        <li>
-                                            <span class="accomodation-title">
-                                                اتاق:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                3
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                سرویس:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                2
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                متراژ:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                500
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 p-3 isotope-item">
-                    <div class="listing-item">
-                        <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
-                            <div class="thumb-info thumb-info-lighten border">
-                                <div class="thumb-info-wrapper m-0">
-                                    <img src="/assets/img/demos/real-estate/listings/listing-3.jpg" class="img-fluid"
-                                        alt="">
-                                    <div
-                                        class="thumb-info-listing-type bg-color-secondary text-uppercase text-color-light font-weight-semibold p-1 pl-3 pr-3">
-                                        برای اجاره
-                                    </div>
-                                </div>
-                                <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4">
-                                    300,000 <small>تومان / ماهانه</small>
-                                    <i class="fas fa-caret-right text-color-secondary float-right"></i>
-                                </div>
-                                <div class="custom-thumb-info-title b-normal p-4">
-                                    <div class="thumb-info-inner text-3">رشت</div>
-                                    <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
-                                        <li>
-                                            <span class="accomodation-title">
-                                                اتاق:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                3
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                سرویس:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                2
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                متراژ:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                500
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 p-3 isotope-item">
-                    <div class="listing-item">
-                        <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
-                            <div class="thumb-info thumb-info-lighten border">
-                                <div class="thumb-info-wrapper m-0">
-                                    <img src="/assets/img/demos/real-estate/listings/listing-4.jpg" class="img-fluid"
-                                        alt="">
-                                    <div
-                                        class="thumb-info-listing-type bg-color-secondary text-uppercase text-color-light font-weight-semibold p-1 pl-3 pr-3">
-                                        برای فروش
-                                    </div>
-                                </div>
-                                <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4">
-                                    730,000,000 <small>تومان</small>
-                                    <i class="fas fa-caret-right text-color-secondary float-right"></i>
-                                </div>
-                                <div class="custom-thumb-info-title b-normal p-4">
-                                    <div class="thumb-info-inner text-3">تبریز، خیابان آبرسان</div>
-                                    <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
-                                        <li>
-                                            <span class="accomodation-title">
-                                                اتاق:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                3
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                سرویس:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                2
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                متراژ:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                500
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 p-3 isotope-item">
-                    <div class="listing-item">
-                        <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
-                            <div class="thumb-info thumb-info-lighten border">
-                                <div class="thumb-info-wrapper m-0">
-                                    <img src="/assets/img/demos/real-estate/listings/listing-5.jpg" class="img-fluid"
-                                        alt="">
-                                    <div
-                                        class="thumb-info-listing-type bg-color-secondary text-uppercase text-color-light font-weight-semibold p-1 pl-3 pr-3">
-                                        برای فروش
-                                    </div>
-                                </div>
-                                <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4">
-                                    435,000,000 <small>تومان</small>
-                                    <i class="fas fa-caret-right text-color-secondary float-right"></i>
-                                </div>
-                                <div class="custom-thumb-info-title b-normal p-4">
-                                    <div class="thumb-info-inner text-3">تهران، سعادت آباد</div>
-                                    <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
-                                        <li>
-                                            <span class="accomodation-title">
-                                                اتاق:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                3
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                سرویس:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                2
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                متراژ:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                500
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 p-3 isotope-item">
-                    <div class="listing-item">
-                        <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
-                            <div class="thumb-info thumb-info-lighten border">
-                                <div class="thumb-info-wrapper m-0">
-                                    <img src="/assets/img/demos/real-estate/listings/listing-6.jpg" class="img-fluid"
-                                        alt="">
-                                    <div
-                                        class="thumb-info-listing-type bg-color-secondary text-uppercase text-color-light font-weight-semibold p-1 pl-3 pr-3">
-                                        برای فروش
-                                    </div>
-                                </div>
-                                <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4">
-                                    490,000,000 <small>تومان</small>
-                                    <i class="fas fa-caret-right text-color-secondary float-right"></i>
-                                </div>
-                                <div class="custom-thumb-info-title b-normal p-4">
-                                    <div class="thumb-info-inner text-3">خیابان تجریش</div>
-                                    <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
-                                        <li>
-                                            <span class="accomodation-title">
-                                                اتاق:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                3
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                سرویس:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                2
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="accomodation-title">
-                                                متراژ:
-                                            </span>
-                                            <span class="accomodation-value custom-color-1">
-                                                500
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div id="listingLoadMoreBtnWrapper" class="row align-items-center mb-n5" style="min-height: 140px;">
-                <div class="col text-center">
-                    <div id="listingLoadMoreLoader" class="listing-load-more-loader">
-                        <div class="bounce-loader">
-                            <div class="bounce1"></div>
-                            <div class="bounce2"></div>
-                            <div class="bounce3"></div>
-                        </div>
-                    </div>
-
-                    <button id="listingLoadMore" type="button"
-                        class="btn btn-secondary btn-xs text-3 text-uppercase outline-none custom-padding-1">بارگذاری
-                        بیشتر ...</button>
-                </div>
-            </div>
-            <div class="row pb-2">
-                <div class="col">
-                    <h2 class="font-weight-normal mt-5 mb-0 pb-1 text-7">مکان های منحصر به فرد</h2>
-                </div>
-            </div>
-            <div class="row pb-4 mb-lg-4">
-                <div class="col-md-4 mt-3">
-                    <div class="special-offer-item text-center text-color-light">
-                        <a href="demo-real-estate-properties.html" class="text-decoration-none">
-                            <span class="special-offer-wrapper">
-                                <img src="/assets/img/demos/real-estate/listings/listing-exclusive-location-1.jpg"
-                                    class="img-fluid" alt="">
-                                <span class="special-offer-infos text-color-light">
-                                    <span class="special-offer-title font-weight-normal text-5 p-1 mb-3">
-                                        سواحل شمال
-                                    </span>
-                                    <span class="btn btn-secondary text-uppercase custom-padding-1 d-inline-block">11
-                                        ملک</span>
-                                </span>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 mt-3">
-                    <div class="special-offer-item text-center text-color-light">
-                        <a href="demo-real-estate-properties.html" class="text-decoration-none">
-                            <span class="special-offer-wrapper">
-                                <img src="/assets/img/demos/real-estate/listings/listing-exclusive-location-2.jpg"
-                                    class="img-fluid" alt="">
-                                <span class="special-offer-infos text-color-light">
-                                    <span class="special-offer-title font-weight-normal text-5 p-1 mb-3">
-                                        جزیره کیش
-                                    </span>
-                                    <span class="btn btn-secondary text-uppercase custom-padding-1 d-inline-block">2
-                                        ملک</span>
-                                </span>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 mt-3">
-                    <div class="special-offer-item text-center text-color-light">
-                        <a href="demo-real-estate-properties.html" class="text-decoration-none">
-                            <span class="special-offer-wrapper">
-                                <img src="/assets/img/demos/real-estate/listings/listing-exclusive-location-3.jpg"
-                                    class="img-fluid" alt="">
-                                <span class="special-offer-infos text-color-light">
-                                    <span class="special-offer-title font-weight-normal text-5 p-1 mb-3">
-                                        جنوب تبریز
-                                    </span>
-                                    <span class="btn btn-secondary text-uppercase custom-padding-1 d-inline-block">25
-                                        ملک</span>
-                                </span>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 mb-5">
-            <aside class="sidebar">
-                <div class="row">
-                    <div class="col">
-                        <h2 class="font-weight-normal mb-4 pb-1 text-7">
-                            پیشنهادهای ویژه
-                        </h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-lg-12">
-                        <div class="special-offer-item text-center text-color-light">
-                            <a href="demo-real-estate-properties.html" class="text-decoration-none">
-                                <span class="special-offer-wrapper">
-                                    <img src="/assets/img/demos/real-estate/offers/special-offer-1.jpg" class="img-fluid"
-                                        alt="">
-                                    <span class="special-offer-infos text-color-light line-height-8">
-                                        <span class="special-offer-description font-weight-light text-5">
-                                            کلکسیون <br> خانه های استثنایی
-                                        </span>
-                                        <span class="special-offer-title font-weight-bold text-3 pb-4 mb-3 mt-3">
-                                            از: 100 میلیون تومان
-                                        </span>
-                                        <span class="btn btn-secondary custom-padding-1 d-inline-block mb-2">مشاهده
-                                            بیشتر</span>
-                                    </span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-12">
-                        <div class="special-offer-item text-center text-color-light">
-                            <a href="demo-real-estate-properties.html" class="text-decoration-none">
-                                <span class="special-offer-wrapper">
-                                    <img src="/assets/img/demos/real-estate/offers/special-offer-2.jpg" class="img-fluid"
-                                        alt="">
-                                    <span class="special-offer-infos text-color-light line-height-8 pt-4">
-                                        <span class="special-offer-description font-weight-light text-5">
-                                            آپارتمان دربست
-                                        </span>
-                                        <span
-                                            class="special-offer-title font-weight-bold text-uppercase text-3 mb-4 mt-2">
-                                            شرق تهران
-                                        </span>
-                                        <span
-                                            class="btn btn-secondary text-uppercase custom-padding-1 d-inline-block mb-4">مشاهده
-                                            بیشتر</span>
-                                    </span>
-                                </span>
-                            </a>
+                <div class="col-lg-4 col-custom-cards">
+                    <div class="card border-0 bg-color-dark rounded-0 z-index-1 p-5 appear-animation"
+                        data-appear-animation="maskUp" data-appear-animation-delay="100">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 my-3">
+                            <img src="/assets/img/demos/digital-agency-2/icons/solution.png" alt="Solution"
+                                class="mb-5">
+                            <h4 class="card-title custom-text-8 font-weight-bold text-color-light text-center mb-3">
+                                باربری و حمل بار مطمئن</h4>
+                            <p class="card-text text-center custom-text-4 font-weight-lighter">در خدمات حمل و نقل لازم
+                                است تا احساس امنیت داشته باشید.</p>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 col-lg-12">
-                        <div class="agents text-color-light text-center">
-                            <h4 class="text-light pt-4 m-0">نمایندگان ما</h4>
-                            <div class="owl-carousel owl-theme nav-bottom rounded-nav pl-1 pr-1 pt-3 m-0"
-                                data-plugin-options="{'items': 1, 'loop': false, 'dots': false, 'nav': true}">
-                                <div class="pr-2 pl-2">
-                                    <a href="demo-real-estate-agents-detail.html" class="text-decoration-none">
-                                        <span class="agent-thumb">
-                                            <img class="img-fluid rounded-circle" src="/assets/img/team/team-11.jpg" alt>
-                                        </span>
-                                        <span class="agent-infos text-light pt-3">
-                                            <strong class="text-uppercase font-weight-bold d-inline-block mb-1">جان
-                                                اسنو</strong>
-                                            <span class="font-weight-light ltr-text">123 456 789</span>
-                                            <span class="font-weight-light">bruno@domain.com</span>
-                                        </span>
-                                    </a>
-                                </div>
-                                <div class="pr-2 pl-2">
-                                    <a href="demo-real-estate-agents-detail.html" class="text-decoration-none">
-                                        <span class="agent-thumb">
-                                            <img class="img-fluid rounded-circle" src="/assets/img/team/team-12.jpg" alt>
-                                        </span>
-                                        <span class="agent-infos text-light pt-3">
-                                            <strong class="text-uppercase font-weight-bold d-inline-block mb-1">تونی
-                                                استارک</strong>
-                                            <span class="font-weight-light ltr-text">123 456 789</span>
-                                            <span class="font-weight-light">jeffdoe@domain.com</span>
-                                        </span>
-                                    </a>
-                                </div>
-                                <div class="pr-2 pl-2">
-                                    <a href="demo-real-estate-agents-detail.html" class="text-decoration-none">
-                                        <span class="agent-thumb">
-                                            <img class="img-fluid rounded-circle" src="/assets/img/team/team-13.jpg" alt>
-                                        </span>
-                                        <span class="agent-infos text-light pt-3">
-                                            <strong class="text-uppercase font-weight-bold d-inline-block mb-1">جسیکا
-                                                آلبا</strong>
-                                            <span class="font-weight-light ltr-text">123 456 789</span>
-                                            <span class="font-weight-light">jessicadoe@domain.com</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-12">
-                        <div class="newsletter box-shadow-custom p-4 text-center">
-                            <i class="icon-envelope-letter icons"></i>
-                            <h4 class="mt-2 mb-1">
-                                خبرنامه
+                <div class="col-lg-4 col-custom-cards">
+                    <div class="card border-0 bg-color-primary rounded-0 z-index-1 p-5 appear-animation"
+                        data-appear-animation="maskUp" data-appear-animation-delay="200">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 my-3">
+                            <img src="/assets/img/demos/digital-agency-2/icons/advertising.png" alt="Solution"
+                                class="mb-5">
+                            <h4 class="card-title custom-text-8 font-weight-bold text-color-light text-center mb-3">
+                                صرفه جویی در هزینه
                             </h4>
-                            <p>
-                                مشترک شوید و اولین نفری باشید که از پیشنهادات ما با خبر شوید
+                            <p class="card-text text-center custom-text-4 font-weight-lighter text-color-light">
+                                78درصد مشتریان ما می گویند ما را برای قیمت هایمان انتخاب کرده اند.
                             </p>
-
-                            <div class="alert alert-success d-none" id="newsletterSuccess">
-                                <strong>موفقیت!</strong> شما به لیست ایمیل ما افزوده شدید.
-                            </div>
-
-                            <div class="alert alert-danger d-none" id="newsletterError"></div>
-
-                            <form id="newsletterForm" class="text-black pt-2" action="php/newsletter-subscribe.php"
-                                method="POST">
-                                <input class="form-control" placeholder="نام شما *" name="newsletterName"
-                                    id="newsletterName" type="text">
-                                <input class="form-control text-left" placeholder="* آدرس ایمیل شما"
-                                    name="newsletterEmail" id="newsletterEmail" type="text" dir="ltr">
-                                <button
-                                    class="btn btn-light btn-block text-uppercase bg-color-secondary mt-4 text-light custom-padding-1"
-                                    type="submit">اشتراک</button>
-                            </form>
                         </div>
                     </div>
                 </div>
-            </aside>
+                <div class="col-lg-4 col-custom-cards">
+                    <div class="card border-0 bg-color-dark rounded-0 z-index-1 p-5 appear-animation"
+                        data-appear-animation="maskUp" data-appear-animation-delay="300">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 my-3">
+                            <img src="/assets/img/demos/digital-agency-2/icons/feedback.png" alt="Solution"
+                                class="mb-5">
+                            <h4 class="card-title custom-text-8 font-weight-bold text-color-light text-center mb-3">
+                                خدمات عالی را تجربه کنید</h4>
+                            <p class="card-text text-center custom-text-4 font-weight-lighter">ما همواره بهترین خدمات را
+                                در حوزه باربری جهت رفاه مشتریان ارائه می دهیم.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section class="our-approach py-5 mb-4 mb-xl-5 p-relative z-index-1" id="intro">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xl-12 d-flex flex-column justify-content-center align-items-start">
+                    <h4 class="custom-text-10 mb-4 pb-2 font-weight-bolder custom-title-with-icon custom-title-with-icon-primary appear-animation"
+                        data-appear-animation="fadeInRightShorter" data-appear-animation-delay="100">رویکرد ما</h4>
+                    <p class="custom-text-6 font-weight-medium appear-animation"
+                        data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
+                        باربری و اتوبار <strong>باربری مقصودی</strong> به منظور ارائه خدمات کامل و بهینه به کلیه همشهریان گرامی در سراسر تهران
+                        بزرگ و شهرستان های همجوار، امکان رزرو اینترنتی اتوبار برای بهره مندی و استفاده از شرایط خوب حمل
+                        بار کشی را در سایت خود فراهم آورده است.
+                    </p>
+                    <p class="custom-text-3 appear-animation" data-appear-animation="fadeInRightShorter"
+                        data-appear-animation-delay="400">
+                        برای اینکه <strong>حمل بار</strong> شما، بی دغدغه، راحت، کم هزینه، با امنیت، در کم ترین زمان ممکن و مطمئن را تجربه کنید با شرکت <strong>باربری مقصودی</strong> در تماس باشد همکاران ما منتظر ارائه خدمت به شما هستند.
+                    </p>
+                    <a herf="demo-digital-agency-2-dark-about-us.html"
+                        class="btn btn-outline custom-btn-outline btn-light border-0 rounded-0 text-color-primary custom-text-5 font-weight-bolder custom-btn-with-arrow bg-transparent p-0 appear-animation"
+                        data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600">آشنایی بیشتر</a>
+                </div>
+                {{-- <div class="col-lg-4 py-4 py-lg-0 mt-4 mt-lg-0">
+                    <div class="approach-img bg-color-dark">
+                        <div class="custom-circle custom-circle-1"></div>
+                        <div class="custom-circle custom-circle-2 bg-color-dark"></div>
+                        <span
+                            class="custom-circle custom-circle-our-approach-deco-1 bg-color-tertiary p-absolute d-block appear-animation"
+                            data-appear-animation="zoomIn" data-appear-animation-delay="100"></span>
+                        <span
+                            class="custom-circle custom-circle-our-approach-deco-2 bg-color-tertiary p-absolute d-block appear-animation"
+                            data-appear-animation="zoomIn" data-appear-animation-delay="100"></span>
+                        <span
+                            class="custom-circle custom-circle-our-approach-deco-3 bg-color-tertiary p-absolute d-block appear-animation"
+                            data-appear-animation="zoomIn" data-appear-animation-delay="100"></span>
+                    </div>
+                </div> --}}
+                {{-- <div class="col-lg-6 col-xl-4 d-flex align-items-center mt-4 mt-xl-0">
+                    <ul class="custom-list list-unstyled ml-xl-2 pl-xl-1">
+                        <li class="font-weight-medium line-height-double custom-text-4 mb-4 appear-animation"
+                            data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
+                            دقت
+                        </li>
+                        <li class="font-weight-medium line-height-double custom-text-4 mb-4 appear-animation"
+                            data-appear-animation="fadeInRightShorter" data-appear-animation-delay="400">
+                            امنیت
+                        </li>
+                        <li class="font-weight-medium line-height-double custom-text-4 appear-animation"
+                            data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600">
+                            صرفه جویی
+                        </li>
+                    </ul>
+                </div> --}}
+            </div>
+        </div>
+    </section>
+
 </x-app-layout>

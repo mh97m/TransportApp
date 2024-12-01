@@ -1,14 +1,16 @@
 @props([
-    'id' => 'inputId',
-    'name' => 'input',
     'disabled' => false,
+    'id' => 'inputId',
 ])
 
 <div class="custom-control custom-checkbox">
     <input
         type="checkbox"
-        id="{{ $id }}"
-        name="{{ $name }}"
+        {{ $attributes->merge([
+            'dir' => 'rtl',
+            'id' => $id,
+            'name' => 'input',
+        ]) }}
         class="custom-control-input"
         @disabled($disabled)
     />

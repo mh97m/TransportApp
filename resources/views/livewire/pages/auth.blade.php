@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\User;
-use App\Livewire\Forms\LoginForm;
-use App\Livewire\Forms\RegisterForm;
+use App\Livewire\Forms\Auth\LoginForm;
+use App\Livewire\Forms\Auth\RegisterForm;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
@@ -24,7 +24,7 @@ new #[Layout('layouts.app')] class extends Component {
 
         $this->loginForm->authenticate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('home', absolute: false), navigate: false);
     }
 
     /**
@@ -34,13 +34,14 @@ new #[Layout('layouts.app')] class extends Component {
     {
         $this->validate([
             'registerForm.name' => ['required', 'string', 'max:255'],
+            'registerForm.user_role' => ['required', 'string', 'in:1,2'],
             'registerForm.mobile' => ['required', 'string', 'regex:/^09\d{9}$/i', 'unique:' . User::class . ',mobile'],
             'registerForm.password' => ['required', 'string', 'confirmed', Rules\Password::min(4)],
         ]);
 
         $this->registerForm->registeration();
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        $this->redirect(route('home', absolute: false), navigate: false);
     }
 }; ?>
 
@@ -78,7 +79,7 @@ new #[Layout('layouts.app')] class extends Component {
                                         :errors="$errors->get('loginForm.password')"
                                         autocomplete="current-password"
                                     >
-                                        <a class="float-right" href="{{ route('password.request') }}" wire:navigate>
+                                        <a class="float-right" href="{{ route('password.request') }}">
                                             {{ __('Forgot your password?') }}
                                         </a>
                                     </x-text-input>
@@ -87,6 +88,8 @@ new #[Layout('layouts.app')] class extends Component {
                                     <div class="form-group col-lg-6">
                                         <x-checkbox-input
                                             wire:model="loginForm.remember"
+                                            id="loginFormRemember"
+                                            name="loginFormRemember"
                                         >
                                             {{ __('Remember me') }}
                                         </x-checkbox-input>
@@ -146,12 +149,38 @@ new #[Layout('layouts.app')] class extends Component {
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-lg-9">
-                                        <x-checkbox-input
-                                            :label="__('Remember me')"
-                                            wire:model="loginForm.remember"
+                                        <div class="custom-control custom-checkbox pb-2">
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                name="userRole"
+                                                id="userRole1"
+                                                value="1"
+                                                wire:model="registerForm.user_role"
+                                            />
+                                            <label class="custom-control-label text-2" for="userRole1">
+                                                راننده
+                                            </label>
+                                        </div>
+
+                                        <div class="custom-control custom-checkbox pb-2">
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                name="userRole"
+                                                id="userRole2"
+                                                value="2"
+                                                wire:model="registerForm.user_role"
+                                            />
+                                            <label class="custom-control-label text-2" for="userRole2">
+                                                صاحب بار
+                                            </label>
+                                        </div>
+
+                                        {{-- <x-checkbox-input
                                         >
                                             من <a href="#">قوانین و مقررات</a> را خوانده و موافقم
-                                        </x-checkbox-input>
+                                        </x-checkbox-input> --}}
                                     </div>
                                     <x-button
                                         :containerClass="__('form-group col-lg-3')"
@@ -163,7 +192,6 @@ new #[Layout('layouts.app')] class extends Component {
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

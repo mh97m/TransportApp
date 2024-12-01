@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'mobile' => fake()->unique()->PhoneNumber(),
             'mobile_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ??= Hash::make('1'),
             'remember_token' => Str::random(10),
         ];
     }

@@ -56,10 +56,20 @@
     <div class="body">
         <livewire:layout.header />
         <div role="main" class="main">
-
-            @if (isset($slider))
-                <livewire:layout.slider />
+            @if (session('session-message'))
+                <div class="row m-3">
+                    <div class="col-lg-12">
+                        <div class="alert alert-{{ session('session-color') }} alert-dismissible m-2" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <strong>{{ session('session-title') }}</strong> {{ session('session-message') }}
+                        </div>
+                    </div>
+                </div>
             @endif
+
+            {{-- @if (isset($slider))
+                <livewire:layout.slider />
+            @endif --}}
 
             <div class="container">
                 {{ $slot }}

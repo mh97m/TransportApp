@@ -1,21 +1,23 @@
 @props([
-    'dir' => 'rtl',
+    'size' => 'lg',
+    'lgLength' => '12',
+    'mdLength' => '12',
+    'smLength' => '12',
     'label' => '',
-    'id' => 'inputId',
-    'name' => 'input',
     'disabled' => false,
     'errors' => null,
 ])
 
-<div class="form-group col">
+<div class="form-group col-lg-{{ $lgLength }} col-md-{{ $mdLength }} col-sm-{{ $smLength }}">
     {{ $slot }}
     <label class="font-weight-bold text-dark text-2">{{ $label }}</label>
     <input
-        dir="{{ $dir }}"
-        {{ $attributes->merge(['type' => 'text']) }}
-        id="{{ $id }}"
-        name="{{ $name }}"
-        class="form-control form-control-lg text-left @if ($errors) is-invalid @endif"
+        {{ $attributes->merge([
+            'dir' => 'rtl',
+            'id' => 'inputId',
+            'name' => 'input',
+        ]) }}
+        class="form-control form-control-{{ $size }} text-left @if ($errors) is-invalid @endif"
         @disabled($disabled)
         required
         autofocus
