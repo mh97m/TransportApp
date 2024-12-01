@@ -14,6 +14,8 @@ class RegisterForm extends Form
 
     public string $mobile = '';
 
+    public string $user_role = '1';
+
     public string $password = '';
 
     public string $password_confirmation = '';
@@ -28,6 +30,14 @@ class RegisterForm extends Form
         event(new Registered(($user = User::create(
             $this->only(['name', 'mobile', 'password'])
         ))));
+
+        if ($this->user_role == '2') {
+            $role = 'owner';
+        } else {
+            $role = 'driver';
+        }
+
+        $user->assignRole($role);
 
         Auth::login($user);
     }

@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
+Route::view('/', 'home')->name('home');
+
 Route::group([
     'middleware' => ['auth', 'verified'],
 ], function() {
-    Route::view('/', 'home')->name('home');
-
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
     Route::group(['middleware' => ['role:admin|owner']], function () {

@@ -96,7 +96,7 @@ new class extends Component {
                 </div> --}}
                 <livewire:layout.navigation />
             </div>
-            @auth
+            @hasanyrole('admin|owner')
                 <a
                     class="btn btn-xl btn-outline btn-rounded btn-info text-1 ml-3 font-weight-bold text-uppercase text-white"
                     style="background-color: #777; border: black;"
@@ -104,7 +104,7 @@ new class extends Component {
                 >
                     اعلام بار
                 </a>
-            @endauth
+            @endhasanyrole
         </div>
     </div>
 </header>
