@@ -27,7 +27,7 @@ jobs:
 
     # Step 5: Install Laravel Dependencies
     - name: Install PHP Dependencies
-      run: composer install --no-dev --prefer-dist
+      run: composer install --prefer-dist # --no-dev 
 
     # Step 6: Generate Application Key
     - name: Generate Application Key
