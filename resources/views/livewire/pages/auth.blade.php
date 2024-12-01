@@ -87,6 +87,8 @@ new #[Layout('layouts.app')] class extends Component {
                                     <div class="form-group col-lg-6">
                                         <x-checkbox-input
                                             wire:model="loginForm.remember"
+                                            id="loginFormRemember"
+                                            name="loginFormRemember"
                                         >
                                             {{ __('Remember me') }}
                                         </x-checkbox-input>
@@ -147,8 +149,6 @@ new #[Layout('layouts.app')] class extends Component {
                                 <div class="form-row">
                                     <div class="form-group col-lg-9">
                                         <x-checkbox-input
-                                            :label="__('Remember me')"
-                                            wire:model="loginForm.remember"
                                         >
                                             من <a href="#">قوانین و مقررات</a> را خوانده و موافقم
                                         </x-checkbox-input>

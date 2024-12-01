@@ -5,8 +5,11 @@ use App\Models\City;
 use App\Models\Province;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Livewire\WithPagination;
 
 new #[Layout('layouts.app')] class extends Component {
+    use WithPagination;
+
     public $originProvince = '';
     public $originCity = '';
     public $originProvinces = [];
@@ -17,28 +20,15 @@ new #[Layout('layouts.app')] class extends Component {
     public $destinationProvinces = [];
     public $destinationCities = [];
 
-    public $cargos = [];
-
     public function mount()
     {
         $this->originProvinces = Province::query()
             ->orderBy('name', 'asc')
             ->get();
         $this->destinationProvinces = $this->originProvinces;
-
-        $this->loadCargos();
     }
 
-    public function loadCities($type, $value): void
-    {
-        $this->{"{$type}City"} = '';
-        $this->{"{$type}Cities"} = City::query()
-            ->where('province_id', $value)
-            ->orderBy('name', 'asc')
-            ->get();
-    }
-
-    public function loadCargos(): void
+    public function with(): array
     {
         $query = Cargo::query();
 
@@ -63,15 +53,38 @@ new #[Layout('layouts.app')] class extends Component {
             );
         }
 
-        $query->orderBy('name', 'asc');
+        $query->orderByDesc('created_at');
 
-        $this->cargos = $query->get();
+        $query->with([
+            'originProvince',
+            'destinationProvince',
+            'carType',
+            'loaderType',
+        ]);
+
+        return [
+            'cargos' => $query->paginate(10),
+        ];
+    }
+
+    public function loadCities($type, $value): void
+    {
+        $this->{"{$type}City"} = '';
+        $this->{"{$type}Cities"} = City::query()
+            ->where('province_id', $value)
+            ->orderBy('name', 'asc')
+            ->get();
+    }
+
+    public function search(): void
+    {
+        $this->with();
     }
 }; ?>
 
 <div>
 
-    <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md pt-0">
+    <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md pt-1">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 order-2 order-md-1 align-self-center p-static mt-md-n2">
@@ -87,7 +100,7 @@ new #[Layout('layouts.app')] class extends Component {
             </div>
             <div class="row mt-4 mb-2 mb-lg-0">
                 <div class="col">
-                    <form wire:submit="loadCargos">
+                    <form wire:submit="search">
                         <div class="form-row">
                             <div class="form-group col-lg-2 mb-0">
                                 <div class="form-control-custom mb-3">
@@ -212,9 +225,13 @@ new #[Layout('layouts.app')] class extends Component {
                                 </ul>
                                 <div class="thumb-info-inner text-3 pt-3">
                                     <p class="text-black">
-                                        توضیحات : {{ Str::limit($cargo->desc, 50, preserveWords: true) }}
+                                        توضیحات : {{ Str::limit($cargo->desc, 30, preserveWords: true) }}
                                     </p>
                                 </div>
+                            </div>
+                            <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4 d-flex justify-content-between" style="background-color: #ff8080 !important;">
+                                <a href="tel:{{ $cargo->mobile }}"><span class="ltr-text text-white">{{ $cargo->mobile }}</span></a>
+                                <i class="icon-phone icons mx-4"></i>
                             </div>
                         </div>
                     </a>
@@ -222,18 +239,5 @@ new #[Layout('layouts.app')] class extends Component {
             </div>
         @endforeach
     </div>
-
-    <div class="row my-5">
-        <div class="col">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-left"></i></a></li>
-            </ul>
-        </div>
-    </div>
-
+    {{ $cargos->links() }}
 </div>

@@ -7,10 +7,19 @@ Route::group([
     'middleware' => ['auth', 'verified'],
 ], function() {
     Route::view('/', 'home')->name('home');
+
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
-    Volt::route('cargos/create', 'pages.cargos.create');
-    Volt::route('cargos/all', 'pages.cargos.all');
+    Route::group(['middleware' => ['role:admin|owner']], function () {
+        Volt::route('cargos/create', 'pages.cargos.create');
+    });
+
+    Route::group(['middleware' => ['role:admin|driver']], function () {
+        Volt::route('cargos/all', 'pages.cargos.all');
+    });
+
+
+    Volt::route('cargos-histories', 'pages.cargos.histories');
 });
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

@@ -19,11 +19,9 @@ class CitySeeder extends Seeder
         $items = json_decode(
             Storage::get(
                 'jsons/cities.json'
-            )
+            ),
+            true,
         );
-
-        foreach ($items as $item) {
-            City::create((array) $item);
-        }
+        City::insert($items);
     }
 }

@@ -19,11 +19,9 @@ class ProvinceSeeder extends Seeder
         $items = json_decode(
             Storage::get(
                 'jsons/provinces.json'
-            )
+            ),
+            true,
         );
-
-        foreach ($items as $item) {
-            Province::create((array) $item);
-        }
+        Province::insert($items);
     }
 }
