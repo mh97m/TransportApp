@@ -36,11 +36,11 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: php artisan migrate --seed
-    - name: Run Tests
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      # run: php artisan test
+    # - name: Run Tests
+    #   env:
+    #     DB_CONNECTION: sqlite
+    #     DB_DATABASE: database/database.sqlite
+    #   run: php artisan test
 
   deploy:
     runs-on: ubuntu-latest
