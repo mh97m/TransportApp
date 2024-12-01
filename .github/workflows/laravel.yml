@@ -2,9 +2,9 @@ name: Deploy Laravel Frontend to GitHub Pages
 
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
   pull_request:
-    branches: ["master"]
+    branches: ["main"]
 
 jobs:
   build-and-deploy:
@@ -75,13 +75,24 @@ jobs:
     - name: Debug Deployment Directory
       run: ls -la public-deploy
 
-    # Step 14: Set Git Remote
-    - name: Set Git Remote
+    # Step 14: Set Git Remote and Configure Git
+    - name: Set Git Remote and Configure Git
       run: |
-        git remote set-url origin https://github.com/${{ github.repository }}.git
+        git init
+        git remote add origin https://github.com/${{ github.repository }}.git
         git fetch --unshallow
+        git checkout --orphan gh-pages
+        git config user.name "mh97m"
+        git config user.email "mh97m@users.noreply.github.com"
 
-    # Step 15: Deploy to GitHub Pages
+    # Step 15: Commit Changes
+    - name: Commit Changes
+      run: |
+        git add --all
+        git commit -m "Deploy to GitHub Pages"
+        git push -f origin gh-pages
+
+    # Step 16: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
