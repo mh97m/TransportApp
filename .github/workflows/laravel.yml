@@ -1,102 +1,84 @@
 name: Deploy Laravel Frontend to GitHub Pages
 
 on:
-  # Trigger on push to the main branch
   push:
     branches: ["main"]
-
-  # Allow manual trigger
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+  pull_request:
+    branches: ["main"]
 
 jobs:
-  # Build Job
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      # Step 1: Checkout Code
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    # Step 1: Checkout Code
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
-      # Step 2: Set Up PHP
-      - name: Set Up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
+    # Step 2: Set Up PHP
+    - name: Set Up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
 
-      # Step 3: Copy .env File
-      - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    # Step 3: Copy .env File
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-      # Step 4: Install Laravel Dependencies
-      - name: Install PHP Dependencies
-        run: composer install --prefer-dist
+    # Step 4: Install Laravel Dependencies
+    - name: Install PHP Dependencies
+      run: composer install --prefer-dist # --no-dev 
 
-      # Step 5: Generate Application Key
-      - name: Generate Application Key
-        run: php artisan key:generate
+    # Step 5: Generate Application Key
+    - name: Generate Application Key
+      run: php artisan key:generate
 
-      # Step 6: Set Directory Permissions
-      - name: Set Directory Permissions
-        run: chmod -R 777 storage bootstrap/cache
+    # Step 6: Set Directory Permissions
+    - name: Set Directory Permissions
+      run: chmod -R 777 storage bootstrap/cache
 
-      # Step 7: Set Up SQLite Database
-      - name: Setup SQLite Database
-        run: |
-          mkdir -p database
-          touch database/database.sqlite
+    # Step 7: Set Up SQLite Database
+    - name: Setup SQLite Database
+      run: |
+        mkdir -p database
+        touch database/database.sqlite
 
-      # Step 8: Run Migrations and Seeders
-      - name: Run Migrations and Seeders
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
-        run: php artisan migrate --seed
+    # Step 8: Run Migrations and Seeders
+    - name: Run Migrations and Seeders
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
+      run: php artisan migrate --seed
 
-      # Step 9: Set Up Node.js
-      - name: Set Up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
+    # Step 9: Set Up Node.js
+    - name: Set Up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: "18"
 
-      # Step 10: Install Node.js Dependencies
-      - name: Install Node Dependencies
-        run: npm install
+    # Step 10: Install Node.js Dependencies
+    - name: Install Node Dependencies
+      run: npm install
 
-      # Step 11: Build Frontend Assets
-      - name: Build Frontend Assets
-        run: npm run build
+    # Step 11: Build Frontend Assets
+    - name: Build Frontend Assets
+      run: npm run build
 
-      # Step 12: Prepare Deployment Directory
-      - name: Copy Frontend Files
-        run: |
-          mkdir public-deploy
-          cp -R public/* public-deploy/
-          touch public-deploy/.nojekyll
+    # Step 12: Prepare Deployment Directory
+    - name: Copy Frontend Files
+      run: |
+        mkdir public-deploy
+        cp -R public/* public-deploy/
+        touch public-deploy/.nojekyll
 
-      # Step 13: Debug Deployment Directory
-      - name: Debug Deployment Directory
-        run: ls -la public-deploy
+    # Step 13: Debug Deployment Directory
+    - name: Debug Deployment Directory
+      run: ls -la public-deploy
 
-      # Step 14: Upload Build Artifact
-      - name: Upload Build Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: public-deploy
-
-  # Deploy Job
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      # Step 1: Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    # Step 14: Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public-deploy
+        force_orphan: true
