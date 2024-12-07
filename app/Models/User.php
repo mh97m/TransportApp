@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -45,5 +46,37 @@ class User extends Authenticatable
             'mobile_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the cargos owned by the user.
+     */
+    public function cargos(): HasMany
+    {
+        return $this->hasMany(Cargo::class);
+    }
+
+    /**
+     * Get the orders where the user is the driver.
+     */
+    public function driverOrders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'driver_id');
+    }
+
+    /**
+     * Ratings given by the user.
+     */
+    public function ratingsGiven()
+    {
+        return $this->hasMany(Rating::class, 'rater_id');
+    }
+
+    /**
+     * Ratings received by the user.
+     */
+    public function ratingsReceived()
+    {
+        return $this->hasMany(Rating::class, 'ratee_id');
     }
 }

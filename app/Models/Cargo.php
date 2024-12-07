@@ -3,9 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cargo extends BaseModel
 {
+    /**
+     * Get the owner of the cargo.
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Get the orders associated with this cargo.
+     */
+    public function order(): HasMany
+    {
+        return $this->HasMany(Order::class);
+    }
+
     /**
      * Get the cargoType that owns the Cargo
      *

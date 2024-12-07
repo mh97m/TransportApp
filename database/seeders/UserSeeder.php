@@ -17,13 +17,27 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        // User::factory(10)->create();
 
-        $admin = User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Admin',
             'mobile' => '09364036152',
         ]);
 
-        $admin->assignRole('admin');
+        $user->assignRole('admin');
+
+        $user = User::factory()->create([
+            'name' => 'Driver',
+            'mobile' => '09364036150',
+        ]);
+
+        $user->assignRole('driver');
+
+        $user = User::factory()->create([
+            'name' => 'Owner',
+            'mobile' => '09364036151',
+        ]);
+
+        $user->assignRole('owner');
     }
 }

@@ -42,7 +42,7 @@ new class extends Component {
                 <div class="header-column">
                     <div class="header-row">
                         <div class="header-logo">
-                            <a href="/">
+                            <a href="{{ route('cargos.all') }}">
                                 <img alt="Porto" width="80" height="80"
                                     src="/assets/img/demos/real-estate/logo-symbol-light.png">
                             </a>

@@ -15,7 +15,7 @@ Route::group([
     });
 
     Route::group(['middleware' => ['role:admin|driver']], function () {
-        Volt::route('cargos/all', 'pages.cargos.all');
+        Volt::route('cargos/all', 'pages.cargos.all')->name('cargos.all');
     });
 
 
