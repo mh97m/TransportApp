@@ -2,11 +2,30 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Cargo extends BaseModel
 {
+    // public function scopeIsActive($query)
+    // {
+    //     return $query->where('status', 56);
+    // }
+
+    public function scopeIsTeamshoo($query)
+    {
+        return $query->whereIn('contract_id', [21559, 21560]);
+    }
+
+    public function description(): Attribute
+    {
+        return new Attribute(
+            get: fn($value) => Str::limit($value, 30, preserveWords: true),
+        );
+    }
+
     /**
      * Get the owner of the cargo.
      */
@@ -18,7 +37,7 @@ class Cargo extends BaseModel
     /**
      * Get the orders associated with this cargo.
      */
-    public function order(): HasMany
+    public function orders(): HasMany
     {
         return $this->HasMany(Order::class);
     }

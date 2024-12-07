@@ -71,7 +71,7 @@ new #[Layout('layouts.app')] class extends Component {
 
         $this->form->register();
 
-        $this->redirect(route('home', absolute: false), navigate: false );
+        $this->redirect(route('cargos.index', absolute: false), navigate: false );
     }
 }; ?>
 
@@ -220,10 +220,10 @@ new #[Layout('layouts.app')] class extends Component {
                     :lgLength="__('12')"
                     :rows="__('6')"
                     :label="__('توضیحات')"
-                    id="desc"
-                    name="desc"
-                    wire:model="form.desc"
-                    :errors="$errors->get('form.desc')"
+                    id="description"
+                    name="description"
+                    wire:model="form.description"
+                    :errors="$errors->get('form.description')"
                 />
             </div>
 

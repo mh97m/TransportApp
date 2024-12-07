@@ -87,7 +87,7 @@ class RegisterForm extends Form
         'required',
         'string',
     ])]
-    public $desc;
+    public $description;
 
 
     public function register(): void
@@ -110,7 +110,7 @@ class RegisterForm extends Form
 
             'price' => $this->price,
 
-            'desc' => $this->desc,
+            'description' => $this->description,
 
             'user_id' => Auth::user()->id,
         ]);

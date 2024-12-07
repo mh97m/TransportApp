@@ -38,11 +38,19 @@ new class extends Component
                         <div class="col">
                             <ul class="nav nav-list-simple flex-column text-3">
                                 <li class="nav-item"><a class="nav-link" href="/profile">پروفایل من</a></li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/cargos-histories">
-                                    تاریخچه @hasanyrole('admin|owner') اعلام @endhasanyrole بار های من
-                                    </a>
-                                </li>
+                                @hasrole('driver')
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('orders.index') }}>
+                                        تاریخچه بار های من
+                                        </a>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('cargos.index') }}">
+                                        تاریخچه اعلام بار های من
+                                        </a>
+                                    </li>
+                                @endhasrole
                                 <li class="nav-item"><a class="nav-link" href="#" wire:click="logout">خروج</a></li>
                             </ul>
                         </div>

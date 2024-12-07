@@ -171,7 +171,7 @@ new #[Layout('layouts.app')] class extends Component {
         @foreach ($cargos as $cargo)
             <div class="col-md-6 col-lg-4 p-3 isotope-item">
                 <div class="listing-item">
-                    <a href="demo-real-estate-properties-detail.html" class="text-decoration-none">
+                    <a href="#" class="text-decoration-none">
                         <div class="thumb-info thumb-info-lighten border" style="border: 1px solid rgba(0, 0, 0, 0.13) !important;">
                             {{-- <div class="thumb-info-wrapper m-0">
                                 <img src="img/demos/real-estate/listings/listing-1.jpg" class="img-fluid" alt="">
@@ -225,7 +225,7 @@ new #[Layout('layouts.app')] class extends Component {
                                 </ul>
                                 <div class="thumb-info-inner text-3 pt-3">
                                     <p class="text-black">
-                                        توضیحات : {{ Str::limit($cargo->desc, 30, preserveWords: true) }}
+                                        توضیحات : {{ $cargo->description }}
                                     </p>
                                 </div>
                             </div>
