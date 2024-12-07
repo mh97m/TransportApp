@@ -6,7 +6,7 @@ use Livewire\Volt\Volt;
 Route::get('/', function () {
     $user = auth()->user();
     if ($user?->hasRole('driver')) {
-        return to_route('cargos.all');
+        return to_route('cargos.list');
     }
     elseif ($user?->hasRole('owner')) {
         return to_route('cargos.create');
@@ -21,23 +21,22 @@ Route::group([
     // Dashboard Route
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
+
     // Admin & Owner Routes
     Route::group(['middleware' => ['role:admin|owner']], function () {
-        // Create Cargo
-        Volt::route('cargos/create', 'pages.cargos.create')->name('cargos.create');
+        Route::prefix('/cargos')->name('cargos.')->group(function () {
+            Volt::route('all', 'pages.cargos.all')->name('all');
+            Volt::route('create', 'pages.cargos.create')->name('create');
+            Volt::route('cargos/index', 'pages.cargos.index')->name('index');
 
-        // View All Cargos by Owner
-        Volt::route('cargos', 'pages.cargos.index')->name('cargos.index');
-
-        // View Orders Accepted for Each Cargo
-        Volt::route('cargos/{cargo}/orders', 'pages.cargos.orders')->name('cargos.orders');
+            // View Orders Accepted for Each Cargo
+            Volt::route('{cargo}/orders', 'pages.cargos.orders')->name('orders');
+        });
     });
 
     // Admin & Driver Routes
     Route::group(['middleware' => ['role:admin|driver']], function () {
-        // View All Available Cargos for Drivers
-        Volt::route('cargos/all', 'pages.cargos.all')->name('cargos.all');
-
+        Volt::route('cargos/list', 'pages.cargos.list')->name('cargos.list');
         // View Orders for Driver
         Volt::route('orders', 'pages.orders.index')->name('orders.index');
 

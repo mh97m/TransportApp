@@ -3,6 +3,7 @@
 use App\Models\Cargo;
 use App\Models\City;
 use App\Models\Province;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 use Livewire\WithPagination;
@@ -10,48 +11,13 @@ use Livewire\WithPagination;
 new #[Layout('layouts.app')] class extends Component {
     use WithPagination;
 
-    public $originProvince = '';
-    public $originCity = '';
-    public $originProvinces = [];
-    public $originCities = [];
-
-    public $destinationProvince = '';
-    public $destinationCity = '';
-    public $destinationProvinces = [];
-    public $destinationCities = [];
-
     public function mount()
     {
-        $this->originProvinces = Province::query()
-            ->orderBy('name', 'asc')
-            ->get();
-        $this->destinationProvinces = $this->originProvinces;
     }
 
     public function with(): array
     {
-        $query = Cargo::query();
-
-        if ($this->originProvince != '') {
-            $query->where(
-                'origin_province_id', $this->originProvince
-            );
-        }
-        if ($this->originCity != '') {
-            $query->where(
-                'origin_city_id', $this->originCity
-            );
-        }
-        if ($this->destinationProvince != '') {
-            $query->where(
-                'destination_province_id', $this->destinationProvince
-            );
-        }
-        if ($this->destinationCity != '') {
-            $query->where(
-                'destination_city_id', $this->destinationCity
-            );
-        }
+        $query = Auth::user()->cargos();
 
         $query->orderByDesc('created_at');
 
@@ -60,6 +26,7 @@ new #[Layout('layouts.app')] class extends Component {
             'destinationProvince',
             'carType',
             'loaderType',
+            'orders',
         ]);
 
         return [
@@ -83,93 +50,9 @@ new #[Layout('layouts.app')] class extends Component {
 }; ?>
 
 <div>
-
-    <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md pt-1">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 order-2 order-md-1 align-self-center p-static mt-md-n2">
-                    <h1 class="text-dark">بار ها </h1>
-                    {{-- <p class="lead mb-0">لیست اعلام بار - 123 ملک</p> --}}
-                </div>
-                {{-- <div class="col-md-4 order-1 order-md-2 align-self-center mb-1 mb-md-0">
-                    <ul class="breadcrumb d-block text-md-right">
-                        <li><a href="demo-real-estate.html">خانه</a></li>
-                        <li class="active">ملک ها</li>
-                    </ul>
-                </div> --}}
-            </div>
-            <div class="row mt-4 mb-2 mb-lg-0">
-                <div class="col">
-                    <form wire:submit="search">
-                        <div class="form-row">
-                            <div class="form-group col-lg-2 mb-0">
-                                <div class="form-control-custom mb-3">
-                                    <select
-                                        class="form-control text-uppercase text-2"
-                                        wire:model="originProvince"
-                                        wire:change="loadCities('origin',$event.target.value)"
-                                    >
-                                        <option value="">استان مبدا</option>
-                                        @foreach ($originProvinces as $province)
-                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group col-lg-2 mb-0">
-                                <div class="form-control-custom mb-3">
-                                    <select
-                                        class="form-control text-uppercase text-2"
-                                        wire:model="originCity"
-                                    >
-                                        <option value="">شهر مبدا</option>
-                                        @foreach ($originCities as $city)
-                                            <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group col-lg-2 mb-0">
-                                <div class="form-control-custom mb-3">
-                                    <select
-                                        class="form-control text-uppercase text-2"
-                                        wire:model="destinationProvince"
-                                        wire:change="loadCities('destination',$event.target.value)"
-                                    >
-                                        <option value="">استان مقصد</option>
-                                        @foreach ($destinationProvinces as $province)
-                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group col-lg-2 mb-0">
-                                <div class="form-control-custom mb-3">
-                                    <select
-                                        class="form-control text-uppercase text-2"
-                                        wire:model="destinationCity"
-                                    >
-                                        <option value="">شهر مقصد</option>
-                                        @foreach ($destinationCities as $city)
-                                            <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group col-lg-2 mb-0">
-                                <input type="submit" value="جستجو" class="btn btn-secondary btn-lg btn-block text-uppercase text-2">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
     <div class="row mb-4 properties-listing sort-destination p-0">
         @foreach ($cargos as $cargo)
-            <div class="col-md-6 col-lg-4 p-3 isotope-item">
+            <div class="col-md-12 col-lg-12 p-3 isotope-item">
                 <div class="listing-item">
                     <a href="#" class="text-decoration-none">
                         <div class="thumb-info thumb-info-lighten border" style="border: 1px solid rgba(0, 0, 0, 0.13) !important;">

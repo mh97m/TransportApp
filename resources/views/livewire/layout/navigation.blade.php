@@ -40,13 +40,13 @@ new class extends Component
                                 <li class="nav-item"><a class="nav-link" href="/profile">پروفایل من</a></li>
                                 @hasrole('driver')
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('orders.index') }}>
+                                        <a class="nav-link" href="{{ route('orders.all') }}">
                                         تاریخچه بار های من
                                         </a>
                                     </li>
                                 @else
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('cargos.index') }}">
+                                        <a class="nav-link" href="{{ route('cargos.all') }}">
                                         تاریخچه اعلام بار های من
                                         </a>
                                     </li>
