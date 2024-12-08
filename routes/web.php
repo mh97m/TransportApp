@@ -20,6 +20,7 @@ Route::group([
 
     // Dashboard Route
     Route::view('dashboard', 'dashboard')->name('dashboard');
+    Volt::route('cargos/list', 'pages.cargos.list')->name('cargos.list');
 
 
     // Admin & Owner Routes
@@ -36,8 +37,8 @@ Route::group([
 
     // Admin & Driver Routes
     Route::group(['middleware' => ['role:admin|driver']], function () {
-        Volt::route('cargos/list', 'pages.cargos.list')->name('cargos.list');
         // View Orders for Driver
+        Volt::route('orders/all', 'pages.orders.all')->name('orders.all');
         Volt::route('orders', 'pages.orders.index')->name('orders.index');
 
         // Accept Order
