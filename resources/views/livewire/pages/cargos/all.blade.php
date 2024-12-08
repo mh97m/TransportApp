@@ -74,10 +74,16 @@ new #[Layout('layouts.app')] class extends Component {
                             <div class="custom-thumb-info-title b-normal p-4">
                                 <div class="thumb-info-inner text-3">
                                     <p class="text-black">
-                                        ماشین : {{ $cargo->carType->name }}
+                                        <strong>
+                                            ماشین :
+                                        </strong>
+                                        {{ $cargo->carType->name }}
                                     </p>
                                     <p class="text-black">
-                                        نوع باربر : {{ $cargo->loaderType->name }}
+                                        <strong>
+                                            نوع باربر :
+                                        </strong>
+                                        {{ $cargo->loaderType->name }}
                                     </p>
                                 </div>
                                 <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
@@ -102,19 +108,34 @@ new #[Layout('layouts.app')] class extends Component {
                                             قیمت:
                                         </span>
                                         <span class="accomodation-value custom-color-1">
-                                            {{ number_format($cargo->price) }}
+                                            {{ number_format($cargo->price) }} تومان
                                         </span>
                                     </li>
                                 </ul>
                                 <div class="thumb-info-inner text-3 pt-3">
                                     <p class="text-black">
-                                        توضیحات : {{ $cargo->description }}
+                                        <strong class="accomodation-title">
+                                            توضیحات :
+                                        </strong>
+                                        {{ $cargo->description }}
+                                    </p>
+                                </div>
+                                <div class="thumb-info-inner text-3 pt-3">
+                                    <p class="text-black">
+                                        <strong class="accomodation-title">
+                                            شماره همراه :
+                                        </strong>
+                                        {{ $cargo->mobile }}
                                     </p>
                                 </div>
                             </div>
-                            <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4 d-flex justify-content-between" style="background-color: #ff8080 !important;">
-                                <a href="tel:{{ $cargo->mobile }}"><span class="ltr-text text-white">{{ $cargo->mobile }}</span></a>
-                                <i class="icon-phone icons mx-4"></i>
+                            <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4 d-flex justify-content-between" style="background-color: #333b487e !important;">
+                                <a href="{{ route('cargos.index', ['cargo' => $cargo]) }}">
+                                    <span class="ltr-text text-white">
+                                        جزيیات بار
+                                    </span>
+                                </a>
+                                <i class="icon-layers icons mx-4"></i>
                             </div>
                         </div>
                     </a>

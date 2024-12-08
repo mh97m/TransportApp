@@ -27,7 +27,7 @@ Route::group([
         Route::prefix('/cargos')->name('cargos.')->group(function () {
             Volt::route('all', 'pages.cargos.all')->name('all');
             Volt::route('create', 'pages.cargos.create')->name('create');
-            Volt::route('cargos/index', 'pages.cargos.index')->name('index');
+            Volt::route('{cargo}', 'pages.cargos.index')->name('index');
 
             // View Orders Accepted for Each Cargo
             Volt::route('{cargo}/orders', 'pages.cargos.orders')->name('orders');

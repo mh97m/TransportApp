@@ -21,6 +21,15 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('driver_details', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('car_type_id')->constrained('car_types')->onDelete('cascade');
+            $table->foreignId('loader_type_id')->constrained('loader_types')->onDelete('cascade');
+            $table->string('plaque');
+            $table->string('license');
+            $table->timestamps();
+        });
+
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('mobile')->primary();
             $table->string('token');
@@ -42,6 +51,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('user_details');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');

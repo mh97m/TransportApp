@@ -11,116 +11,143 @@ use Livewire\WithPagination;
 new #[Layout('layouts.app')] class extends Component {
     use WithPagination;
 
-    public function mount()
+    public $cargo;
+
+    public function mount(Cargo $cargo)
     {
-    }
-
-    public function with(): array
-    {
-        $query = Auth::user()->cargos();
-
-        $query->orderByDesc('created_at');
-
-        $query->with([
-            'originProvince',
-            'destinationProvince',
-            'carType',
-            'loaderType',
-            'orders',
-        ]);
-
-        return [
-            'cargos' => $query->paginate(10),
-        ];
-    }
-
-    public function loadCities($type, $value): void
-    {
-        $this->{"{$type}City"} = '';
-        $this->{"{$type}Cities"} = City::query()
-            ->where('province_id', $value)
-            ->orderBy('name', 'asc')
-            ->get();
-    }
-
-    public function search(): void
-    {
-        $this->with();
+        abort_if(!$cargo->user()->is(auth()->user()), 404);
+        $this->cargo = $cargo;
     }
 }; ?>
 
 <div>
-    <div class="row mb-4 properties-listing sort-destination p-0">
-        @foreach ($cargos as $cargo)
-            <div class="col-md-12 col-lg-12 p-3 isotope-item">
-                <div class="listing-item">
-                    <a href="#" class="text-decoration-none">
-                        <div class="thumb-info thumb-info-lighten border" style="border: 1px solid rgba(0, 0, 0, 0.13) !important;">
-                            {{-- <div class="thumb-info-wrapper m-0">
-                                <img src="img/demos/real-estate/listings/listing-1.jpg" class="img-fluid" alt="">
-                                <div
-                                    class="thumb-info-listing-type bg-color-secondary text-uppercase text-color-light font-weight-semibold p-1 pl-3 pr-3">
-                                    برای فروش
-                                </div>
-                            </div> --}}
-                            <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4 mb-2 d-flex justify-content-between">
-                                مبدا : {{ $cargo->originProvince->name . ' - ' .  $cargo->originCity->name }}
-                                <i class="icon-paper-plane icons mx-4"></i>
-                            </div>
-                            <div class="thumb-info-price bg-color-secondary text-color-light text-4 p-2 pl-4 pr-4 d-flex justify-content-between">
-                                مقصد : {{ $cargo->destinationProvince->name . ' - ' .  $cargo->destinationCity->name }}
-                                <i class="icon-drawer icons mx-4"></i>
-                            </div>
-                            <div class="custom-thumb-info-title b-normal p-4">
-                                <div class="thumb-info-inner text-3">
-                                    <p class="text-black">
-                                        ماشین : {{ $cargo->carType->name }}
-                                    </p>
-                                    <p class="text-black">
-                                        نوع باربر : {{ $cargo->loaderType->name }}
-                                    </p>
-                                </div>
-                                <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
-                                    <li>
-                                        <span class="accomodation-title">
-                                            نوع:
-                                        </span>
-                                        <span class="accomodation-value custom-color-1">
-                                            {{ $cargo->cargoType->name }}
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span class="accomodation-title">
-                                            وزن:
-                                        </span>
-                                        <span class="accomodation-value custom-color-1">
-                                            {{ number_format($cargo->weight) }}
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span class="accomodation-title">
-                                            قیمت:
-                                        </span>
-                                        <span class="accomodation-value custom-color-1">
-                                            {{ number_format($cargo->price) }}
-                                        </span>
-                                    </li>
-                                </ul>
-                                <div class="thumb-info-inner text-3 pt-3">
-                                    <p class="text-black">
-                                        توضیحات : {{ $cargo->description }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4 d-flex justify-content-between" style="background-color: #ff8080 !important;">
-                                <a href="tel:{{ $cargo->mobile }}"><span class="ltr-text text-white">{{ $cargo->mobile }}</span></a>
-                                <i class="icon-phone icons mx-4"></i>
-                            </div>
-                        </div>
-                    </a>
+
+    <div class="row pb-5 pt-3">
+        <div class="col-lg-12">
+
+            <div class="row">
+                <div class="col-lg-12 mt-4 mt-lg-0">
+
+                    <table class="table table-striped">
+                        <colgroup>
+                            <col width="35%">
+                            <col width="65%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td class="bg-color-primary text-light align-middle">
+                                    شناسه بار
+                                </td>
+                                <td class="text-4 font-weight-bold align-middle bg-color-primary text-light">
+                                    {{ $cargo->id }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    مبدا
+                                </td>
+                                <td>{{ $cargo->originProvince->name . ' - ' .  $cargo->originCity->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    مقصد
+                                </td>
+                                <td>{{ $cargo->destinationProvince->name . ' - ' .  $cargo->destinationCity->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    شماره همراه
+                                </td>
+                                <td>
+                                    {{ $cargo->mobile }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    شماره همراه
+                                </td>
+                                <td>
+                                    {{ $cargo->mobile }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    قیمت
+                                </td>
+                                <td>
+                                    {{ number_format($cargo->price) }} تومان
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ماشین
+                                </td>
+                                <td>{{ $cargo->carType->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    نوع باربر
+                                </td>
+                                <td>{{ $cargo->loaderType->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    وزن
+                                </td>
+                                <td>
+                                    {{ number_format($cargo->weight) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    توضیحات
+                                </td>
+                                <td>
+                                    {{ $cargo->description }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
-        @endforeach
+
+            <div class="row">
+                <div class="col">
+
+                    <h4 class="mt-4 mb-3">توافقات</h4>
+                    @foreach ($cargo->orders as $order)
+                        <div class="row agent-item">
+                            <div class="col-lg-12">
+                                <div class="row col-lg-12 d-flex justify-content-between">
+                                    <h4 class="primary-font line-height-7 my-1">{{ $order->driver->name }}</h4>
+                                    <span class="badge badge-success badge-md my-1">{{ $order->driver->status }}</span>
+                                </div>
+                                <div class="thumb-info-inner text-3">
+                                    <p class="text-black">
+                                        <strong>
+                                            شماره همراه :
+                                        </strong>
+                                        {{ $order->driver->mobile }}
+                                    </p>
+                                    <p class="text-black">
+                                        <strong>
+                                            نوع باربر :
+                                        </strong>
+                                        {{ $order->driver->driver_details->carType }}
+                                    </p>
+                                </div>
+                                <a class="btn btn-secondary btn-sm mt-2" href="#">مشاهده پروفایل</a>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <hr class="solid my-5">
+
+                </div>
+            </div>
+
+        </div>
     </div>
-    {{ $cargos->links() }}
+
 </div>

@@ -71,7 +71,7 @@ new #[Layout('layouts.app')] class extends Component {
 
         $this->form->register();
 
-        $this->redirect(route('cargos.index', absolute: false), navigate: false );
+        $this->redirect(route('cargos.all', absolute: false), navigate: false );
     }
 }; ?>
 
