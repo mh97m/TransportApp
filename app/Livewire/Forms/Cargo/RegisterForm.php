@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms\Cargo;
 
 use App\Models\Cargo;
+use App\Models\City;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -23,57 +24,57 @@ class RegisterForm extends Form
     ])]
     public string $mobile = '';
 
-    #[Validate([
-        'required',
-        'string',
-        // 'exists:provinces',
-    ])]
-    public $originProvince;
+    // #[Validate([
+    //     'required',
+    //     'string',
+    //     // 'exists:provinces',
+    // ])]
+    // public $originProvince;
 
     #[Validate([
         'required',
         'string',
         // 'exists:cities',
     ])]
-    public $originCity;
+    public $originCityId;
 
-    #[Validate([
-        'required',
-        'string',
-        // 'exists:provinces',
-    ])]
-    public $destinationProvince;
+    // #[Validate([
+    //     'required',
+    //     'string',
+    //     // 'exists:provinces',
+    // ])]
+    // public $destinationProvince;
 
     #[Validate([
         'required',
         'string',
         // 'exists:cities',
     ])]
-    public $destinationCity;
+    public $destinationCityId;
 
     #[Validate([
         'required',
         'string',
         // 'exists:car_types',
     ])]
-    public $carType;
+    public $carTypeId;
 
     #[Validate([
         'required',
         'string',
         // 'exists:loader_types',
     ])]
-    public $loaderType;
+    public $loaderTypeId;
 
     #[Validate([
         'required',
         'string',
         // 'exists:cargo_types',
     ])]
-    public $cargoType;
+    public $cargoTypeId;
 
     #[Validate([
-        'required',
+        // 'required',
         'integer',
     ])]
     public $weight;
@@ -93,45 +94,25 @@ class RegisterForm extends Form
 
     public function register(): void
     {
-        Log::alert([
-            'ulid' => (string)Str::ulid(),
+        dd([
+            'destination_province' => City::where('id', $this->destinationCityId)->first(),
+            'destination_province_id' => City::where('id', $this->destinationCityId)->first()?->province_id,
+            'destination_city_id' => $this->destinationCityId,
 
-            'mobile' => $this->mobile,
-
-            'origin_province_id' => $this->originProvince,
-            'origin_city_id' => $this->originCity,
-
-            'destination_province_id' => $this->destinationProvince,
-            'destination_city_id' => $this->destinationCity,
-
-            'car_type_id' => $this->carType,
-            'loader_type_id' => $this->loaderType,
-
-            'cargo_type_id' => $this->cargoType,
-
-            'weight' => $this->weight,
-
-            'price' => $this->price,
-
-            'description' => $this->description,
-
-            'user_id' => Auth::user()->id,
         ]);
         Cargo::create([
-            // 'ulid' => (string)Str::ulid(),
-
             'mobile' => $this->mobile,
 
-            'origin_province_id' => $this->originProvince,
-            'origin_city_id' => $this->originCity,
+            'origin_province_id' => City::where('id', $this->originCityId)->first()->province_id,
+            'origin_city_id' => $this->originCityId,
 
-            'destination_province_id' => $this->destinationProvince,
-            'destination_city_id' => $this->destinationCity,
+            'destination_province_id' => City::where('id', $this->destinationCityId)->first()->province_id,
+            'destination_city_id' => $this->destinationCityId,
 
-            'car_type_id' => $this->carType,
-            'loader_type_id' => $this->loaderType,
+            'car_type_id' => $this->carTypeId,
+            'loader_type_id' => $this->loaderTypeId,
 
-            'cargo_type_id' => $this->cargoType,
+            'cargo_type_id' => $this->cargoTypeId,
 
             'weight' => $this->weight,
 

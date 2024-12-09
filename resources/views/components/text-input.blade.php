@@ -19,7 +19,7 @@
         ]) }}
         class="form-control form-control-{{ $size }} text-left @if ($errors) is-invalid @endif"
         @disabled($disabled)
-        required
+        {{-- required --}}
         autofocus
     />
     @if ($errors)

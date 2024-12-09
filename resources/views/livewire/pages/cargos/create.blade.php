@@ -15,48 +15,43 @@ use Livewire\Volt\Component;
 new #[Layout('layouts.app')] class extends Component {
     public RegisterForm $form;
 
-    public $originProvinces = [];
-    public $originCities = [];
+    public $cityIds = [];
 
-    public $destinationProvinces = [];
-    public $destinationCities = [];
+    public $carTypeIds = [];
+    public $loaderTypeIds = [];
 
-    public $carTypes = [];
-    public $loaderTypes = [];
-
-    public $cargoTypes = [];
+    public $cargoTypeIds = [];
 
     public function mount()
     {
         $this->form->mobile = Auth::user()->mobile;
 
-        $this->originProvinces = Province::query()
-            ->orderBy('name', 'asc')
-            ->get();
-        $this->destinationProvinces = $this->originProvinces;
-
-        $this->carTypes = CarType::query()
+        $this->cityIds = City::query()
             ->orderBy('name', 'asc')
             ->get();
 
-        $this->cargoTypes = CargoType::query()
+        $this->carTypeIds = CarType::query()
+            ->orderBy('name', 'asc')
+            ->get();
+
+        $this->cargoTypeIds = CargoType::query()
             ->orderBy('name', 'asc')
             ->get();
     }
 
-    public function loadCities($type, $value): void
-    {
-        $this->form->{"{$type}City"} = '';
-        $this->{"{$type}Cities"} = City::query()
-            ->where('province_id', $value)
-            ->orderBy('name', 'asc')
-            ->get();
-    }
+    // public function loadCities($type, $value): void
+    // {
+    //     $this->form->{"{$type}City"} = '';
+    //     $this->{"{$type}Cities"} = City::query()
+    //         ->where('province_id', $value)
+    //         ->orderBy('name', 'asc')
+    //         ->get();
+    // }
 
     public function loadLoaderTypes($value): void
     {
         $this->form->loaderType = '';
-        $this->loaderTypes = LoaderType::query()
+        $this->loaderTypeIds = LoaderType::query()
             ->where('car_type_id', $value)
             ->orderBy('name', 'asc')
             ->get();
@@ -67,7 +62,7 @@ new #[Layout('layouts.app')] class extends Component {
      */
     public function register(): void
     {
-        $this->validate();
+        // $this->validate();
 
         $this->form->register();
 
@@ -101,59 +96,34 @@ new #[Layout('layouts.app')] class extends Component {
                     :size="__('md')"
                     :lgLength="__('6')"
                     :label="__('نوع بار')"
-                    id="cargoType"
-                    name="cargoType"
-                    wire:model="form.cargoType"
-                    :errors="$errors->get('form.cargoType')"
-                    :options="$this->cargoTypes"
+                    id="cargoTypeId"
+                    name="cargoTypeId"
+                    wire:model="form.cargoTypeId"
+                    :errors="$errors->get('form.cargoTypeId')"
+                    :options="$this->cargoTypeIds"
                 />
             </div>
 
             <div class="form-group row">
-                <x-select-input
-                    :size="__('md')"
-                    :lgLength="__('6')"
-                    :label="__('استان مبدا')"
-                    id="originProvince"
-                    name="originProvince"
-                    wire:change="loadCities('origin',$event.target.value)"
-                    wire:model="form.originProvince"
-                    :errors="$errors->get('form.originProvince')"
-                    :options="$this->originProvinces"
-                />
-                <x-select-input
+                <x-input-list
                     :size="__('md')"
                     :lgLength="__('6')"
                     :label="__('شهر مبدا')"
-                    id="originCity"
-                    name="originCity"
-                    wire:model="form.originCity"
-                    :errors="$errors->get('form.originCity')"
-                    :options="$this->originCities"
+                    id="originCityId"
+                    name="originCityId"
+                    wire:model="form.originCityId"
+                    :errors="$errors->get('form.originCityId')"
+                    :options="$this->cityIds"
                 />
-            </div>
-
-            <div class="form-group row">
-                <x-select-input
-                    :size="__('md')"
-                    :lgLength="__('6')"
-                    :label="__('استان مقصد')"
-                    id="destinationProvince"
-                    name="destinationProvince"
-                    wire:change="loadCities('destination',$event.target.value)"
-                    wire:model="form.destinationProvince"
-                    :errors="$errors->get('form.destinationProvince')"
-                    :options="$this->destinationProvinces"
-                />
-                <x-select-input
+                <x-input-list
                     :size="__('md')"
                     :lgLength="__('6')"
                     :label="__('شهر مقصد')"
-                    id="destinationCity"
-                    name="destinationCity"
-                    wire:model="form.destinationCity"
-                    :errors="$errors->get('form.destinationCity')"
-                    :options="$this->destinationCities"
+                    id="destinationCityId"
+                    name="destinationCityId"
+                    wire:model="form.destinationCityId"
+                    :errors="$errors->get('form.destinationCityId')"
+                    :options="$this->cityIds"
                 />
             </div>
 
@@ -162,22 +132,22 @@ new #[Layout('layouts.app')] class extends Component {
                     :size="__('md')"
                     :lgLength="__('6')"
                     :label="__('نوع ماشین')"
-                    id="carType"
-                    name="carType"
+                    id="carTypeId"
+                    name="carTypeId"
                     wire:change="loadLoaderTypes($event.target.value)"
-                    wire:model="form.carType"
-                    :errors="$errors->get('form.carType')"
-                    :options="$this->carTypes"
+                    wire:model="form.carTypeId"
+                    :errors="$errors->get('form.carTypeId')"
+                    :options="$this->carTypeIds"
                 />
                 <x-select-input
                     :size="__('md')"
                     :lgLength="__('6')"
                     :label="__('نوع بارگیر')"
-                    id="loaderType"
-                    name="loaderType"
-                    wire:model="form.loaderType"
-                    :errors="$errors->get('form.loaderType')"
-                    :options="$this->loaderTypes"
+                    id="loaderTypeId"
+                    name="loaderTypeId"
+                    wire:model="form.loaderTypeId"
+                    :errors="$errors->get('form.loaderTypeId')"
+                    :options="$this->loaderTypeIds"
                 />
             </div>
 
