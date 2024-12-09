@@ -39,7 +39,7 @@ new #[Layout('layouts.app')] class extends Component {
                                     شناسه بار
                                 </td>
                                 <td class="text-4 font-weight-bold align-middle bg-color-primary text-light">
-                                    {{ $cargo->id }}
+                                    {{ $cargo->ulid }}
                                 </td>
                             </tr>
                             <tr>

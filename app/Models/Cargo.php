@@ -19,7 +19,7 @@ class Cargo extends BaseModel
         parent::boot();
 
         static::creating(function ($model) {
-            $model->ulid = (string)Str::ulid();
+            $model->ulid = Str::ulid()->toString();
         });
     }
 

@@ -38,8 +38,10 @@ Route::group([
     // Admin & Driver Routes
     Route::group(['middleware' => ['role:admin|driver']], function () {
         // View Orders for Driver
-        Volt::route('orders/all', 'pages.orders.all')->name('orders.all');
-        Volt::route('orders', 'pages.orders.index')->name('orders.index');
+        Route::prefix('/orders')->name('orders.')->group(function () {
+            Volt::route('all', 'pages.orders.all')->name('all');
+            Volt::route('{order:ulid}', 'pages.orders.index')->name('index');
+        });
 
         // Accept Order
         Volt::route('orders/{order:ulid}/accept', 'pages.orders.accept')->name('orders.accept');

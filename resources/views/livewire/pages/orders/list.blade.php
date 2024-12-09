@@ -3,7 +3,6 @@
 use App\Models\Cargo;
 use App\Models\City;
 use App\Models\Order;
-use App\Models\OrderStatus;
 use App\Models\Province;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
@@ -78,20 +77,9 @@ new #[Layout('layouts.app')] class extends Component {
             ->get();
     }
 
-    public function makeOrder($id)
+    public function makeOrder($id): void
     {
-        if (
-            Order::where([
-                'cargo_id' => $id,
-                'driver_id' => auth()->user()->id,
-            ])->exists()
-        ) {
-            session()->flash('session-message', 'بار قبلا ثبت شده است.');
-            session()->flash('session-title', ' خطا');
-            session()->flash('session-color', 'danger');
-            return redirect()->route('cargos.list');
-        }
-        $order = Order::create([
+        Order::create([
             'cargo_id' => $id,
             'driver_id' => auth()->user()->id,
             'order_status_id' => OrderStatus::where('slug', 'pending-decision')->first()->id,

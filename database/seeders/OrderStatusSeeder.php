@@ -17,27 +17,32 @@ class OrderStatusSeeder extends Seeder
             [
                 'name' => 'Agreed',
                 'slug' => 'agreed',
-                'description' => 'سفارش با مالک بار توافق شده است.'
+                'description' => 'سفارش با مالک بار توافق شده است.',
+                'color' => 'success',
             ],
             [
                 'name' => 'Rejected',
                 'slug' => 'rejected',
-                'description' => 'سفارش رد شده است.'
+                'description' => 'سفارش رد شده است.',
+                'color' => 'danger',
             ],
             [
                 'name' => 'No Response',
                 'slug' => 'no-response',
-                'description' => 'مالک بار پاسخی به سفارش نداده است.'
+                'description' => 'مالک بار پاسخی به سفارش نداده است.',
+                'color' => 'danger',
             ],
             [
                 'name' => 'Other Reasons',
                 'slug' => 'other-reasons',
-                'description' => 'سفارش به دلایل دیگر لغو شده است.'
+                'description' => 'سفارش به دلایل دیگر لغو شده است.',
+                'color' => 'danger',
             ],
             [
                 'name' => 'Pending Decision',
                 'slug' => 'pending-decision',
-                'description' => 'هنوز تصمیمی گرفته نشده است، منتظر اقدام کاربر.'
+                'description' => 'هنوز تصمیمی گرفته نشده است، منتظر اقدام کاربر.',
+                'color' => 'warning',
             ],
         ];
 
