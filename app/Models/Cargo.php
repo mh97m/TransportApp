@@ -9,14 +9,23 @@ use Illuminate\Support\Str;
 
 class Cargo extends BaseModel
 {
-    // public function scopeIsActive($query)
-    // {
-    //     return $query->where('status', 56);
-    // }
-
-    public function scopeIsTeamshoo($query)
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
     {
-        return $query->whereIn('contract_id', [21559, 21560]);
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->ulid = (string)Str::ulid();
+        });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'ulid';
     }
 
     public function description(): Attribute

@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('cargo_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
         Schema::create('cargos', function (Blueprint $table) {
             $table->id();
+            $table->ulid();
             $table->string('mobile');
 
             $table->foreignId('origin_province_id')->constrained('provinces')->onDelete('cascade');
@@ -27,7 +33,7 @@ return new class extends Migration
             $table->unsignedInteger('weight')->nullable();
             $table->unsignedInteger('price');
             $table->text('description')->nullable();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
         Schema::create('order_statuses', function (Blueprint $table) {
@@ -39,6 +45,7 @@ return new class extends Migration
         });
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->ulid();
             $table->foreignId('cargo_id')->constrained();
             $table->foreignId('driver_id')->constrained('users');
             $table->foreignId('order_status_id')->constrained('order_statuses');
@@ -65,5 +72,6 @@ return new class extends Migration
         Schema::dropIfExists('orders');
         Schema::dropIfExists('order_statuses');
         Schema::dropIfExists('cargos');
+        Schema::dropIfExists('cargo_types');
     }
 };

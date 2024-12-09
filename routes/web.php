@@ -28,7 +28,7 @@ Route::group([
         Route::prefix('/cargos')->name('cargos.')->group(function () {
             Volt::route('all', 'pages.cargos.all')->name('all');
             Volt::route('create', 'pages.cargos.create')->name('create');
-            Volt::route('{cargo}', 'pages.cargos.index')->name('index');
+            Volt::route('{cargo:ulid}', 'pages.cargos.index')->name('index');
 
             // View Orders Accepted for Each Cargo
             Volt::route('{cargo}/orders', 'pages.cargos.orders')->name('orders');
@@ -42,7 +42,7 @@ Route::group([
         Volt::route('orders', 'pages.orders.index')->name('orders.index');
 
         // Accept Order
-        Volt::route('orders/{order}/accept', 'pages.orders.accept')->name('orders.accept');
+        Volt::route('orders/{order:ulid}/accept', 'pages.orders.accept')->name('orders.accept');
     });
 
     // Common Routes for Authenticated Users

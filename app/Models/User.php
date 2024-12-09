@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -49,11 +50,32 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the details owned by the user.
+     */
+    public function details(): HasOne
+    {
+        if ($this->hasRole('owner')) {
+            $relation = $this->hasOne(OwnerDetail::class);
+        } elseif ($this->hasRole('driver')) {
+            $relation = $this->hasOne(DriverDetail::class);
+        }
+        return $relation ;
+    }
+
+    /**
      * Get the cargos owned by the user.
      */
     public function cargos(): HasMany
     {
         return $this->hasMany(Cargo::class);
+    }
+
+    /**
+     * Get the user associated with the plan.
+     */
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
     }
 
     /**
