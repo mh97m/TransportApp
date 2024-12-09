@@ -94,19 +94,13 @@ class RegisterForm extends Form
 
     public function register(): void
     {
-        dd([
-            'destination_province' => City::where('id', $this->destinationCityId)->first(),
-            'destination_province_id' => City::where('id', $this->destinationCityId)->first()?->province_id,
-            'destination_city_id' => $this->destinationCityId,
-
-        ]);
         Cargo::create([
             'mobile' => $this->mobile,
 
-            'origin_province_id' => City::where('id', $this->originCityId)->first()->province_id,
+            'origin_province_id' => City::where('id', $this->originCityId)->first()?->province_id,
             'origin_city_id' => $this->originCityId,
 
-            'destination_province_id' => City::where('id', $this->destinationCityId)->first()->province_id,
+            'destination_province_id' => City::where('id', $this->destinationCityId)->first()?->province_id,
             'destination_city_id' => $this->destinationCityId,
 
             'car_type_id' => $this->carTypeId,
