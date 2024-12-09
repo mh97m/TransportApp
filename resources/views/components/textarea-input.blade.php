@@ -22,7 +22,7 @@
         @disabled($disabled)
         maxlength="5000"
         rows="{{ $rows }}"
-        required
+        {{-- required --}}
         autofocus
     ></textarea>
     @if ($errors)

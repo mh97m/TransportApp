@@ -111,7 +111,7 @@ new #[Layout('layouts.app')] class extends Component {
                     :label="__('شهر مبدا')"
                     id="originCityId"
                     name="originCityId"
-                    wire:model="form.originCityId"
+                    wire:model.live="form.originCityId"
                     :errors="$errors->get('form.originCityId')"
                     :options="$this->cityIds"
                 />
@@ -121,7 +121,7 @@ new #[Layout('layouts.app')] class extends Component {
                     :label="__('شهر مقصد')"
                     id="destinationCityId"
                     name="destinationCityId"
-                    wire:model="form.destinationCityId"
+                    wire:model.live="form.destinationCityId"
                     :errors="$errors->get('form.destinationCityId')"
                     :options="$this->cityIds"
                 />

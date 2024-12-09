@@ -12,18 +12,30 @@
 
 <div class="form-group col-lg-{{ $lgLength }} col-md-{{ $mdLength }} col-sm-{{ $smLength }} position-relative">
     <label class="font-weight-bold text-dark text-2">{{ $label }}</label>
+    <!-- Visible input for display -->
     <input
-        {{ $attributes->merge([
-            'id' => $uniqueId,
-            'name' => 'input',
-        ]) }}
+        type="text"
+        id="display_{{ $uniqueId }}"
+        {{-- name="{{ $attributes->get('name') }}" --}}
         class="form-control form-control-{{ $size }} text-left @if ($errors) is-invalid @endif"
-        @disabled($disabled)
         autocomplete="off"
-        required
+        @disabled($disabled)
+        {{-- required --}}
         oninput="filterDatalist(this, '{{ $uniqueId }}')"
     >
+
+    <!-- Hidden input for storing the ID -->
+    <input
+        type="text"
+        style="display: none;"
+        id="hidden_{{ $uniqueId }}"
+        {{ $attributes->merge([
+            'name' => 'input',
+        ]) }}
+    >
+
     <ul id="dropdownOptions_{{ $uniqueId }}" class="dropdown-menu w-100 shadow" style="max-height: 200px; overflow-y: auto; display: none; cursor: pointer;"></ul>
+
     @if ($errors)
         @foreach ($errors as $error)
             <span class="invalid-feedback" role="alert">
@@ -55,7 +67,7 @@
                     li.className = 'dropdown-item';
                     li.textContent = option.name;
                     li.setAttribute('data-id', option.id);
-                    li.onclick = () => selectOption(input, option.name, dropdownId);
+                    li.onclick = () => selectOption(input, option.name, option.id, uniqueId);
                     dropdown.appendChild(li);
                 });
             } else {
@@ -66,9 +78,15 @@
         }
     };
 
-    const selectOption = (input, value, dropdownId) => {
-        input.value = value; // Set the selected option
-        document.getElementById(dropdownId).style.display = 'none'; // Hide dropdown
+    const selectOption = (input, value, id, uniqueId) => {
+        const displayInput = document.getElementById(`display_${uniqueId}`);
+        const hiddenInput = document.getElementById(`hidden_${uniqueId}`);
+        
+        displayInput.value = value; // Set the visible input's value
+        hiddenInput.value = id; // Set the hidden input's value
+        
+        const dropdown = document.getElementById(`dropdownOptions_${uniqueId}`);
+        dropdown.style.display = 'none'; // Hide dropdown
     };
 
     document.addEventListener('click', (e) => {
