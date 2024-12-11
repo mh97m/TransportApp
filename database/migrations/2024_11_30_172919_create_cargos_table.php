@@ -38,6 +38,12 @@ return new class extends Migration
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
+        Schema::create('cargo_views', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('cargo_id')->constrained('cargos');
+            $table->foreignId('driver_id')->constrained('users');
+            $table->timestamps();
+        });
         Schema::create('order_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
@@ -49,7 +55,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->ulid();
-            $table->foreignId('cargo_id')->constrained();
+            $table->foreignId('cargo_id')->constrained('cargos');
             $table->foreignId('driver_id')->constrained('users');
             $table->foreignId('order_status_id')->constrained('order_statuses');
             $table->timestamp('changed_at')->nullable();
@@ -59,7 +65,7 @@ return new class extends Migration
         });
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained();
+            $table->foreignId('order_id')->constrained('orders');
             $table->foreignId('rater_id')->constrained('users');
             $table->foreignId('ratee_id')->constrained('users');
             $table->unsignedTinyInteger('rating');

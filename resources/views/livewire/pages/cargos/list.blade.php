@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Cargo;
+use App\Models\CargoView;
 use App\Models\City;
 use App\Models\Order;
 use App\Models\OrderStatus;
@@ -194,6 +195,12 @@ new #[Layout('layouts.app')] class extends Component {
 
     <div class="row mb-4 properties-listing sort-destination p-0">
         @foreach ($cargos as $cargo)
+            @php
+                CargoView::create([
+                    'cargo_id' => $cargo->id,
+                    'driver_id' => auth()->user()->id,
+                ]);
+            @endphp
             <div class="col-md-6 col-lg-4 p-3 isotope-item">
                 <div class="listing-item">
                     <a href="#" class="text-decoration-none">

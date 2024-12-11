@@ -69,6 +69,14 @@ new #[Layout('layouts.app')] class extends Component {
                         </tr>
                         <tr>
                             <td>
+                                تعداد بازدید
+                            </td>
+                            <td>
+                                {{ $cargo->viewsCount }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 مبدا
                             </td>
                             <td>{{ $cargo->originProvince->name . ' - ' . $cargo->originCity->name }}</td>
@@ -78,14 +86,6 @@ new #[Layout('layouts.app')] class extends Component {
                                 مقصد
                             </td>
                             <td>{{ $cargo->destinationProvince->name . ' - ' . $cargo->destinationCity->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                شماره همراه
-                            </td>
-                            <td>
-                                {{ $cargo->mobile }}
-                            </td>
                         </tr>
                         <tr>
                             <td>
