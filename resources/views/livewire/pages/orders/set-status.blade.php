@@ -61,7 +61,8 @@ new #[Layout('layouts.app')] class extends Component {
                     <div class="row pt-4">
                         @foreach ($orderStatuses as $orderStatus)
                             <div
-                                class="alert alert-{{ $orderStatus->color }} col-12 d-flex justify-content-center" style="cursor: pointer;"
+                                class="alert alert-{{ $orderStatus->color }} col-12 d-flex justify-content-center"
+                                style="cursor: pointer;"
                                 wire:click="changeOrderStatus({{ $orderStatus->id }})"
                             >
                                 {{ $orderStatus->description }}

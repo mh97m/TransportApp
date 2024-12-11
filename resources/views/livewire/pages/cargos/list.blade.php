@@ -33,6 +33,7 @@ new #[Layout('layouts.app')] class extends Component {
     public function with(): array
     {
         $query = Cargo::query();
+        $query->whereNull('completed_at');
 
         if ($this->originProvince != '') {
             $query->where(
@@ -99,7 +100,7 @@ new #[Layout('layouts.app')] class extends Component {
 
         session()->flash('order_created', $order->id);
 
-        return redirect()->route('orders.index', ['order' => $order->ulid]);
+        return redirect()->route('orders.set-status', ['order' => $order->ulid]);
     }
 
     public function search(): void

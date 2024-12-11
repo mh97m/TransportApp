@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cargo;
 use App\Models\CargoType;
+use App\Models\CarType;
 use App\Models\DriverDetail;
 use App\Models\OwnerDetail;
 use App\Models\Plan;
+use App\Models\Province;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -69,5 +72,32 @@ class UserSeeder extends Seeder
             'plan_id' => 1,
         ]);
         $user->assignRole('owner');
+        for ($i=0; $i < 4; $i++) {
+            $origin_province = Province::inRandomOrder()->first();
+            $destination_province = Province::inRandomOrder()->first();
+            $carType = CarType::inRandomOrder()->first();
+            Cargo::create([
+                'mobile' => $user->mobile,
+
+                'origin_province_id' => $origin_province->id,
+                'origin_city_id' => $origin_province->cities()->first()->id,
+
+                'destination_province_id' => $destination_province->id,
+                'destination_city_id' => $destination_province->cities()->first()->id,
+
+                'car_type_id' => $carType->id,
+                'loader_type_id' => $carType->loaderTypes()->first()->id,
+
+                'cargo_type_id' => CargoType::inRandomOrder()->first()->id,
+
+                'weight' => rand(20, 100),
+
+                'price' => rand(1000000, 10000000),
+
+                'description' => fake()->paragraphs(1)[0],
+
+                'user_id' => $user->id,
+            ]);
+        }
     }
 }

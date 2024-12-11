@@ -17,16 +17,11 @@ new #[Layout('layouts.app')] class extends Component {
 
     public function with(): array
     {
-        $query = Auth::user()->cargos();
+        $query = Auth::user()->driverOrders();
 
         $query->orderByDesc('created_at');
 
         $query->with([
-            'originProvince',
-            'destinationProvince',
-            'carType',
-            'loaderType',
-            'orders',
         ]);
 
         return [

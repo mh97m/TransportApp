@@ -34,6 +34,8 @@ return new class extends Migration
             $table->unsignedInteger('price');
             $table->text('description')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
         Schema::create('order_statuses', function (Blueprint $table) {
@@ -50,6 +52,8 @@ return new class extends Migration
             $table->foreignId('cargo_id')->constrained();
             $table->foreignId('driver_id')->constrained('users');
             $table->foreignId('order_status_id')->constrained('order_statuses');
+            $table->timestamp('changed_at')->nullable();
+            $table->boolean('owner_status')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });

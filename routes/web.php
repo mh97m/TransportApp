@@ -41,6 +41,7 @@ Route::group([
         Route::prefix('/orders')->name('orders.')->group(function () {
             Volt::route('all', 'pages.orders.all')->name('all');
             Volt::route('{order:ulid}', 'pages.orders.index')->name('index');
+            Volt::route('{order:ulid}', 'pages.orders.set-status')->name('set-status');
         });
 
         // Accept Order
