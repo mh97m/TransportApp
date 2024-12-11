@@ -59,16 +59,29 @@ new #[Layout('layouts.app')] class extends Component {
 
         $query->orderByDesc('created_at');
 
-        $query->with([
+        $cargos = $query->with([
             'originProvince',
             'destinationProvince',
             'carType',
             'loaderType',
-        ]);
+        ])->paginate(10);
+
+        $this->logCargoViews($cargos);
 
         return [
-            'cargos' => $query->paginate(10),
+            'cargos' => $cargos,
         ];
+    }
+
+    private function logCargoViews($cargos)
+    {
+        $driver_id = auth()->user()->id;
+        foreach ($cargos as $cargo) {
+            CargoView::firstOrCreate([
+                'cargo_id' => $cargo->id,
+                'driver_id' => $driver_id,
+            ]);
+        }
     }
 
     public function loadCities($type, $value): void
@@ -195,13 +208,7 @@ new #[Layout('layouts.app')] class extends Component {
 
     <div class="row mb-4 properties-listing sort-destination p-0">
         @foreach ($cargos as $cargo)
-            @php
-                CargoView::create([
-                    'cargo_id' => $cargo->id,
-                    'driver_id' => auth()->user()->id,
-                ]);
-            @endphp
-            <div class="col-md-6 col-lg-4 p-3 isotope-item">
+            <div class="col-md-6 col-lg-6 p-3 isotope-item">
                 <div class="listing-item">
                     <a href="#" class="text-decoration-none">
                         <div class="thumb-info thumb-info-lighten border" style="border: 1px solid rgba(0, 0, 0, 0.13) !important;">
@@ -276,5 +283,6 @@ new #[Layout('layouts.app')] class extends Component {
             </div>
         @endforeach
     </div>
+
     {{ $cargos->links() }}
 </div>

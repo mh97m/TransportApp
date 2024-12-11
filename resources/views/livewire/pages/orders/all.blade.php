@@ -25,17 +25,8 @@ new #[Layout('layouts.app')] class extends Component {
         ]);
 
         return [
-            'cargos' => $query->paginate(10),
+            'orders' => $query->paginate(10),
         ];
-    }
-
-    public function loadCities($type, $value): void
-    {
-        $this->{"{$type}City"} = '';
-        $this->{"{$type}Cities"} = City::query()
-            ->where('province_id', $value)
-            ->orderBy('name', 'asc')
-            ->get();
     }
 
     public function search(): void
@@ -46,7 +37,7 @@ new #[Layout('layouts.app')] class extends Component {
 
 <div>
     <div class="row mb-4 properties-listing sort-destination p-0">
-        @foreach ($cargos as $cargo)
+        @foreach ($orders as $order)
             <div class="col-md-12 col-lg-12 p-3 isotope-item">
                 <div class="listing-item">
                     <a href="#" class="text-decoration-none">
@@ -59,11 +50,11 @@ new #[Layout('layouts.app')] class extends Component {
                                 </div>
                             </div> --}}
                             <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4 mb-2 d-flex justify-content-between">
-                                مبدا : {{ $cargo->originProvince->name . ' - ' .  $cargo->originCity->name }}
+                                مبدا : {{ $order->cargo->originProvince->name . ' - ' .  $order->cargo->originCity->name }}
                                 <i class="icon-paper-plane icons mx-4"></i>
                             </div>
                             <div class="thumb-info-price bg-color-secondary text-color-light text-4 p-2 pl-4 pr-4 d-flex justify-content-between">
-                                مقصد : {{ $cargo->destinationProvince->name . ' - ' .  $cargo->destinationCity->name }}
+                                مقصد : {{ $order->cargo->destinationProvince->name . ' - ' .  $order->cargo->destinationCity->name }}
                                 <i class="icon-drawer icons mx-4"></i>
                             </div>
                             <div class="custom-thumb-info-title b-normal p-4">
@@ -72,13 +63,13 @@ new #[Layout('layouts.app')] class extends Component {
                                         <strong>
                                             ماشین :
                                         </strong>
-                                        {{ $cargo->carType->name }}
+                                        {{ $order->cargo->carType->name }}
                                     </p>
                                     <p class="text-black">
                                         <strong>
                                             نوع باربر :
                                         </strong>
-                                        {{ $cargo->loaderType->name }}
+                                        {{ $order->cargo->loaderType->name }}
                                     </p>
                                 </div>
                                 <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
@@ -87,7 +78,7 @@ new #[Layout('layouts.app')] class extends Component {
                                             نوع:
                                         </span>
                                         <span class="accomodation-value custom-color-1">
-                                            {{ $cargo->cargoType->name }}
+                                            {{ $order->cargo->cargoType->name }}
                                         </span>
                                     </li>
                                     <li>
@@ -95,7 +86,7 @@ new #[Layout('layouts.app')] class extends Component {
                                             وزن:
                                         </span>
                                         <span class="accomodation-value custom-color-1">
-                                            {{ number_format($cargo->weight) }}
+                                            {{ number_format($order->cargo->weight) }}
                                         </span>
                                     </li>
                                     <li>
@@ -103,7 +94,7 @@ new #[Layout('layouts.app')] class extends Component {
                                             قیمت:
                                         </span>
                                         <span class="accomodation-value custom-color-1">
-                                            {{ number_format($cargo->price) }} تومان
+                                            {{ number_format($order->cargo->price) }} تومان
                                         </span>
                                     </li>
                                 </ul>
@@ -112,7 +103,7 @@ new #[Layout('layouts.app')] class extends Component {
                                         <strong class="accomodation-title">
                                             توضیحات :
                                         </strong>
-                                        {{ $cargo->description }}
+                                        {{ $order->cargo->description }}
                                     </p>
                                 </div>
                                 <div class="thumb-info-inner text-3 pt-3">
@@ -120,23 +111,28 @@ new #[Layout('layouts.app')] class extends Component {
                                         <strong class="accomodation-title">
                                             شماره همراه :
                                         </strong>
-                                        {{ $cargo->mobile }}
+                                        {{ $order->cargo->mobile }}
                                     </p>
                                 </div>
                             </div>
-                            <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4 d-flex justify-content-between" style="background-color: #333b487e !important;">
-                                <a href="{{ route('cargos.index', ['cargo' => $cargo]) }}">
+                            <div
+                                class="alert alert-{{ $order->status->color }} col-12 d-flex justify-content-center mb-0"
+                            >
+                                {{ $order->status->description }}
+                            </div>
+                            {{-- <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4 d-flex justify-content-between" style="background-color: #333b487e !important;">
+                                <a href="{{ route('cargos.index', ['cargo' => $order->cargo]) }}">
                                     <span class="ltr-text text-white">
                                         جزيیات بار
                                     </span>
                                 </a>
                                 <i class="icon-layers icons mx-4"></i>
-                            </div>
+                            </div> --}}
                         </div>
                     </a>
                 </div>
             </div>
         @endforeach
     </div>
-    {{ $cargos->links() }}
+    {{ $orders->links() }}
 </div>
