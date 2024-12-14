@@ -9,50 +9,25 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+    <!-- C3 Chart css -->
+    <link href="/assets/libs/c3/c3.min.css" rel="stylesheet" type="text/css" />
 
-    <!-- Vendor CSS -->
-    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/vendor/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/assets/vendor/animate/animate.min.css">
-    <link rel="stylesheet" href="/assets/vendor/simple-line-icons/css/simple-line-icons.min.css">
-    <link rel="stylesheet" href="/assets/vendor/owl.carousel/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="/assets/vendor/owl.carousel/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/assets/vendor/magnific-popup/magnific-popup.min.css">
-
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="/assets/css/theme.css">
-    <link rel="stylesheet" href="/assets/css/theme-elements.css">
-    <link rel="stylesheet" href="/assets/css/theme-blog.css">
-    <link rel="stylesheet" href="/assets/css/theme-shop.css">
-
-    <!-- Current Page CSS -->
-    <link rel="stylesheet" href="/assets/vendor/rs-plugin/css/settings.css">
-    <link rel="stylesheet" href="/assets/vendor/rs-plugin/css/layers.css">
-    <link rel="stylesheet" href="/assets/vendor/rs-plugin/css/navigation.css">
-
-    <!-- Demo CSS -->
-    <link rel="stylesheet" href="/assets/css/demo-real-estate.css">
-
-    <!-- Skin CSS -->
-    <link rel="stylesheet" href="/assets/css/skin-real-estate.css">
-
-    <!-- Theme Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/custom.css">
-
-    <!-- Head Libs -->
-    <script src="/assets/vendor/modernizr/modernizr.min.js"></script>
+    <!-- App css -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/app-rtl.css" rel="stylesheet" type="text/css"  id="app-stylesheet" />
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="enlarged" data-keep-enlarged="true">
 
+    <div id="wrapper">
+        
+    </div>
     <div class="body">
         <livewire:layout.header />
         <div role="main" class="main">
@@ -79,42 +54,19 @@
         </div>
     </div>
 
-    <!-- Vendor -->
-    <script src="/assets/vendor/jquery/jquery.min.js"></script>
-    <script src="/assets/vendor/jquery.appear/jquery.appear.min.js"></script>
-    <script src="/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-    <script src="/assets/vendor/jquery.cookie/jquery.cookie.min.js"></script>
-    <script src="/assets/vendor/popper/umd/popper.min.js"></script>
-    <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/assets/vendor/common/common.min.js"></script>
-    <script src="/assets/vendor/jquery.validation/jquery.validate.min.js"></script>
-    <script src="/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-    <script src="/assets/vendor/jquery.gmap/jquery.gmap.min.js"></script>
-    <script src="/assets/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
-    <script src="/assets/vendor/isotope/jquery.isotope.min.js"></script>
-    <script src="/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-    <script src="/assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="/assets/vendor/vide/jquery.vide.min.js"></script>
-    <script src="/assets/vendor/vivus/vivus.min.js"></script>
+        <!-- Vendor js -->
+        <script src="/assets/js/vendor.min.js"></script>
 
-    <!-- Theme Base, Components and Settings -->
-    <script src="/assets/js/theme.js"></script>
+        <!--C3 Chart-->
+        <script src="/assets/libs/d3/d3.min.js"></script>
+        <script src="/assets/libs/c3/c3.min.js"></script>
 
-    <!-- Current Page Vendor and Views -->
-    <script src="/assets/vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-    <script src="/assets/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+        <script src="/assets/libs/echarts/echarts.min.js"></script>
 
-    <!-- Current Page Vendor and Views -->
-    <script src="/assets/js/view.contact.js"></script>
+        <script src="/assets/js/pages/dashboard.init.js"></script>
 
-    <!-- Demo -->
-    <script src="/assets/js/demo-real-estate.js"></script>
-
-    <!-- Theme Custom -->
-    <script src="/assets/js/custom.js"></script>
-
-    <!-- Theme Initialization Files -->
-    <script src="/assets/js/theme.init.js"></script>
+        <!-- App js -->
+        <script src="/assets/js/app.min.js"></script>
 </body>
 
 </html>

@@ -7,104 +7,188 @@ new class extends Component {
 
 }; ?>
 
-<header id="header" class="header-transparent-dark-bottom-border"
-    data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyChangeLogo': false, 'stickyStartAt': 53, 'stickySetTop': '-53px'}">
-    <div class="header-body bg-color-primary border-color-dark border-top-0">
-        <div class="header-top header-top-borders header-top-light-borders">
-            <div class="container h-100">
-                <div class="header-row h-100">
-                    <div class="header-column justify-content-start">
-                        <div class="header-row">
-                            <nav class="header-nav-top">
-                                <ul class="nav nav-pills">
-                                    <li class="nav-item nav-item-borders py-2 d-none d-sm-inline-flex">
-                                        <span class="pl-0"><i class="far fa-dot-circle text-4 text-color-light"
-                                                style="top: 1px;"></i> تهران</span>
-                                    </li>
-                                    <li class="nav-item nav-item-borders py-2">
-                                        <a href="tel:123-456-7890"><i class="fab fa-whatsapp text-4 text-color-light"
-                                                style="top: 0;"></i> <span class="ltr-text">09121234567</span></a>
-                                    </li>
-                                    <li class="nav-item nav-item-borders py-2 d-none d-md-inline-flex">
-                                        <a href="mailto:transport@domain.com"><i
-                                                class="far fa-envelope text-4 text-color-light" style="top: 1px;"></i>
-                                            transport@domain.com</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="header-container header-container-height-sm container">
-            <div class="header-row">
-                <div class="header-column">
-                    <div class="header-row">
-                        <div class="header-logo">
-                            <a href="{{ route('home') }}">
-                                <img alt="Porto" width="80" height="80"
-                                    src="/assets/img/demos/real-estate/logo-symbol-light.png">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                {{-- <div class="header-column justify-content-end">
-                    <div class="header-row">
-                        <div
-                            class="header-nav header-nav-stripe header-nav-force-light-text header-nav-dropdowns-dark header-nav-no-space-dropdown order-2 order-lg-1">
-                            <div
-                                class="header-nav-main header-nav-main-mobile-dark header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
-                                <nav class="collapse">
-                                    <ul class="nav nav-pills" id="mainNav">
-                                        <li class="dropdown-full-color dropdown-quaternary">
-                                            <a class="nav-link active" href="demo-real-estate.html">
-                                                خانه
-                                            </a>
-                                        </li>
-                                        <li class="dropdown-full-color dropdown-quaternary">
-                                            <a class="nav-link" href="demo-real-estate-properties.html">
-                                                ملک ها
-                                            </a>
-                                        </li>
 
-                                        <li class="dropdown dropdown-full-color dropdown-quaternary">
-                                            <a class="nav-link dropdown-toggle" href="demo-real-estate-who-we-are.html">
-                                                درباره
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item"
-                                                        href="demo-real-estate-agents.html">نمایندگان</a></li>
-                                                <li><a class="dropdown-item" href="demo-real-estate-who-we-are.html">ما
-                                                        چه کسی هستیم</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown-full-color dropdown-quaternary">
-                                            <a class="nav-link" href="demo-real-estate-contact.html">
-                                                تماس
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <button class="btn header-btn-collapse-nav" data-toggle="collapse"
-                                data-target=".header-nav-main nav">
-                                <i class="fas fa-bars"></i>
+<div class="navbar-custom">
+    <ul class="list-unstyled topnav-menu float-right mb-0">
+
+        <li class="dropdown notification-list">
+            <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                <i class="dripicons-bell noti-icon"></i>
+                <span class="badge badge-pink rounded-circle noti-icon-badge">4</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+                <div class="dropdown-header noti-title">
+                    <h5 class="text-overflow m-0"><span class="float-right">
+                        <span class="badge badge-danger float-right ffiy">5</span>
+                        </span>نتیفیکیشن</h5>
+                </div>
+
+                <div class="slimscroll noti-scroll">
+
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
+                        <p class="notify-details">محمد فلاح, مدیر جدید بخش طراحی<small class="text-muted">3 دقیقه پیش</small></p>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-primary">
+                            <i class="mdi mdi-settings-outline"></i>
+                        </div>
+                        <p class="notify-details">تنظیمات جدید
+                            <small class="text-muted">امکانات جدید در تنظیمات قابل دسترسی</small>
+                        </p>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-warning">
+                            <i class="mdi mdi-bell-outline"></i>
+                        </div>
+                        <p class="notify-details">آپدیت ها
+                            <small class="text-muted">دو تا آپدیت جدید قابل دسترسی هست</small>
+                        </p>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon">
+                            <img src="assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" /> </div>
+                        <p class="notify-details">امید حسین آبادی</p>
+                        <p class="text-muted mb-0 user-msg">
+                            <small>اووو ! این مدیر طراحی خوب و عالی به نظر می رسد</small>
+                        </p>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-danger">
+                            <i class="mdi mdi-account-plus"></i>
+                        </div>
+                        <p class="notify-details">کاربر جدید
+                            <small class="text-muted">شما 10 پیام خوانده نشده دارید</small>
+                        </p>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-info">
+                            <i class="mdi mdi-comment-account-outline"></i>
+                        </div>
+                        <p class="notify-details">علی سهیلی در مورد مدیر نظر داد
+                            <small class="text-muted">4 روز پیش</small>
+                        </p>
+                    </a>
+
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-secondary">
+                            <i class="mdi mdi-heart"></i>
+                        </div>
+                        <p class="notify-details">هومن شلیلوند لایک کرد
+                            <b>مدیر</b>
+                            <small class="text-muted">13 روز پیش</small>
+                        </p>
+                    </a>
+                </div>
+
+                <!-- All-->
+                <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                    مشاهده همه
+                    <i class="fi-arrow-right"></i>
+                </a>
+
+            </div>
+        </li>
+
+        <li class="dropdown notification-list">
+            <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                <img src="assets/images/users/user.jpg" alt="user-image" class="rounded-circle">
+                <span class="pro-user-name ml-1">
+                    {{ Auth::user()->name }} <i class="mdi mdi-chevron-down"></i>
+                </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                <!-- item-->
+                <div class="dropdown-header noti-title">
+                    <h6 class="text-overflow m-0">خوش آمدید !</h6>
+                </div>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <i class="fe-user"></i>
+                    <span>پروفایل</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <i class="fe-settings"></i>
+                    <span>تنظیمات</span>
+                </a>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <i class="fe-lock"></i>
+                    <span>قفل صفحه</span>
+                </a>
+
+                <div class="dropdown-divider"></div>
+
+                <!-- item-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <i class="fe-log-out"></i>
+                    <span>خروج</span>
+                </a>
+
+            </div>
+        </li>
+
+        @hasanyrole('admin|owner')
+        @endhasanyrole
+        <li class="dropdown notification-list">
+            <a class="nav-link dropdown-toggle  waves-effect waves-light" href="{{ route('cargos.create') }}">
+                <button type="button" class="btn btn-secondary btn-rounded width-md waves-effect waves-light">اعلام بار</button>
+            </a>
+        </li>
+
+    </ul>
+
+    <!-- LOGO -->
+    <div class="logo-box">
+        <a href="index.html" class="logo text-center">
+            <span class="logo-lg">
+                <img src="assets/images/logo-light.png" alt="" height="25">
+                <!-- <span class="logo-lg-text-light">UBold</span> -->
+            </span>
+            <span class="logo-sm">
+                <!-- <span class="logo-sm-text-dark">U</span> -->
+                <img src="assets/images/logo-sm.png" alt="" height="28">
+            </span>
+        </a>
+    </div>
+
+    <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+        <li>
+            <button class="button-menu-mobile waves-effect waves-light">
+                <i class="fe-menu"></i>
+            </button>
+        </li>
+
+        <li class="d-none d-sm-block">
+            <form class="app-search">
+                <div class="app-search-box">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="جستجو ...">
+                        <div class="input-group-append">
+                            <button class="btn" type="submit">
+                                <i class="fe-search"></i>
                             </button>
                         </div>
                     </div>
-                </div> --}}
-                <livewire:layout.navigation />
-            </div>
-            @hasanyrole('admin|owner')
-                <a
-                    class="btn btn-xl btn-outline btn-rounded btn-info text-1 ml-3 font-weight-bold text-uppercase text-white"
-                    style="background-color: #777; border: black;"
-                    href="/cargos/create"
-                >
-                    اعلام بار
-                </a>
-            @endhasanyrole
-        </div>
-    </div>
-</header>
+                </div>
+            </form>
+        </li>
+
+    </ul>
+</div>
