@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Actions\Logout;
 use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +26,7 @@ new class extends Component {
                     <i class="dripicons-bell noti-icon"></i>
                     <span class="badge badge-pink rounded-circle noti-icon-badge">4</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+                <div class="dropdown-menu dropdown-menu-right dropdown-lg mt-1">
 
                     <div class="dropdown-header noti-title">
                         <h5 class="text-overflow m-0"><span class="float-right">
@@ -106,12 +107,12 @@ new class extends Component {
 
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="assets/images/users/user.jpg" alt="user-image" class="rounded-circle">
+                    <img src="/assets/images/users/user.jpg" alt="user-image" class="rounded-circle">
                     <span class="pro-user-name ml-1">
                         {{ Auth::user()->name }} <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right profile-dropdown" style="width: 200px">
+                <div class="dropdown-menu dropdown-menu-right profile-dropdown mt-1" style="width: 200px">
                     <div class="dropdown-header noti-title">
                         <h6 class="text-overflow m-0">خوش آمدید !</h6>
                     </div>
@@ -154,13 +155,13 @@ new class extends Component {
         </ul>
     @endauth
 
-    <div class="logo-box">
+    {{-- <div class="logo-box">
         <a href="index.html" class="logo text-center">
             <span class="logo-lg">
-                <img src="assets/images/logo-light.png" alt="" height="25">
+                <img src="/assets/images/logo-light.png" alt="" height="25">
             </span>
             <span class="logo-sm">
-                <img src="assets/images/logo-sm.png" alt="" height="28">
+                <img src="/assets/images/logo-sm.png" alt="" height="28">
             </span>
         </a>
     </div>
@@ -171,5 +172,5 @@ new class extends Component {
                 <i class="fe-menu"></i>
             </button>
         </li>
-    </ul>
+    </ul> --}}
 </div>

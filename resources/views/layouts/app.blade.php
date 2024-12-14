@@ -11,13 +11,15 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
+    <link href="/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
     <!-- C3 Chart css -->
-    <link href="/assets/libs/c3/c3.min.css" rel="stylesheet" type="text/css" />
+    {{-- <link href="/assets/libs/c3/c3.min.css" rel="stylesheet" type="text/css" /> --}}
 
     <!-- App css -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
     <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/app-rtl.css" rel="stylesheet" type="text/css"  id="app-stylesheet" />
+    <link href="/assets/css/app-rtl.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -26,19 +28,8 @@
 <body class="enlarged" data-keep-enlarged="true">
 
     <div id="wrapper">
-        @if (session('session-message'))
-            <div class="row m-3">
-                <div class="col-lg-12">
-                    <div class="alert alert-{{ session('session-color') }} alert-dismissible m-2" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <strong>{{ session('session-title') }}</strong> {{ session('session-message') }}
-                    </div>
-                </div>
-            </div>
-        @endif
-
         <livewire:layout.header />
-        <livewire:layout.sidebar />
+        {{-- <livewire:layout.sidebar /> --}}
 
         <div class="content-page">
             <div class="content">
@@ -54,15 +45,32 @@
     <script src="/assets/js/vendor.min.js"></script>
 
     <!--C3 Chart-->
-    <script src="/assets/libs/d3/d3.min.js"></script>
-    <script src="/assets/libs/c3/c3.min.js"></script>
+    {{-- <script src="/assets/libs/d3/d3.min.js"></script> --}}
+    {{-- <script src="/assets/libs/c3/c3.min.js"></script> --}}
 
-    <script src="/assets/libs/echarts/echarts.min.js"></script>
+    {{-- <script src="/assets/libs/echarts/echarts.min.js"></script> --}}
 
-    <script src="/assets/js/pages/dashboard.init.js"></script>
+    {{-- <script src="/assets/js/pages/dashboard.init.js"></script> --}}
+
+    <script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
     <!-- App js -->
     <script src="/assets/js/app.min.js"></script>
+
+    <script>
+         window.addEventListener('swal',function(e){
+
+            const redirectUrl = e.detail[0].redirectUrl;
+
+            delete e.detail[0].redirectUrl;
+
+            Swal.fire(e.detail[0]).then((result) => {
+                if (result.value) {
+                    window.location.replace(redirectUrl);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

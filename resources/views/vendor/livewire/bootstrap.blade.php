@@ -10,7 +10,7 @@ $scrollIntoViewJsSnippet = ($scrollTo !== false)
     : '';
 @endphp
 
-<div class="row my-5">
+<div class="row">
     <div class="col">
         @if ($paginator->hasPages())
             <nav class="pagination justify-content-center">
