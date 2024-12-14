@@ -1,14 +1,18 @@
 @props([
-    'label' => '',
+    'id' => 'inputId',
     'color' => 'primary',
-    'size' => '',
-    'containerClass' => 'form-group col-lg-6',
+    'label' => '',
+    'lgLength' => '12',
+    'mdLength' => '12',
+    'smLength' => '12',
+    'size' => 'lg',
 ])
 
-<div class="{{ $containerClass }}">
-    <input
-    {{ $attributes->merge(['type' => 'submit']) }}
-        class="btn btn-{{ $color }} {{ $size }} btn-modern float-right"
-        value={{ $label }}
-    />
+<div class="col-lg-{{ $lgLength }} col-md-{{ $mdLength }} col-sm-{{ $smLength }}">
+    <button
+        class="btn btn-{{ $size }} btn-block btn-{{ $color }} waves-effect waves-light ffiy"
+        {{ $attributes->merge(['type' => 'submit']) }}
+    >
+        {{ $label }}
+    </button>
 </div>

@@ -1,20 +1,25 @@
 @props([
-    'disabled' => false,
     'id' => 'inputId',
+    'label' => '',
+    'lgLength' => '12',
+    'mdLength' => '12',
+    'smLength' => '12',
+    'disabled' => false,
 ])
 
-<div class="custom-control custom-checkbox">
-    <input
-        type="checkbox"
-        {{ $attributes->merge([
-            'dir' => 'rtl',
-            'id' => $id,
-            'name' => 'input',
-        ]) }}
-        class="custom-control-input"
-        @disabled($disabled)
-    />
-    <label class="custom-control-label text-2" for="{{ $id }}">
-        {{ $slot }}
-    </label>
+<div class="col-lg-{{ $lgLength }} col-md-{{ $mdLength }} col-sm-{{ $smLength }}">
+    <div class="checkbox checkbox-success">
+        <input
+            type="checkbox"
+            {{ $attributes->merge([
+                'dir' => 'rtl',
+                'id' => $id,
+                'name' => 'input',
+            ]) }}
+            @disabled($disabled)
+        />
+        <label for="{{ $id }}">
+            {{ $label }}
+        </label>
+    </div>
 </div>

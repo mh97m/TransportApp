@@ -3,20 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    $user = auth()->user();
-    if ($user?->hasRole('driver')) {
-        return to_route('cargos.list');
-    }
-    elseif ($user?->hasRole('owner')) {
-        return to_route('cargos.create');
-    }
-    return view('home'); 
-})->name('home');
-
 Route::group([
     'middleware' => ['auth', 'verified'],
 ], function () {
+    Route::get('/', function () {
+        $user = auth()->user();
+        if ($user?->hasRole('driver')) {
+            return to_route('cargos.list');
+        }
+        elseif ($user?->hasRole('owner')) {
+            return to_route('cargos.create');
+        }
+        return view('home');
+    })->name('home');
+    
 
     // Dashboard Route
     Route::view('dashboard', 'dashboard')->name('dashboard');
@@ -55,6 +55,10 @@ Route::group([
     // Ratings and Reviews
     Volt::route('ratings', 'pages.ratings.index')->name('ratings.index');
     Volt::route('ratings/{order}', 'pages.ratings.create')->name('ratings.create');
+
+    Route::view('profile', 'profile')
+        ->middleware(['auth'])
+        ->name('profile');
 });
 
 

@@ -26,47 +26,43 @@
 <body class="enlarged" data-keep-enlarged="true">
 
     <div id="wrapper">
-        
-    </div>
-    <div class="body">
-        <livewire:layout.header />
-        <div role="main" class="main">
-            @if (session('session-message'))
-                <div class="row m-3">
-                    <div class="col-lg-12">
-                        <div class="alert alert-{{ session('session-color') }} alert-dismissible m-2" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            <strong>{{ session('session-title') }}</strong> {{ session('session-message') }}
-                        </div>
+        @if (session('session-message'))
+            <div class="row m-3">
+                <div class="col-lg-12">
+                    <div class="alert alert-{{ session('session-color') }} alert-dismissible m-2" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <strong>{{ session('session-title') }}</strong> {{ session('session-message') }}
                     </div>
                 </div>
-            @endif
+            </div>
+        @endif
 
-            {{-- @if (isset($slider))
-                <livewire:layout.slider />
-            @endif --}}
+        <livewire:layout.header />
+        <livewire:layout.sidebar />
 
-            <div class="container">
+        <div class="content-page">
+            <div class="content">
                 {{ $slot }}
             </div>
 
             <livewire:layout.footer />
         </div>
+
     </div>
 
-        <!-- Vendor js -->
-        <script src="/assets/js/vendor.min.js"></script>
+    <!-- Vendor js -->
+    <script src="/assets/js/vendor.min.js"></script>
 
-        <!--C3 Chart-->
-        <script src="/assets/libs/d3/d3.min.js"></script>
-        <script src="/assets/libs/c3/c3.min.js"></script>
+    <!--C3 Chart-->
+    <script src="/assets/libs/d3/d3.min.js"></script>
+    <script src="/assets/libs/c3/c3.min.js"></script>
 
-        <script src="/assets/libs/echarts/echarts.min.js"></script>
+    <script src="/assets/libs/echarts/echarts.min.js"></script>
 
-        <script src="/assets/js/pages/dashboard.init.js"></script>
+    <script src="/assets/js/pages/dashboard.init.js"></script>
 
-        <!-- App js -->
-        <script src="/assets/js/app.min.js"></script>
+    <!-- App js -->
+    <script src="/assets/js/app.min.js"></script>
 </body>
 
 </html>

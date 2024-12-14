@@ -1,25 +1,30 @@
 @props([
+    'id' => 'inputId',
+    'label' => '',
+    'placeholder' => '',
     'size' => 'lg',
     'lgLength' => '12',
     'mdLength' => '12',
     'smLength' => '12',
-    'label' => '',
+    'required' => false,
     'disabled' => false,
     'errors' => null,
 ])
 
-<div class="form-group col-lg-{{ $lgLength }} col-md-{{ $mdLength }} col-sm-{{ $smLength }}">
+<div class="col-lg-{{ $lgLength }} col-md-{{ $mdLength }} col-sm-{{ $smLength }}">
     {{ $slot }}
-    <label class="font-weight-bold text-dark text-2">{{ $label }}</label>
+    <label for="{{ $id }}">{{ $label }}</label>
     <input
         {{ $attributes->merge([
+            'type' => 'text',
             'dir' => 'rtl',
-            'id' => 'inputId',
+            'id' => $id,
             'name' => 'input',
         ]) }}
-        class="form-control form-control-{{ $size }} text-left @if ($errors) is-invalid @endif"
+        class="form-control form-control-{{ $size }} @if ($errors) is-invalid @endif"
+        placeholder="{{ $placeholder }}"
         @disabled($disabled)
-        {{-- required --}}
+        @required($required)
         autofocus
     />
     @if ($errors)

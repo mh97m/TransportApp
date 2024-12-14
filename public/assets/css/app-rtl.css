@@ -7022,7 +7022,7 @@ body[data-layout="horizontal"] .footer {
 }
 .dropdown-menu {
   left: unset !important;
-  right: 0px !important;
+  /* right: 0px !important; */
   float: right !important;
   text-align: right !important;
 }
