@@ -61,7 +61,8 @@ new class extends Component {
 
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <div class="notify-icon">
-                                <img src="assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" /> </div>
+                                {{-- <img src="assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" /> --}}
+                            </div>
                             <p class="notify-details">امید حسین آبادی</p>
                             <p class="text-muted mb-0 user-msg">
                                 <small>اووو ! این مدیر طراحی خوب و عالی به نظر می رسد</small>

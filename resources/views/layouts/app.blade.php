@@ -58,8 +58,7 @@
     <script src="/assets/js/app.min.js"></script>
 
     <script>
-         window.addEventListener('swal',function(e){
-
+        window.addEventListener('swal',function(e){
             const redirectUrl = e.detail[0].redirectUrl;
 
             delete e.detail[0].redirectUrl;
@@ -69,6 +68,9 @@
                     window.location.replace(redirectUrl);
                 }
             });
+        });
+        window.addEventListener('update-body-class',function(e){
+            document.body.className = e.detail[0];
         });
     </script>
 </body>

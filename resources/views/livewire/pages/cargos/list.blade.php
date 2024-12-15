@@ -25,6 +25,7 @@ new #[Layout('layouts.app')] class extends Component {
 
     public function mount()
     {
+        $this->dispatch('update-body-class', 'bg-secondary');
         $this->originProvinces = Province::query()
             ->orderBy('name', 'asc')
             ->get();
@@ -102,13 +103,13 @@ new #[Layout('layouts.app')] class extends Component {
                 'driver_id' => auth()->user()->id,
             ])->exists()
         ) {
-            // $this->dispatch('swal', [
-            //     'title' => 'بار قبلا ثبت شده است',
-            //     'timer' => 3000,
-            //     'type' => 'error',
-            //     'confirmButtonText' => 'تایید',
-            // ]);
-            // return;
+            $this->dispatch('swal', [
+                'title' => 'بار قبلا ثبت شده است',
+                'timer' => 3000,
+                'type' => 'error',
+                'confirmButtonText' => 'تایید',
+            ]);
+            return;
         }
         $order = Order::create([
             'cargo_id' => $id,
@@ -116,7 +117,7 @@ new #[Layout('layouts.app')] class extends Component {
             'order_status_id' => OrderStatus::where('slug', 'pending-decision')->first()->id,
         ]);
 
-        session()->flash('order_created', $order->id);
+        session()->put('order_created', $order->id);
 
         return redirect()->route('orders.set-status', ['order' => $order->ulid]);
     }
@@ -126,6 +127,7 @@ new #[Layout('layouts.app')] class extends Component {
         $this->with();
     }
 }; ?>
+
 <div class="container-fluid">
     <div class="row mt-4 mb-2 mb-lg-0">
         <div class="col">
@@ -186,7 +188,7 @@ new #[Layout('layouts.app')] class extends Component {
                         </div>
                     </div> --}}
                     <div class="form-group col-lg-2 mb-0">
-                        <input type="submit" value="جستجو" class="btn btn-secondary btn-lg btn-block text-uppercase text-2">
+                        <input type="submit" value="جستجو" class="btn btn-lg btn-block text-uppercase text-2" style="background-color: #64c5b1;">
                     </div>
                 </div>
             </form>
@@ -255,9 +257,7 @@ new #[Layout('layouts.app')] class extends Component {
                         </a>
 
                     </div>
-
                 </div>
-
             </div>
         @endforeach
     </div>

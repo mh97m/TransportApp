@@ -18,6 +18,7 @@ new #[Layout('layouts.app')] class extends Component {
 
     public function mount(Order $order)
     {
+        $this->dispatch('update-body-class', 'bg-secondary');
         abort_if(!$order->driver()->is(auth()->user()), 404);
         $this->order = $order;
         $this->cargo = $order->cargo;
