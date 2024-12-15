@@ -6515,7 +6515,7 @@ font-family: "IRANYekan", sans-serif}
   float: left; }
 
 .content-page {
-  margin-right: 240px;
+  /* margin-right: 240px; /////*/
   margin-left: 0; }
 
 #sidebar-menu > ul > li > a i {
@@ -6663,7 +6663,8 @@ body[data-layout="horizontal"] .footer {
 
 .footer {
   left: 0;
-  right: 240px; }
+  /* right: 240px; /////*/
+}
 
 .footer-alt {
   right: 0 !important; }

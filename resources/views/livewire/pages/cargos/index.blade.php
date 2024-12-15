@@ -16,6 +16,7 @@ new #[Layout('layouts.app')] class extends Component {
 
     public function mount(Cargo $cargo)
     {
+        $this->dispatch('update-body-class', 'bg-secondary');
         abort_if(!$cargo->user()->is(auth()->user()), 404);
         $this->cargo = $cargo;
     }
@@ -49,161 +50,141 @@ new #[Layout('layouts.app')] class extends Component {
     }
 }; ?>
 
-<div class="row pb-5 pt-3">
-    <div class="col-lg-12">
-        <div class="row">
-            <div class="col-lg-12 mt-4 mt-lg-0">
-                <table class="table table-striped text-2">
-                    <colgroup>
-                        <col width="35%">
-                        <col width="65%">
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <td class="bg-color-primary text-light align-middle">
-                                شناسه بار
-                            </td>
-                            <td class="text-4 font-weight-bold align-middle bg-color-primary text-light">
-                                {{ $cargo->ulid }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                تعداد بازدید
-                            </td>
-                            <td>
-                                {{ $cargo->viewsCount }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                مبدا
-                            </td>
-                            <td>{{ $cargo->originProvince->name . ' - ' . $cargo->originCity->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                مقصد
-                            </td>
-                            <td>{{ $cargo->destinationProvince->name . ' - ' . $cargo->destinationCity->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                شماره همراه
-                            </td>
-                            <td>
-                                {{ $cargo->mobile }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                قیمت
-                            </td>
-                            <td>
-                                {{ number_format($cargo->price) }} تومان
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                ماشین
-                            </td>
-                            <td>{{ $cargo->carType->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                نوع باربر
-                            </td>
-                            <td>{{ $cargo->loaderType->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                وزن
-                            </td>
-                            <td>
-                                {{ number_format($cargo->weight) }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                توضیحات
-                            </td>
-                            <td>
-                                {{ $cargo->description }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+<div class="container">
+    <div class="row mt-4 mb-2 mb-lg-0">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="clearfix">
+                    <h3 class="m-0 d-print-none">مشخصات بار</h3>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table mt-4 table-centered">
+                                <tbody>
+                                    <tr>
+                                        <td>شناسه بار</td>
+                                        <td>
+                                            {{ $cargo->ulid }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>تعداد بازدید</td>
+                                        <td>
+                                            {{ $cargo->viewsCount }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>مبدا</td>
+                                        <td>
+                                            {{ $cargo->originProvince->name . ' - ' . $cargo->originCity->name }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>مقصد</td>
+                                        <td>
+                                            {{ $cargo->destinationProvince->name . ' - ' . $cargo->destinationCity->name }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>قیمت</td>
+                                        <td>
+                                            {{ number_format($cargo->price) }} تومان
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ماشین</td>
+                                        <td>
+                                            {{ $cargo->carType->name }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>نوع باربر</td>
+                                        <td>
+                                            {{ $cargo->loaderType->name }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>وزن</td>
+                                        <td>
+                                            {{ number_format($cargo->weight) }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>توضیحات</td>
+                                        <td>
+                                            {{ $cargo->description }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <h4 class="mt-4 mb-3">توافقات</h4>
-                @foreach ($cargo->orders as $order)
-                    <div class="row agent-item">
-                        <div class="col-lg-6">
-                            <div class="row col-lg-12 d-flex justify-content-between">
-                                <h4 class="primary-font line-height-7 my-1">نام : {{ $order->driver->name }}</h4>
-                                <span class="badge badge-success badge-md my-1">{{ $order->driver->status }}</span>
-                            </div>
-                            <div class="thumb-info-inner text-4">
-                                <p class="text-black">
-                                    <strong>
-                                        شماره همراه :
-                                    </strong>
-                                    {{ $order->driver->mobile }}
-                                </p>
-                                <p class="text-black">
-                                    <strong>
-                                        نوع ماشین :
-                                    </strong>
-                                    {{ $order->driver->details?->carType?->name }}
-                                    -
-                                    <strong>
-                                        نوع باربر :
-                                    </strong>
-                                    {{ $order->driver->details?->loaderType?->name }}
-                                </p>
-                            </div>
-                            <a class="btn btn-secondary btn-sm mt-2" href="#">مشاهده پروفایل</a>
-                        </div>
-                        <div class="col-lg-6 pt-4">
-                            <div class="thumb-info-inner text-3">
-                                <div
-                                    class="alert alert-{{ $order->status->color }} col-12 d-flex justify-content-center"
-                                >
-                                    {{ $order->status->description }}
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box">
+                <div class="clearfix">
+                    <h4 class="m-0 d-print-none">مشخصات راننده</h4>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="clearfix pt-3">
+                                    <h4 class="text-muted">نام : {{ $cargo->orders->first()->driver->name }}</h4>
                                 </div>
                             </div>
-                            @if ($order->status->slug == 'agreed')
-                                @if ($order->owner_status == null)
-                                    <div class="col-12 d-flex justify-content-between">
-                                        <button
-                                            class="btn btn-success btn-sm mt-2 col-5"
-                                            style="cursor: pointer;"
-                                            wire:click="changeOrderStatus({{ $order->id }}, true)"
-                                        >
-                                            قبول درخواست
-                                        </button>
-                                        <button
-                                            class="btn btn-danger btn-sm mt-2 col-5"
-                                            style="cursor: pointer;"
-                                            wire:click="changeOrderStatus({{ $order->id }}, false)"
-                                        >
-                                            رد درخواست
-                                        </button>
-                                    </div>
+                            <div class="col-12">
+                                <div class="clearfix pt-3">
+                                    <p class="text-muted">شماره همراه : {{ $cargo->orders->first()->driver->mobile }}</p>
+                                    <p class="text-muted">نوع ماشین : {{ $cargo->orders->first()->driver->details?->carType?->name }}</p>
+                                    <p class="text-muted">نوع باربر : {{ $cargo->orders->first()->driver->details?->loaderType?->name }}</p>
+                                </div>
+                            </div>
+                            {{-- <div class="col-md-6">
+                                <div class="text-md-right">
+                                    <p><b>زیرمجموع :</b> 42,540,450</p>
+                                    <p><b>مالیات بر ارزش افزوده (12.5):</b> 8,540,450</p>
+                                    <h3>49,540,450 تومان</h3>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div> --}}
+                        </div>
+                    
+                        <div class="hidden-print mt-4">
+                            <div class="text-right d-print-none">
+                                @if ($cargo->orders->first()->owner_status == null)
+                                    <a
+                                        class="btn btn-success waves-effect waves-light text-white"
+                                        style="cursor: pointer;"
+                                        wire:click="changeOrderStatus({{ $cargo->orders->first()->id }}, true)"
+                                    >
+                                        {{-- <i class="fa fa-print mr-1"></i> --}}
+                                        قبول درخواست
+                                    </a>
+                                    <a
+                                        class="btn btn-danger waves-effect waves-light text-white"
+                                        style="cursor: pointer;"
+                                        wire:click="changeOrderStatus({{ $cargo->orders->first()->id }}, false)"
+                                    >
+                                        رد درخواست
+                                    </a>
                                 @else
                                     <div
-                                        class="alert alert-{{ $order->status->color }} col-12 d-flex justify-content-center"
+                                        class="alert alert-success col-12 d-flex justify-content-center"
                                     >
                                         تایید شده است
                                     </div>
                                 @endif
-                            @endif
+                            </div>
                         </div>
                     </div>
-                @endforeach
-                <hr class="solid my-5">
+                </div>
             </div>
         </div>
     </div>

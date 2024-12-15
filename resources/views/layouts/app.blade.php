@@ -25,7 +25,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="enlarged" data-keep-enlarged="true">
+<body>
 
     <div id="wrapper">
         <livewire:layout.header />
@@ -55,7 +55,7 @@
     <script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
     <!-- App js -->
-    <script src="/assets/js/app.min.js"></script>
+    {{-- <script src="/assets/js/app.min.js"></script> --}}
 
     <script>
         window.addEventListener('swal',function(e){

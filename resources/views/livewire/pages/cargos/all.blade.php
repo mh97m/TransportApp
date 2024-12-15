@@ -13,6 +13,7 @@ new #[Layout('layouts.app')] class extends Component {
 
     public function mount()
     {
+        $this->dispatch('update-body-class', 'bg-secondary');
     }
 
     public function with(): array
