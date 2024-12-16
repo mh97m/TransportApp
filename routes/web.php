@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
 Route::group([
     'middleware' => ['auth', 'verified'],
 ], function () {
@@ -16,7 +19,6 @@ Route::group([
         }
         return view('home');
     })->name('home');
-    
 
     // Dashboard Route
     Route::view('dashboard', 'dashboard')->name('dashboard');

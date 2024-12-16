@@ -69,7 +69,7 @@ new #[Layout('layouts.app')] class extends Component {
                             <h4 class="mb-1">مبدا : {{ $cargo->originProvince->name . ' - ' .  $cargo->originCity->name }}</h4>
 
                             <div class="h4 mt-2">
-                                <i class="fe-arrow-down" style="color: #64c5b1;"></i>
+                                <i class="fe-arrow-down" style="color: #598bc4;"></i>
                             </div>
 
                             <h4 class="mb-1">مقصد : {{ $cargo->destinationProvince->name . ' - ' .  $cargo->destinationCity->name }}</h4>

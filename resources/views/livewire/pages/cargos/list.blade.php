@@ -25,7 +25,7 @@ new #[Layout('layouts.app')] class extends Component {
 
     public function mount()
     {
-        $this->dispatch('update-body-class', 'bg-secondary');
+        // $this->dispatch('update-body-class', 'bg-secondary');
         $this->originProvinces = Province::query()
             ->orderBy('name', 'asc')
             ->get();
@@ -129,16 +129,15 @@ new #[Layout('layouts.app')] class extends Component {
 }; ?>
 
 <div class="container-fluid">
-    <div class="row mt-4 mb-2 mb-lg-0">
+    <div class="row mt-4 mb-2">
         <div class="col">
-            <form wire:submit="search">
+            <form wire:submit.prevent="search">
                 <div class="form-row">
-                    <div class="form-group col-lg-2 mb-0">
-                        <div class="form-control-custom mb-3">
+                    <div class="form-group col-6 mb-2">
+                        <div class="form-control-custom">
                             <select
                                 class="form-control text-uppercase text-2"
                                 wire:model="originProvince"
-                                {{-- wire:change="loadCities('origin',$event.target.value)" --}}
                             >
                                 <option value="">استان مبدا</option>
                                 @foreach ($originProvinces as $province)
@@ -147,25 +146,11 @@ new #[Layout('layouts.app')] class extends Component {
                             </select>
                         </div>
                     </div>
-                    {{-- <div class="form-group col-lg-2 mb-0">
-                        <div class="form-control-custom mb-3">
-                            <select
-                                class="form-control text-uppercase text-2"
-                                wire:model="originCity"
-                            >
-                                <option value="">شهر مبدا</option>
-                                @foreach ($originCities as $city)
-                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div> --}}
-                    <div class="form-group col-lg-2 mb-0">
-                        <div class="form-control-custom mb-3">
+                    <div class="form-group col-6 mb-2">
+                        <div class="form-control-custom">
                             <select
                                 class="form-control text-uppercase text-2"
                                 wire:model="destinationProvince"
-                                {{-- wire:change="loadCities('destination',$event.target.value)" --}}
                             >
                                 <option value="">استان مقصد</option>
                                 @foreach ($destinationProvinces as $province)
@@ -174,21 +159,13 @@ new #[Layout('layouts.app')] class extends Component {
                             </select>
                         </div>
                     </div>
-                    {{-- <div class="form-group col-lg-2 mb-0">
-                        <div class="form-control-custom mb-3">
-                            <select
-                                class="form-control text-uppercase text-2"
-                                wire:model="destinationCity"
-                            >
-                                <option value="">شهر مقصد</option>
-                                @foreach ($destinationCities as $city)
-                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div> --}}
-                    <div class="form-group col-lg-2 mb-0">
-                        <input type="submit" value="جستجو" class="btn btn-lg btn-block text-uppercase text-2" style="background-color: #64c5b1;">
+                    <div class="form-group col-12 mb-2">
+                        <input
+                            type="submit"
+                            value="جستجو"
+                            class="btn btn-lg btn-block text-uppercase text-2"
+                            style="background-color: #598bc4;"
+                        >
                     </div>
                 </div>
             </form>
@@ -197,68 +174,69 @@ new #[Layout('layouts.app')] class extends Component {
 
     <div class="row mt-3">
         @foreach ($cargos as $cargo)
-            <div class="col-lg-4">
-                <div class="text-center card-box border border-primary" style="border-radius: 8px;">
-                    <div class="dropdown float-right">
-                        <a href="#" class="dropdown-toggle card-drop arrow-none" data-toggle="dropdown" aria-expanded="false">
-                            <div><i class="mdi mdi-dots-horizontal h3 m-0 text-muted"></i></div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">گزارش تخلف</a>
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+            <div class="card" style="border-radius: 10px; box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.342);" >
+                <div class="card-body text-center">
+                    <!-- Origin and Destination Section -->
+                    <div class="row d-flex justify-content-center align-items-center mb-3">
+                        <div class="h5 font-weight-bold pr-3">
+                            <i class="fas fa-map-marker-alt fa-lg text-primary"></i>
+                            <span>مبدا:</span> 
+                            <span>{{ $cargo->originProvince->name }} - {{ $cargo->originCity->name }}</span>
+                        </div>
+                        <div class="h5 font-weight-bold pl-3">
+                            <i class="fas fa-map-signs fa-lg text-success"></i>
+                            <span>مقصد:</span> 
+                            <span>{{ $cargo->destinationProvince->name }} - {{ $cargo->destinationCity->name }}</span>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="member-card">
-                        <div class="">
-                            <h4 class="mb-1">مبدا : {{ $cargo->originProvince->name . ' - ' .  $cargo->originCity->name }}</h4>
-
-                            <div class="h4 mt-2">
-                                <i class="fe-arrow-down" style="color: #64c5b1;"></i>
-                            </div>
-
-                            <h4 class="mb-1">مقصد : {{ $cargo->destinationProvince->name . ' - ' .  $cargo->destinationCity->name }}</h4>
-                            {{-- <p class="text-muted">بنیان گذار <span> | </span> <span> <a href="#" class="text-pink">websitename.com</a> </span></p> --}}
-                        </div>
-
-                        <p class="text-muted pt-4">
-                            <b>ماشین</b> : {{ $cargo->carType->name }}
-                            -
-                            <b>باربر</b> : {{ $cargo->loaderType->name }}
+        
+                    <!-- Arrow Below Origin and Destination -->
+                    <div class="d-flex justify-content-center align-items-center my-4">
+                        <div class="border-top border-primary" style="width: 100%;"></div>
+                    </div>
+        
+                    <!-- Additional Info: ماشین and باربر in One Line -->
+                    <div class="text-muted mt-3">
+                        <p class="mb-2 d-flex justify-content-center">
+                            <span class="pr-3"><i class="fas fa-truck fa-lg"></i> <strong>ماشین:</strong> {{ $cargo->carType->name }}</span>
+                            <span class="pl-3"><i class="fas fa-box fa-lg"></i> <strong>باربر:</strong> {{ $cargo->loaderType->name }}</span>
                         </p>
-
-                        <p class="text-muted pt-3">
-                            <b>توضیحات</b> : {{ $cargo->description }}
-                        </p>
-
-                        <div class="mt-4">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="mt-2 mb-1">
-                                        <h4 class="mb-1">{{ number_format($cargo->price) }}</h4>
-                                        <p class="mb-0 text-muted">قیمت</p>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="mt-2">
-                                        <h4 class="mb-1">{{ number_format($cargo->weight) }}</h4>
-                                        <p class="mb-0 text-muted">وزن</p>
-                                    </div>
-                                </div>
-                            </div>
+                        <p class="mb-2 pt-2"><i class="fas fa-info-circle fa-lg"></i> <strong>توضیحات:</strong> {{ $cargo->description }}</p>
+                    </div>
+        
+                    <!-- Price and Weight -->
+                    <div class="row mt-4 text-center">
+                        <div class="col-6">
+                            <h5 class="text-warning">
+                                <i class="fas fa-coins"></i> {{ number_format($cargo->price) }} تومان
+                            </h5>
+                            <p class="mb-0 text-muted">قیمت</p>
                         </div>
-
-                        <a
-                            href="tel:{{ $cargo->mobile }}"
-                            wire:click="makeOrder({{ $cargo->id }})"
-                            type="button"
-                            class="btn btn-outline-primary mt-3 btn-rounded btn-bordered waves-effect width-md waves-light ffiy"
-                        >
-                            تماس با صاحب بار
-                        </a>
-
+                        <div class="col-6">
+                            <h5 class="text-secondary">
+                                <i class="fas fa-weight"></i> {{ number_format($cargo->weight) }} کیلوگرم
+                            </h5>
+                            <p class="mb-0 text-muted">وزن</p>
+                        </div>
                     </div>
                 </div>
+        
+                <!-- Full-Width Footer Button -->
+                <div class="card-footer0 p-0">
+                    <a
+                        href="tel:{{ $cargo->mobile }}"
+                        wire:click="makeOrder({{ $cargo->id }})"
+                        class="btn btn-primary btn-lg btn-block text-white text-uppercase"
+                        style="border-radius: 10px;border-top-left-radius: 0px;border-top-right-radius: 0px;background-color: #598bc4;"
+                    >
+                        <i class="fas fa-phone-alt"></i> تماس با صاحب بار
+                    </a>
+                </div>
             </div>
+        </div>
+        
+        
         @endforeach
     </div>
 
