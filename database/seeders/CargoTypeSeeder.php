@@ -13,7 +13,7 @@ class CargoTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        CargoType::truncate();
+        // CargoType::truncate();
 
         $items = [
             'مواد غذایی',

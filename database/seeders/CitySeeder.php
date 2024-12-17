@@ -14,7 +14,7 @@ class CitySeeder extends Seeder
      */
     public function run(): void
     {
-        City::truncate();
+        // City::truncate();
 
         $items = json_decode(
             Storage::get(

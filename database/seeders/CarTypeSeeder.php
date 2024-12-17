@@ -14,8 +14,8 @@ class CarTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        CarType::truncate();
-        LoaderType::truncate();
+        // CarType::truncate();
+        // LoaderType::truncate();
 
         $items = [
             'تریلی' => [

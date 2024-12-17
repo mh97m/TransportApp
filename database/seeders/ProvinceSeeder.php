@@ -14,7 +14,7 @@ class ProvinceSeeder extends Seeder
      */
     public function run(): void
     {
-        Province::truncate();
+        // Province::truncate();
 
         $items = json_decode(
             Storage::get(

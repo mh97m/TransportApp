@@ -1720,10 +1720,10 @@ Responsive Menu
 
 /*!
  * Waves v0.7.6
- * http://fian.my.id/Waves 
- * 
- * Copyright 2014-2018 Alfiana E. Sibuea and other contributors 
- * Released under the MIT license 
+ * http://fian.my.id/Waves
+ *
+ * Copyright 2014-2018 Alfiana E. Sibuea and other contributors
+ * Released under the MIT license
  * https://github.com/fians/Waves/blob/master/LICENSE */
 .waves-effect {
   font-family: "IRANYekan", sans-serif;
@@ -2620,7 +2620,7 @@ div.dt-button-info {
 .tablesaw td, .tablesaw tbody th {
   font-size: inherit;
   line-height: inherit;
-  padding: 10px !important; 
+  padding: 10px !important;
   text-align: right;}
 
 .tablesaw-stack tbody tr, .tablesaw tbody tr {
@@ -7029,4 +7029,28 @@ body[data-layout="horizontal"] .footer {
 }
 .footable.breakpoint.toggle-arrow-tiny>tbody>tr>td>span.footable-toggle:before {
   content: "\e020" !important;
+}
+
+
+
+
+
+/* خط بین مبدا و مقصد */
+.arrow-line {
+    position: relative;
+    direction: ltr;
+    width: 100%;
+    height: 4px;
+    background-color: #598bc4; /* رنگ خط */
+}
+
+.arrow-head {
+    position: absolute;
+    top: -6px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 10px solid #598bc4; /* رنگ فلش */
 }
