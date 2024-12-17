@@ -15,31 +15,31 @@ class OrderStatusSeeder extends Seeder
     {
         $statuses = [
             [
-                'name' => 'Agreed',
+                'title' => 'Agreed',
                 'slug' => 'agreed',
                 'description' => 'سفارش با مالک بار توافق شده است.',
                 'color' => 'success',
             ],
             [
-                'name' => 'Rejected',
+                'title' => 'Rejected',
                 'slug' => 'rejected',
                 'description' => 'سفارش رد شده است.',
                 'color' => 'danger',
             ],
             [
-                'name' => 'No Response',
+                'title' => 'No Response',
                 'slug' => 'no-response',
                 'description' => 'مالک بار پاسخی به سفارش نداده است.',
                 'color' => 'danger',
             ],
             [
-                'name' => 'Other Reasons',
+                'title' => 'Other Reasons',
                 'slug' => 'other-reasons',
                 'description' => 'سفارش به دلایل دیگر لغو شده است.',
                 'color' => 'danger',
             ],
             [
-                'name' => 'Pending Decision',
+                'title' => 'Pending Decision',
                 'slug' => 'pending-decision',
                 'description' => 'هنوز تصمیمی گرفته نشده است، منتظر اقدام کاربر.',
                 'color' => 'warning',

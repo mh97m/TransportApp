@@ -65,20 +65,20 @@ new #[Layout('layouts.app')] class extends Component {
                 <div class="clearfix"></div>
                 <div class="member-card">
                     <div class="">
-                        <h4 class="mb-1">مبدا : {{ $cargo->originProvince->name . ' - ' .  $cargo->originCity->name }}</h4>
+                        <h4 class="mb-1">مبدا : {{ $cargo->originProvince->title . ' - ' .  $cargo->originCity->title }}</h4>
 
                         <div class="h4 mt-2">
                             <i class="fe-arrow-down" style="color: #598bc4;"></i>
                         </div>
 
-                        <h4 class="mb-1">مقصد : {{ $cargo->destinationProvince->name . ' - ' .  $cargo->destinationCity->name }}</h4>
+                        <h4 class="mb-1">مقصد : {{ $cargo->destinationProvince->title . ' - ' .  $cargo->destinationCity->title }}</h4>
                         {{-- <p class="text-muted">بنیان گذار <span> | </span> <span> <a href="#" class="text-pink">websitename.com</a> </span></p> --}}
                     </div>
 
                     <p class="text-muted pt-4">
-                        <b>ماشین</b> : {{ $cargo->carType->name }}
+                        <b>ماشین</b> : {{ $cargo->carType->title }}
                         -
-                        <b>باربر</b> : {{ $cargo->loaderType->name }}
+                        <b>باربر</b> : {{ $cargo->loaderType->title }}
                     </p>
 
                     <p class="text-muted pt-3">

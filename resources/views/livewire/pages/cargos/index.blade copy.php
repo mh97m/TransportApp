@@ -79,13 +79,13 @@ new #[Layout('layouts.app')] class extends Component {
                             <td>
                                 مبدا
                             </td>
-                            <td>{{ $cargo->originProvince->name . ' - ' . $cargo->originCity->name }}</td>
+                            <td>{{ $cargo->originProvince->title . ' - ' . $cargo->originCity->title }}</td>
                         </tr>
                         <tr>
                             <td>
                                 مقصد
                             </td>
-                            <td>{{ $cargo->destinationProvince->name . ' - ' . $cargo->destinationCity->name }}</td>
+                            <td>{{ $cargo->destinationProvince->title . ' - ' . $cargo->destinationCity->title }}</td>
                         </tr>
                         <tr>
                             <td>
@@ -107,13 +107,13 @@ new #[Layout('layouts.app')] class extends Component {
                             <td>
                                 ماشین
                             </td>
-                            <td>{{ $cargo->carType->name }}</td>
+                            <td>{{ $cargo->carType->title }}</td>
                         </tr>
                         <tr>
                             <td>
                                 نوع باربر
                             </td>
-                            <td>{{ $cargo->loaderType->name }}</td>
+                            <td>{{ $cargo->loaderType->title }}</td>
                         </tr>
                         <tr>
                             <td>
@@ -142,7 +142,7 @@ new #[Layout('layouts.app')] class extends Component {
                     <div class="row agent-item">
                         <div class="col-lg-6">
                             <div class="row col-lg-12 d-flex justify-content-between">
-                                <h4 class="primary-font line-height-7 my-1">نام : {{ $order->driver->name }}</h4>
+                                <h4 class="primary-font line-height-7 my-1">نام : {{ $order->driver->title }}</h4>
                                 <span class="badge badge-success badge-md my-1">{{ $order->driver->status }}</span>
                             </div>
                             <div class="thumb-info-inner text-4">
@@ -156,12 +156,12 @@ new #[Layout('layouts.app')] class extends Component {
                                     <strong>
                                         نوع ماشین :
                                     </strong>
-                                    {{ $order->driver->details?->carType?->name }}
+                                    {{ $order->driver->details?->carType?->title }}
                                     -
                                     <strong>
                                         نوع باربر :
                                     </strong>
-                                    {{ $order->driver->details?->loaderType?->name }}
+                                    {{ $order->driver->details?->loaderType?->title }}
                                 </p>
                             </div>
                             <a class="btn btn-secondary btn-sm mt-2" href="#">مشاهده پروفایل</a>

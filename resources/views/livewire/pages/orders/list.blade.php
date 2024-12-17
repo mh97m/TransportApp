@@ -124,7 +124,7 @@ new #[Layout('layouts.app')] class extends Component {
                                     >
                                         <option value="">استان مبدا</option>
                                         @foreach ($originProvinces as $province)
-                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                            <option value="{{ $province->id }}">{{ $province->title }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -137,7 +137,7 @@ new #[Layout('layouts.app')] class extends Component {
                                     >
                                         <option value="">شهر مبدا</option>
                                         @foreach ($originCities as $city)
-                                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                            <option value="{{ $city->id }}">{{ $city->title }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -151,7 +151,7 @@ new #[Layout('layouts.app')] class extends Component {
                                     >
                                         <option value="">استان مقصد</option>
                                         @foreach ($destinationProvinces as $province)
-                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                            <option value="{{ $province->id }}">{{ $province->title }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -164,7 +164,7 @@ new #[Layout('layouts.app')] class extends Component {
                                     >
                                         <option value="">شهر مقصد</option>
                                         @foreach ($destinationCities as $city)
-                                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                            <option value="{{ $city->id }}">{{ $city->title }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -193,20 +193,20 @@ new #[Layout('layouts.app')] class extends Component {
                                 </div>
                             </div> --}}
                             <div class="thumb-info-price bg-color-primary text-color-light text-4 p-2 pl-4 pr-4 mb-2 d-flex justify-content-between">
-                                مبدا : {{ $cargo->originProvince->name . ' - ' .  $cargo->originCity->name }}
+                                مبدا : {{ $cargo->originProvince->title . ' - ' .  $cargo->originCity->title }}
                                 <i class="icon-paper-plane icons mx-4"></i>
                             </div>
                             <div class="thumb-info-price bg-color-secondary text-color-light text-4 p-2 pl-4 pr-4 d-flex justify-content-between">
-                                مقصد : {{ $cargo->destinationProvince->name . ' - ' .  $cargo->destinationCity->name }}
+                                مقصد : {{ $cargo->destinationProvince->title . ' - ' .  $cargo->destinationCity->title }}
                                 <i class="icon-drawer icons mx-4"></i>
                             </div>
                             <div class="custom-thumb-info-title b-normal p-4">
                                 <div class="thumb-info-inner text-3">
                                     <p class="text-black">
-                                        ماشین : {{ $cargo->carType->name }}
+                                        ماشین : {{ $cargo->carType->title }}
                                     </p>
                                     <p class="text-black">
-                                        نوع باربر : {{ $cargo->loaderType->name }}
+                                        نوع باربر : {{ $cargo->loaderType->title }}
                                     </p>
                                 </div>
                                 <ul class="accommodations text-uppercase font-weight-bold p-0 mb-0 text-2">
@@ -215,7 +215,7 @@ new #[Layout('layouts.app')] class extends Component {
                                             نوع:
                                         </span>
                                         <span class="accomodation-value custom-color-1">
-                                            {{ $cargo->cargoType->name }}
+                                            {{ $cargo->cargoType->title }}
                                         </span>
                                     </li>
                                     <li>

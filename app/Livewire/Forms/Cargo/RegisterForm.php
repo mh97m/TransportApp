@@ -4,6 +4,7 @@ namespace App\Livewire\Forms\Cargo;
 
 use App\Models\Cargo;
 use App\Models\City;
+use App\Services\LocationServiceFacade;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -94,14 +95,22 @@ class RegisterForm extends Form
 
     public function register(): void
     {
+        $originCity = City::where('id', $this->originCityId)->first();
+        $destinationCity = City::where('id', $this->destinationCityId)->first();
+
         Cargo::create([
             'mobile' => $this->mobile,
 
-            'origin_province_id' => City::where('id', $this->originCityId)->first()?->province_id,
+            'origin_province_id' => $originCity?->province_id,
             'origin_city_id' => $this->originCityId,
 
-            'destination_province_id' => City::where('id', $this->destinationCityId)->first()?->province_id,
+            'destination_province_id' => $destinationCity?->province_id,
             'destination_city_id' => $this->destinationCityId,
+
+            'distance' => LocationServiceFacade::getDistance(
+                $originCity,
+                $destinationCity,
+            ),
 
             'car_type_id' => $this->carTypeId,
             'loader_type_id' => $this->loaderTypeId,

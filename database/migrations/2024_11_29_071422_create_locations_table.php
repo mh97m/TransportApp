@@ -13,15 +13,19 @@ return new class extends Migration
     {
         Schema::create('provinces', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->string('tel_prefix');
+            $table->string('title')->unique();
+            $table->string('slug');
+            // $table->string('tel_prefix');
+            $table->decimal('latitude', 2, 2);
+            $table->decimal('longitude', 2, 2);
             $table->timestamps();
         });
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('title')->unique();
+            $table->string('slug');
+            $table->decimal('latitude', 3);
+            $table->decimal('longitude', 3);
             $table->foreignId('province_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

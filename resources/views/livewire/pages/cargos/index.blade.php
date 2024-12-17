@@ -77,13 +77,13 @@ new #[Layout('layouts.app')] class extends Component {
                                     <tr>
                                         <td>مبدا</td>
                                         <td>
-                                            {{ $cargo->originProvince->name . ' - ' . $cargo->originCity->name }}
+                                            {{ $cargo->originProvince->title . ' - ' . $cargo->originCity->title }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>مقصد</td>
                                         <td>
-                                            {{ $cargo->destinationProvince->name . ' - ' . $cargo->destinationCity->name }}
+                                            {{ $cargo->destinationProvince->title . ' - ' . $cargo->destinationCity->title }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -95,13 +95,13 @@ new #[Layout('layouts.app')] class extends Component {
                                     <tr>
                                         <td>ماشین</td>
                                         <td>
-                                            {{ $cargo->carType->name }}
+                                            {{ $cargo->carType->title }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>نوع باربر</td>
                                         <td>
-                                            {{ $cargo->loaderType->name }}
+                                            {{ $cargo->loaderType->title }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -136,14 +136,14 @@ new #[Layout('layouts.app')] class extends Component {
                         <div class="row">
                             <div class="col-12">
                                 <div class="clearfix pt-3">
-                                    <h4 class="text-muted">نام : {{ $cargo->orders->first()->driver->name }}</h4>
+                                    <h4 class="text-muted">نام : {{ $cargo->orders->first()->driver->title }}</h4>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="clearfix pt-3">
                                     <p class="text-muted">شماره همراه : {{ $cargo->orders->first()->driver->mobile }}</p>
-                                    <p class="text-muted">نوع ماشین : {{ $cargo->orders->first()->driver->details?->carType?->name }}</p>
-                                    <p class="text-muted">نوع باربر : {{ $cargo->orders->first()->driver->details?->loaderType?->name }}</p>
+                                    <p class="text-muted">نوع ماشین : {{ $cargo->orders->first()->driver->details?->carType?->title }}</p>
+                                    <p class="text-muted">نوع باربر : {{ $cargo->orders->first()->driver->details?->loaderType?->title }}</p>
                                 </div>
                             </div>
                             {{-- <div class="col-md-6">

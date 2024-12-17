@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cargo_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('title')->unique();
             $table->timestamps();
         });
         Schema::create('cargos', function (Blueprint $table) {
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('origin_city_id')->constrained('cities')->onDelete('cascade');
             $table->foreignId('destination_province_id')->constrained('provinces')->onDelete('cascade');
             $table->foreignId('destination_city_id')->constrained('cities')->onDelete('cascade');
+            $table->integer('distance');
 
             $table->foreignId('car_type_id')->constrained('car_types')->onDelete('cascade');
             $table->foreignId('loader_type_id')->constrained('loader_types')->onDelete('cascade');
@@ -46,7 +47,7 @@ return new class extends Migration
         });
         Schema::create('order_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('title')->unique();
             $table->string('slug')->unique();
             $table->string('description')->nullable();
             $table->string('color')->nullable();

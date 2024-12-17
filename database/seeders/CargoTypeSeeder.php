@@ -51,7 +51,7 @@ class CargoTypeSeeder extends Seeder
 
         foreach ($items as $item) {
             CargoType::create([
-                'name' => $item,
+                'title' => $item,
             ]);
         }
     }

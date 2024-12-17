@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('car_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('title')->unique();
             $table->timestamps();
         });
         Schema::create('loader_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->foreignId('car_type_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

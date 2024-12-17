@@ -123,7 +123,7 @@ new #[Layout('layouts.app')] class extends Component {
                             <select class="form-control text-uppercase text-2" wire:model="originProvince">
                                 <option value="">استان مبدا</option>
                                 @foreach ($originProvinces as $province)
-                                    <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                    <option value="{{ $province->id }}">{{ $province->title }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -133,7 +133,7 @@ new #[Layout('layouts.app')] class extends Component {
                             <select class="form-control text-uppercase text-2" wire:model="destinationProvince">
                                 <option value="">استان مقصد</option>
                                 @foreach ($destinationProvinces as $province)
-                                    <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                    <option value="{{ $province->id }}">{{ $province->title }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -156,7 +156,7 @@ new #[Layout('layouts.app')] class extends Component {
                         <div class="d-flex flex-column align-items-center position-relative mb-3">
                             <!-- Distance -->
                             <div class="text-center">
-                                <div class="small text-muted my-1">{{ $cargo->distance }} Km</div>
+                                <div class="small text-muted my-1">{{ $cargo->distance }} کیلومتر</div>
                             </div>
 
                             <!-- Arrow Section -->
@@ -203,21 +203,30 @@ new #[Layout('layouts.app')] class extends Component {
 
 
                             <!-- Origin and Destination Section -->
-                            <div class="d-flex justify-content-around w-100 h4">
+                            <div class="d-flex justify-content-between w-100 h4">
                                 <!-- Origin -->
-                                <div class="text-center">
+                                <div class="text-center" style="margin-right: 65px;">
                                     <i class="fas fa-map-marker-alt fa-lg text-danger mb-1"></i>
                                     <div class="small text-muted">مبدا</div>
-                                    <h5 class="font-weight-bold mb-0">{{ $cargo->originProvince->name }}</h5>
-                                    <small class="text-muted">{{ $cargo->originCity->name }}</small>
                                 </div>
 
                                 <!-- Destination -->
-                                <div class="text-center">
+                                <div class="text-center" style="margin-left: 65px;">
                                     <i class="fas fa-map-signs fa-lg text-success mb-1"></i>
                                     <div class="small text-muted">مقصد</div>
-                                    <h5 class="font-weight-bold mb-0">{{ $cargo->destinationProvince->name }}</h5>
-                                    <small class="text-muted">{{ $cargo->destinationCity->name }}</small>
+                                </div>
+                            </div>
+                            <div class="row col-12 d-flex justify-content-between w-100 h4">
+                                <!-- Origin -->
+                                <div class="col-4 text-center">
+                                    <h5 class="font-weight-bold mb-0">{{ $cargo->originProvince->title }}</h5>
+                                    <small class="text-muted">{{ $cargo->originCity->title }}</small>
+                                </div>
+
+                                <!-- Destination -->
+                                <div class="col-4 text-center">
+                                    <h5 class="font-weight-bold mb-0">{{ $cargo->destinationProvince->title }}</h5>
+                                    <small class="text-muted">{{ $cargo->destinationCity->title }}</small>
                                 </div>
                             </div>
                         </div>
@@ -230,8 +239,8 @@ new #[Layout('layouts.app')] class extends Component {
                         <!-- Additional Info: ماشین and باربر in One Line -->
                         <div class="text-muted mt-3">
                             {{-- <p class="mb-2 d-flex justify-content-center">
-                            <span class="pr-3"><i class="fas fa-truck fa-lg"></i> <strong>ماشین:</strong> {{ $cargo->carType->name }}</span>
-                            <span class="pl-3"><i class="fas fa-box fa-lg"></i> <strong>باربر:</strong> {{ $cargo->loaderType->name }}</span>
+                            <span class="pr-3"><i class="fas fa-truck fa-lg"></i> <strong>ماشین:</strong> {{ $cargo->carType->title }}</span>
+                            <span class="pl-3"><i class="fas fa-box fa-lg"></i> <strong>باربر:</strong> {{ $cargo->loaderType->title }}</span>
                         </p> --}}
                             <p class="mb-2 pt-2 h4 d-flex justify-content-start align-items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -278,7 +287,7 @@ new #[Layout('layouts.app')] class extends Component {
                                             stroke-linejoin="round"></path>
                                     </g>
                                 </svg>
-                                {{ $cargo->carType->name }} {{ $cargo->loaderType->name }}
+                                {{ $cargo->carType->title }} {{ $cargo->loaderType->title }}
                             </p>
                             <p class="mb-2 pt-2 h4 d-flex justify-content-start align-items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -293,7 +302,7 @@ new #[Layout('layouts.app')] class extends Component {
                                         d="M12.0006 22.75C11.1206 22.75 10.2506 22.56 9.56063 22.18L4.22062 19.21C2.77062 18.41 1.64062 16.48 1.64062 14.82V9.17C1.64062 7.51 2.77062 5.59 4.22062 4.78L9.56063 1.82C10.9306 1.06 13.0706 1.06 14.4406 1.82L19.7806 4.79C21.2306 5.59 22.3606 7.52 22.3606 9.18V14.83C22.3606 16.49 21.2306 18.41 19.7806 19.22L14.4406 22.18C13.7506 22.56 12.8806 22.75 12.0006 22.75ZM12.0006 2.75C11.3706 2.75 10.7506 2.88 10.2906 3.13L4.95062 6.1C3.99062 6.63 3.14063 8.07 3.14063 9.17V14.82C3.14063 15.92 3.99062 17.36 4.95062 17.9L10.2906 20.87C11.2006 21.38 12.8006 21.38 13.7106 20.87L19.0506 17.9C20.0106 17.36 20.8606 15.93 20.8606 14.82V9.17C20.8606 8.07 20.0106 6.63 19.0506 6.09L13.7106 3.12C13.2506 2.88 12.6306 2.75 12.0006 2.75Z"
                                         fill="#00B198"></path>
                                 </svg>
-                                {{ $cargo->cargoType->name }}
+                                {{ $cargo->cargoType->title }}
                             </p>
                             <p class="mb-2 pt-2 h4 d-flex justify-content-start align-items-center text-left">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -318,8 +327,8 @@ new #[Layout('layouts.app')] class extends Component {
                         <!-- Price and Weight -->
                         <div class="row mt-4 text-center">
                             <div class="col-12">
-                                <h4 class="text-black">
-                                    <i class="fas fa-coins fa-lg h5"></i> {{ number_format($cargo->price) }} تومان
+                                <h4 class="text-black" style="font-size: 22px;">
+                                    <i class="fas fa-coins text-success fa-lg h4"></i> {{ number_format($cargo->price) }} تومان
                                 </h4>
                             </div>
                         </div>

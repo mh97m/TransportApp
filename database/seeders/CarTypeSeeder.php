@@ -54,12 +54,12 @@ class CarTypeSeeder extends Seeder
 
         foreach ($items as $key => $value) {
             $carType = CarType::create([
-                'name' => $key,
+                'title' => $key,
             ]);
 
             foreach ($value as $val) {
                 LoaderType::create([
-                    'name' => $val,
+                    'title' => $val,
                     'car_type_id' => $carType->id,
                 ]);
             }

@@ -26,7 +26,7 @@
     <option value="">انتخاب کنید</option>
         @if ($options)
             @foreach ($options as $option)
-                <option value="{{ $option->id }}">{{ $option->name }}</option>
+                <option value="{{ $option->id }}">{{ $option->title }}</option>
             @endforeach
         @endif
     </select>

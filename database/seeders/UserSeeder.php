@@ -5,11 +5,13 @@ namespace Database\Seeders;
 use App\Models\Cargo;
 use App\Models\CargoType;
 use App\Models\CarType;
+use App\Models\City;
 use App\Models\DriverDetail;
 use App\Models\OwnerDetail;
 use App\Models\Plan;
 use App\Models\Province;
 use App\Models\User;
+use App\Services\LocationServiceFacade;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -72,18 +74,23 @@ class UserSeeder extends Seeder
             'plan_id' => 1,
         ]);
         $user->assignRole('owner');
-        for ($i=0; $i < 4; $i++) {
-            $origin_province = Province::inRandomOrder()->first();
-            $destination_province = Province::inRandomOrder()->first();
+        for ($i=0; $i < 10; $i++) {
+            $originCity = City::inRandomOrder()->first();
+            $destinationCity = City::inRandomOrder()->first();
             $carType = CarType::inRandomOrder()->first();
             Cargo::create([
                 'mobile' => $user->mobile,
 
-                'origin_province_id' => $origin_province->id,
-                'origin_city_id' => $origin_province->cities()->first()->id,
+                'origin_province_id' => $originCity->province_id,
+                'origin_city_id' => $originCity->id,
 
-                'destination_province_id' => $destination_province->id,
-                'destination_city_id' => $destination_province->cities()->first()->id,
+                'destination_province_id' => $destinationCity->province_id,
+                'destination_city_id' => $destinationCity->id,
+
+                'distance' => LocationServiceFacade::getDistance(
+                    $originCity,
+                    $destinationCity,
+                ),
 
                 'car_type_id' => $carType->id,
                 'loader_type_id' => $carType->loaderTypes()->first()->id,
@@ -94,7 +101,7 @@ class UserSeeder extends Seeder
 
                 'price' => rand(1000000, 10000000),
 
-                'description' => fake()->paragraphs(1)[0],
+                'description' => fake()->address(),
 
                 'user_id' => $user->id,
             ]);
