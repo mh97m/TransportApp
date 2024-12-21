@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\CargosController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
+//////////////////////////////////////////////////
+
+Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -14,14 +18,80 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//////////////////////////////////////////////////
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::group([
+    'middleware' => ['auth', 'verified'],
+], function () {
+    //////////////////////////////////////////////////
+
+    Route::get('/', function () {
+        $user = auth()->user();
+        if ($user?->hasRole('driver')) {
+            return to_route('cargos.list');
+        }
+        elseif ($user?->hasRole('owner')) {
+            return to_route('cargos.create');
+        }
+        return view('home');
+    })->name('home');
+
+    //////////////////////////////////////////////////
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    //////////////////////////////////////////////////
+
+    Route::controller(ProfileController::class)
+        ->prefix('/profile')
+        ->name('profile.')
+        ->group(function () {
+            Route::get('', 'edit')->name('edit');
+            Route::patch('', 'update')->name('update');
+            Route::delete('', 'destroy')->name('destroy');
+        });
+
+    //////////////////////////////////////////////////
+
+    Route::controller(CargosController::class)
+        ->middleware([
+            'role:admin|owner',
+        ])
+        ->prefix('/cargos')
+        ->name('cargos.')
+        ->group(function () {
+            Route::post('create', 'create')->name('create');
+            Route::get('{cargo:ulid}', 'index')->name('index');
+            Route::get('all', 'all')->name('all');
+            Route::delete('{cargo:ulid}', 'index')->name('index');
+
+            Route::get('list', 'list')->name('list');
+            Route::get('{cargo}/orders', 'orders')->name('orders');
+            Route::get('histories', 'histories')->name('histories');
+        });
+
+    //////////////////////////////////////////////////
+
+    Route::controller(OrdersController::class)
+        ->middleware([
+            'role:admin|owner|driver',
+        ])
+        ->prefix('/orders')
+        ->name('orders.')
+        ->group(function () {
+            Route::post('create', 'create')->name('create');
+            Route::get('{order:ulid}', 'index')->name('index');
+            Route::get('all', 'all')->name('all');
+
+            Route::get('{order:ulid}', 'set-status')->name('set-status');
+        });
+
+    //////////////////////////////////////////////////
+
 });
+
+//////////////////////////////////////////////////
 
 require __DIR__.'/auth.php';
