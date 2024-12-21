@@ -2,6 +2,8 @@ import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
+import Button from '@/Components/Button';
+import CheckboxInput from '@/Components/CheckboxInput';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
@@ -25,76 +27,88 @@ export default function Login({ status, canResetPassword }) {
         <GuestLayout>
             <Head title="Log in" />
 
-            {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-md-8 col-lg-6 col-xl-5">
+                        <div className="card mb-0">
+                            <div className="card-body p-4">
+                                <div className="account-box">
+                                    <div className="account-logo-box">
+                                        <div className="text-center">
+                                            <a href="index.html">
+                                                <img src="/assets/images/logo-dark.png" alt="" height="30" />
+                                            </a>
+                                        </div>
+                                        <h5 className="text-uppercase mb-1 mt-4">ورود</h5>
+                                        {/* <p className="mb-0">وارد حساب خود شوید</p> */}
+                                    </div>
+
+                                    <div className="account-content mt-4">
+                                        <form className="form-horizontal" onSubmit={submit}>
+                                            <div className="form-group row">
+                                                <TextInput
+                                                    label="شماره موبایل"
+                                                    id="dataMobile"
+                                                    name="mobile"
+                                                    autoComplete="username"
+                                                    isFocused={true}
+                                                    value={data.mobile}
+                                                    errors={errors.email}
+                                                    onChange={(e) => setData('email', e.target.value)}
+                                                />
+                                            </div>
+
+                                            <div className="form-group row">
+                                                <TextInput
+                                                    label="رمز عبور"
+                                                    type="password"
+                                                    id="dataPassword"
+                                                    name="password"
+                                                    autoComplete="current-password"
+                                                    value={data.password}
+                                                    errors={errors.password}
+                                                    onChange={(e) => setData('password', e.target.value)}
+                                                >
+                                                    <a className="float-right" href={route('password.request')}>
+                                                        رمز عبور خود را فراموش کردید؟
+                                                    </a>
+                                                </TextInput>
+                                            </div>
+
+                                            <div className="form-group row">
+                                                <CheckboxInput
+                                                    label="مرا به خاطر بسپار"
+                                                    id="dataRemember"
+                                                    name="remember"
+                                                    checked={data.remember}
+                                                    onChange={(e) =>
+                                                        setData('remember', e.target.checked)
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="form-group row text-center mt-2">
+                                                <Button label="ورود" type="submit" />
+                                            </div>
+                                        </form>
+
+                                        <div className="row mt-4 pt-2">
+                                            <div className="col-sm-12 text-center">
+                                                <p className="text-muted mb-0 ">حساب کاربری ندارید؟ 
+                                                    <a href="{{ route('register') }}" className="text-dark ml-1">
+                                                        <b>ثبت نام</b>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            )}
+            </div>
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        isFocused={true}
-                        onChange={(e) => setData('email', e.target.value)}
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4 block">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) =>
-                                setData('remember', e.target.checked)
-                            }
-                        />
-                        <span className="ms-2 text-sm text-gray-600 dark:text-gray-400">
-                            Remember me
-                        </span>
-                    </label>
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )}
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
-                </div>
-            </form>
         </GuestLayout>
     );
 }
