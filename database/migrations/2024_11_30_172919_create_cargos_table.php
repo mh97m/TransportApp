@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer('distance');
 
             $table->foreignId('car_type_id')->constrained('car_types')->onDelete('cascade');
-            $table->foreignId('loader_type_id')->constrained('loader_types')->onDelete('cascade');
+            // $table->foreignId('loader_type_id')->constrained('loader_types')->onDelete('cascade');
             $table->foreignId('cargo_type_id')->constrained('cargo_types')->onDelete('cascade');
 
             $table->unsignedInteger('weight')->nullable();
