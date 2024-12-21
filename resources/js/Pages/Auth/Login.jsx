@@ -58,10 +58,10 @@ export default function Login({ status, canResetPassword }) {
                                                     autoComplete="username"
                                                     isFocused={true}
                                                     value={data.mobile}
-                                                    error={errors.email}
+                                                    error={errors.mobile}
                                                     onChange={(e) =>
                                                         setData(
-                                                            'email',
+                                                            'mobile',
                                                             e.target.value,
                                                         )
                                                     }
