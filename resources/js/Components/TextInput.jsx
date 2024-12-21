@@ -13,7 +13,7 @@ export default forwardRef(function Input(
         mdLength = 12,
         smLength = 12,
         isFocused = false,
-        errors = null,
+        error = null,
         children,
         ...props
     },
@@ -32,7 +32,7 @@ export default forwardRef(function Input(
     }, [isFocused]);
 
     const inputClass = `form-control form-control-${size} ${
-        errors ? 'is-invalid' : ''
+        error ? 'is-invalid' : ''
     } ${className}`;
 
     return (
@@ -51,17 +51,11 @@ export default forwardRef(function Input(
                 ref={localRef}
                 {...props}
             />
-            {errors && (
+            {error && (
                 <span className="invalid-feedback" role="alert">
-                    <strong>{errors}</strong>
+                    <strong>{error}</strong>
                 </span>
-            )
-                // errors.map((error, index) => (
-                //     <span key={index} className="invalid-feedback" role="alert">
-                //         <strong>{error}</strong>
-                //     </span>
-                // ))
-            }
+            )}
         </div>
     );
 });

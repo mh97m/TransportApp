@@ -1,16 +1,12 @@
-import Checkbox from '@/Components/Checkbox';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
 import Button from '@/Components/Button';
 import CheckboxInput from '@/Components/CheckboxInput';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: '',
+        mobile: '',
         password: '',
         remember: false,
     });
@@ -36,15 +32,24 @@ export default function Login({ status, canResetPassword }) {
                                     <div className="account-logo-box">
                                         <div className="text-center">
                                             <a href="index.html">
-                                                <img src="/assets/images/logo-dark.png" alt="" height="30" />
+                                                <img
+                                                    src="/assets/images/logo-dark.png"
+                                                    alt=""
+                                                    height="30"
+                                                />
                                             </a>
                                         </div>
-                                        <h5 className="text-uppercase mb-1 mt-4">ورود</h5>
+                                        <h5 className="text-uppercase mb-1 mt-4">
+                                            ورود
+                                        </h5>
                                         {/* <p className="mb-0">وارد حساب خود شوید</p> */}
                                     </div>
 
                                     <div className="account-content mt-4">
-                                        <form className="form-horizontal" onSubmit={submit}>
+                                        <form
+                                            className="form-horizontal"
+                                            onSubmit={submit}
+                                        >
                                             <div className="form-group row">
                                                 <TextInput
                                                     label="شماره موبایل"
@@ -53,8 +58,13 @@ export default function Login({ status, canResetPassword }) {
                                                     autoComplete="username"
                                                     isFocused={true}
                                                     value={data.mobile}
-                                                    errors={errors.email}
-                                                    onChange={(e) => setData('email', e.target.value)}
+                                                    error={errors.email}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            'email',
+                                                            e.target.value,
+                                                        )
+                                                    }
                                                 />
                                             </div>
 
@@ -66,11 +76,22 @@ export default function Login({ status, canResetPassword }) {
                                                     name="password"
                                                     autoComplete="current-password"
                                                     value={data.password}
-                                                    errors={errors.password}
-                                                    onChange={(e) => setData('password', e.target.value)}
+                                                    error={errors.password}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            'password',
+                                                            e.target.value,
+                                                        )
+                                                    }
                                                 >
-                                                    <a className="float-right" href={route('password.request')}>
-                                                        رمز عبور خود را فراموش کردید؟
+                                                    <a
+                                                        className="float-right"
+                                                        href={route(
+                                                            'password.request',
+                                                        )}
+                                                    >
+                                                        رمز عبور خود را فراموش
+                                                        کردید؟
                                                     </a>
                                                 </TextInput>
                                             </div>
@@ -82,20 +103,31 @@ export default function Login({ status, canResetPassword }) {
                                                     name="remember"
                                                     checked={data.remember}
                                                     onChange={(e) =>
-                                                        setData('remember', e.target.checked)
+                                                        setData(
+                                                            'remember',
+                                                            e.target.checked,
+                                                        )
                                                     }
                                                 />
                                             </div>
 
-                                            <div className="form-group row text-center mt-2">
-                                                <Button label="ورود" type="submit" />
+                                            <div className="form-group row mt-2 text-center">
+                                                <Button
+                                                    label="ورود"
+                                                    type="submit"
+                                                    disabled={processing}
+                                                />
                                             </div>
                                         </form>
 
                                         <div className="row mt-4 pt-2">
                                             <div className="col-sm-12 text-center">
-                                                <p className="text-muted mb-0 ">حساب کاربری ندارید؟ 
-                                                    <a href="{{ route('register') }}" className="text-dark ml-1">
+                                                <p className="text-muted mb-0">
+                                                    حساب کاربری ندارید؟
+                                                    <a
+                                                        href="{{ route('register') }}"
+                                                        className="text-dark ml-1"
+                                                    >
                                                         <b>ثبت نام</b>
                                                     </a>
                                                 </p>
@@ -108,7 +140,6 @@ export default function Login({ status, canResetPassword }) {
                     </div>
                 </div>
             </div>
-
         </GuestLayout>
     );
 }

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('car_type_id')->constrained('car_types')->onDelete('cascade');
-            $table->foreignId('loader_type_id')->constrained('loader_types')->onDelete('cascade');
+            // $table->foreignId('loader_type_id')->constrained('loader_types')->onDelete('cascade');
             $table->string('plaque');
             $table->string('license');
             $table->timestamps();

@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
         DriverDetail::create([
             'user_id' => $user->id,
             'car_type_id' => 1,
-            'loader_type_id' => 1,
+            // 'loader_type_id' => 1,
             'plaque' => '59H788',
             'license' => '59H788',
         ]);
@@ -93,7 +93,7 @@ class UserSeeder extends Seeder
                 ),
 
                 'car_type_id' => $carType->id,
-                'loader_type_id' => $carType->loaderTypes()->first()->id,
+                // 'loader_type_id' => $carType->loaderTypes()->first()->id,
 
                 'cargo_type_id' => CargoType::inRandomOrder()->first()->id,
 
