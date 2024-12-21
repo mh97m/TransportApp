@@ -51,12 +51,17 @@ export default forwardRef(function Input(
                 ref={localRef}
                 {...props}
             />
-            {errors &&
-                errors.map((error, index) => (
-                    <span key={index} className="invalid-feedback" role="alert">
-                        <strong>{error}</strong>
-                    </span>
-                ))}
+            {errors && (
+                <span className="invalid-feedback" role="alert">
+                    <strong>{errors}</strong>
+                </span>
+            )
+                // errors.map((error, index) => (
+                //     <span key={index} className="invalid-feedback" role="alert">
+                //         <strong>{error}</strong>
+                //     </span>
+                // ))
+            }
         </div>
     );
 });
