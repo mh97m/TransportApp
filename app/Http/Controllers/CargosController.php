@@ -16,64 +16,42 @@ class CargosController extends Controller
      */
     public function list()
     {
-        $provinces = Province::query()->orderBy('name', 'asc')->get();
-        // $cities = City::query()->orderBy('name', 'asc')->get();
-
-        $query = Project::query();
-
-        $sortField = request("sort_field", 'created_at');
-        $sortDirection = request("sort_direction", "desc");
-
-        if (request("name")) {
-            $query->where("name", "like", "%" . request("name") . "%");
-        }
-        if (request("status")) {
-            $query->where("status", request("status"));
-        }
-
-        $projects = $query->orderBy($sortField, $sortDirection)
-            ->paginate(10)
-            ->onEachSide(1);
-
-        return inertia("Project/Index", [
-            "projects" => ProjectResource::collection($projects),
-            'queryParams' => request()->query() ?: null,
-            'success' => session('success'),
-        ]);
-
         $query = Cargo::query();
+
         $query->whereNull('completed_at');
 
-        // if ($this->originProvince != '') {
-        //     $query->where('origin_province_id', $this->originProvince);
-        // }
-        // if ($this->originCity != '') {
-        //     $query->where('origin_city_id', $this->originCity);
-        // }
-        // if ($this->destinationProvince != '') {
-        //     $query->where('destination_province_id', $this->destinationProvince);
-        // }
-        // if ($this->destinationCity != '') {
-        //     $query->where('destination_city_id', $this->destinationCity);
-        // }
+        $sortField = request('sort_field', 'created_at');
+        $sortDirection = request('sort_direction', 'desc');
 
-        $query->orderByDesc('created_at');
+        if (request('originProvinceId')) {
+            $query->where([
+                'origin_province_id' => request('originProvinceId'),
+            ]);
+        }
+
+        if (request('destinationProvinceId')) {
+            $query->where([
+                'destination_province_id' => request('destinationProvinceId'),
+            ]);
+        }
 
         $query->with(['originProvince', 'destinationProvince', 'carType', 'loaderType']);
 
-        // dd(
-        //     $cargos
-        // );
+        $data = $query->orderBy($sortField, $sortDirection)
+            ->get();
+            // ->paginate(10)
+            // ->onEachSide(1);
 
-        // $this->logCargoViews($cargos);
+        // $this->logCargoViews($data);
 
-        // dd([
-        //     'provinces' => $provinces,
-        //     'cargos' => $cargos,
-        // ]);
-        return Inertia::render('Cargos/List', [
-            'provinces' => $provinces,
-            'cargos' => $query->get(),
+        return inertia('Cargos/List', [
+            'provinces' => fn () => Province::select([
+                'id',
+                'title',
+            ])->get(),
+            'cargos' => $data,
+            'queryParams' => request()->query() ?: null,
+            // 'success' => session('success'),
         ]);
     }
 

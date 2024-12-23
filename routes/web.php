@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CargosController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -23,6 +24,16 @@ Route::get('/welcome', function () {
 Route::group([
     'middleware' => ['auth', 'verified'],
 ], function () {
+    //////////////////////////////////////////////////
+
+    Route::controller(MainController::class)
+        ->group(function () {
+            Route::get('get-cities', 'getCities')->name('get-cities');
+            Route::get('get-provinces', 'getProvinces')->name('get-provinces');
+        });
+
+    //////////////////////////////////////////////////
+
     //////////////////////////////////////////////////
 
     Route::get('/', function () {
