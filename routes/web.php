@@ -56,18 +56,24 @@ Route::group([
     //////////////////////////////////////////////////
 
     Route::controller(CargosController::class)
-        ->middleware([
-            'role:admin|owner',
-        ])
         ->prefix('/cargos')
         ->name('cargos.')
         ->group(function () {
-            Route::post('create', 'create')->name('create');
-            Route::get('{cargo:ulid}', 'index')->name('index');
-            Route::get('all', 'all')->name('all');
-            Route::delete('{cargo:ulid}', 'index')->name('index');
+            Route::middleware([
+                'role:admin|driver',
+            ])->group(function () {
+                Route::get('list', 'list')->name('list');
+            });
 
-            Route::get('list', 'list')->name('list');
+            Route::middleware([
+                'role:admin|owner',
+            ])->group(function () {
+                Route::post('create', 'create')->name('create');
+                Route::get('{cargo:ulid}', 'index')->name('index');
+                Route::get('all', 'all')->name('all');
+                Route::delete('{cargo:ulid}', 'index')->name('index');
+            });
+
             Route::get('{cargo}/orders', 'orders')->name('orders');
             Route::get('histories', 'histories')->name('histories');
         });

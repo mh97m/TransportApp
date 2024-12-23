@@ -1,10 +1,17 @@
 import { Link, usePage } from '@inertiajs/react';
+import { useClickAway } from "@uidotdev/usehooks";
 import { useState } from 'react';
 
 export default function Navbar() {
     const user = usePage().props.auth.user;
     const [showNotifications, setShowNotifications] = useState(false);
+    const showNotificationsRef = useClickAway(() => {
+        setShowNotifications(false);
+    });
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+    const showProfileDropdownRef = useClickAway(() => {
+        setShowProfileDropdown(false);
+    });
 
     const notifications = [
         {
@@ -70,6 +77,7 @@ export default function Navbar() {
                 <li className="dropdown notification-list">
                     <a
                         className="nav-link dropdown-toggle waves-effect waves-light"
+                        ref={showNotificationsRef}
                         onClick={() => setShowNotifications(!showNotifications)}
                     >
                         <i className="dripicons-bell noti-icon"></i>
@@ -129,6 +137,7 @@ export default function Navbar() {
                 <li className="dropdown notification-list">
                     <a
                         className="nav-link dropdown-toggle nav-user waves-effect waves-light mr-0"
+                        ref={showProfileDropdownRef}
                         onClick={() =>
                             setShowProfileDropdown(!showProfileDropdown)
                         }
