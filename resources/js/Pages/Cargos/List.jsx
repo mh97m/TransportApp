@@ -41,8 +41,7 @@ export default function List({ queryParams, cargos, provinces }) {
     };
 
     const makeOrder = (cargoId) => {
-        router
-            .post(route('orders.create'), { cargo_id: cargoId });
+        router.post(route('orders.create'), { cargo_id: cargoId });
     };
 
     return (
@@ -58,10 +57,12 @@ export default function List({ queryParams, cargos, provinces }) {
                         >
                             <div className="form-row">
                                 <div className="form-group col-6 mb-2">
-                                    <label htmlFor="originProvince">استان مبدا</label>
+                                    <label htmlFor="originProvince">
+                                        استان مبدا
+                                    </label>
                                     <select
                                         className="form-control text-uppercase text-2"
-                                        id='originProvince'
+                                        id="originProvince"
                                         value={
                                             queryParamsState?.originProvinceId
                                         }
@@ -84,10 +85,12 @@ export default function List({ queryParams, cargos, provinces }) {
                                     </select>
                                 </div>
                                 <div className="form-group col-6 mb-2">
-                                    <label htmlFor="originProvince">استان مقصد</label>
+                                    <label htmlFor="originProvince">
+                                        استان مقصد
+                                    </label>
                                     <select
                                         className="form-control text-uppercase text-2"
-                                        id='originProvince'
+                                        id="originProvince"
                                         value={
                                             queryParamsState?.destinationProvinceId
                                         }
@@ -151,8 +154,7 @@ export default function List({ queryParams, cargos, provinces }) {
                                         <div
                                             className="w-100 position-relative mb-3"
                                             style={{
-                                                height: '14px',
-                                                width: '70% !important',
+                                                height: '50px', // Match the height to fit the road
                                             }}
                                         >
                                             <div className="position-absolute w-100 d-flex align-items-center justify-content-center">
@@ -162,108 +164,27 @@ export default function List({ queryParams, cargos, provinces }) {
                                                 ></i>
 
                                                 <svg
-                                                    // width="100%"
                                                     height="50"
-                                                    viewBox="0 0 100 50"
+                                                    viewBox="0 0 200 50"
                                                     fill="none"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     style={{
-                                                        borderStartStartRadius:
-                                                            '30px',
-                                                        borderEndStartRadius:
-                                                            '30px',
-                                                        marginLeft: '5px',
+                                                        borderRadius: '30px',
+                                                        margin: '0 5px',
                                                     }}
                                                 >
+                                                    {/* Road background */}
                                                     <rect
                                                         x="0"
                                                         y="15"
-                                                        width="100%"
+                                                        width="200"
                                                         height="20"
                                                         fill="#4e4e4ec9"
                                                     />
 
+                                                    {/* Dashed lines */}
                                                     <line
                                                         x1="0"
-                                                        y1="25"
-                                                        x2="10"
-                                                        y2="25"
-                                                        stroke="white"
-                                                        strokeWidth="2"
-                                                    />
-                                                    <line
-                                                        x1="20"
-                                                        y1="25"
-                                                        x2="30"
-                                                        y2="25"
-                                                        stroke="white"
-                                                        strokeWidth="2"
-                                                    />
-                                                    <line
-                                                        x1="40"
-                                                        y1="25"
-                                                        x2="50"
-                                                        y2="25"
-                                                        stroke="white"
-                                                        strokeWidth="2"
-                                                    />
-                                                    <line
-                                                        x1="60"
-                                                        y1="25"
-                                                        x2="70"
-                                                        y2="25"
-                                                        stroke="white"
-                                                        strokeWidth="2"
-                                                    />
-                                                    <line
-                                                        x1="80"
-                                                        y1="25"
-                                                        x2="90"
-                                                        y2="25"
-                                                        stroke="white"
-                                                        strokeWidth="2"
-                                                    />
-                                                    <line
-                                                        x1="230"
-                                                        y1="25"
-                                                        x2="240"
-                                                        y2="25"
-                                                        stroke="white"
-                                                        strokeWidth="2"
-                                                    />
-                                                </svg>
-
-                                                <i
-                                                    className="fas fa-car-side text-secondary mb-1"
-                                                    style={{
-                                                        fontSize: '24px',
-                                                        transform: 'scaleX(-1)',
-                                                    }}
-                                                ></i>
-
-                                                <svg
-                                                    height="50"
-                                                    viewBox="0 0 100 50"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    style={{
-                                                        borderStartEndRadius:
-                                                            '30px',
-                                                        borderEndEndRadius:
-                                                            '30px',
-                                                        marginRight: '5px',
-                                                    }}
-                                                >
-                                                    <rect
-                                                        x="0"
-                                                        y="15"
-                                                        width="100%"
-                                                        height="20"
-                                                        fill="#4e4e4ec9"
-                                                    />
-
-                                                    <line
-                                                        x1="10"
                                                         y1="25"
                                                         x2="20"
                                                         y2="25"
@@ -273,21 +194,13 @@ export default function List({ queryParams, cargos, provinces }) {
                                                     <line
                                                         x1="30"
                                                         y1="25"
-                                                        x2="40"
+                                                        x2="50"
                                                         y2="25"
                                                         stroke="white"
                                                         strokeWidth="2"
                                                     />
                                                     <line
-                                                        x1="50"
-                                                        y1="25"
-                                                        x2="60"
-                                                        y2="25"
-                                                        stroke="white"
-                                                        strokeWidth="2"
-                                                    />
-                                                    <line
-                                                        x1="70"
+                                                        x1="60"
                                                         y1="25"
                                                         x2="80"
                                                         y2="25"
@@ -297,23 +210,88 @@ export default function List({ queryParams, cargos, provinces }) {
                                                     <line
                                                         x1="90"
                                                         y1="25"
-                                                        x2="100"
+                                                        x2="110"
+                                                        y2="25"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <line
+                                                        x1="120"
+                                                        y1="25"
+                                                        x2="140"
+                                                        y2="25"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <line
+                                                        x1="150"
+                                                        y1="25"
+                                                        x2="170"
+                                                        y2="25"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <line
+                                                        x1="180"
+                                                        y1="25"
+                                                        x2="200"
                                                         y2="25"
                                                         stroke="white"
                                                         strokeWidth="2"
                                                     />
 
+                                                    {/* Arrow */}
                                                     <path
                                                         d="M 10 22 L 10 28 L 0 25 Z"
                                                         fill="white"
                                                     />
                                                 </svg>
 
+                                                {/* Car positioned in the middle */}
+                                                <div
+                                                    style={{
+                                                        animation:
+                                                            'moveCar 2s infinite alternate',
+                                                        position: 'absolute',
+                                                        top: '0px', // Align the car vertically in the middle of the road
+                                                        left: '50%', // Center horizontally
+                                                        transform:
+                                                            'translateX(-50%)',
+                                                    }}
+                                                >
+                                                    <i
+                                                        className="fas fa-car-side"
+                                                        style={{
+                                                            fontSize: '24px',
+                                                            transform:
+                                                                'scaleX(-1)',
+                                                            color: 'black',
+                                                        }}
+                                                    ></i>
+                                                </div>
+
                                                 <i
                                                     className="fas fa-map-pin text-success mb-1 ml-1 mr-1"
                                                     style={{ fontSize: '32px' }}
                                                 ></i>
                                             </div>
+
+                                            <style jsx>{`
+                                                @keyframes moveCar {
+                                                    0% {
+                                                        transform: translate(
+                                                            -300%,
+                                                            0
+                                                        );
+                                                    }
+                                                    100% {
+                                                        transform: translate(
+                                                            -10%,
+                                                            0
+                                                        );
+                                                    }
+                                                }
+                                            `}</style>
                                         </div>
 
                                         <div className="row col-12 d-flex justify-content-between w-100 h4">
