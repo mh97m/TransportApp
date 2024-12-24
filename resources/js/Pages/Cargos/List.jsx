@@ -15,9 +15,7 @@ export default function List({ queryParams, cargos, provinces }) {
         });
     };
 
-    const search = (name, value) => {
-        // router.reload({ only: ['users'], })
-
+    const search = () => {
         router.get(route('cargos.list'), queryParamsState, {
             only: ['cargos', 'queryParams'],
         });
@@ -42,38 +40,10 @@ export default function List({ queryParams, cargos, provinces }) {
         router.get(route('cargos.list'), queryParams);
     };
 
-    // const [provinces, setProvinces] = useState([]);
-
-    const [originProvince, setOriginProvince] = useState('');
-    const [destinationProvince, setDestinationProvince] = useState('');
-
-    // useEffect(() => {
-    //     // router.get(
-    //     //     route('get-provinces'),
-    //     //     {},
-    //     //     {
-    //     //         preserveState: true, // Keeps the current state while fetching
-    //     //         onSuccess: (page) => {
-    //     //             setProvinces(page.props.data || []); // Assuming provinces are in `data`
-    //     //         },
-    //     //         onError: (errors) => {
-    //     //             console.error('Error fetching provinces:', errors);
-    //     //         },
-    //     //     }
-    //     // );
-    // }, [
-    //     // provinces,
-    // ]);
-
-    // const makeOrder = (cargoId) => {
-    //     axios
-    //         .post(`/api/orders`, { cargo_id: cargoId })
-    //         .then((response) => {
-    //             alert('Order created successfully');
-    //             // fetchCargos(); // Refresh the list
-    //         })
-    //         .catch((error) => console.error('Error creating order:', error));
-    // };
+    const makeOrder = (cargoId) => {
+        router
+            .post(route('orders.create'), { cargo_id: cargoId });
+    };
 
     return (
         <AuthenticatedLayout>
@@ -424,7 +394,8 @@ export default function List({ queryParams, cargos, provinces }) {
                                     </div>
                                 </div>
                                 <div className="card-footer0 p-0">
-                                    <button
+                                    <a
+                                        href="tel:{{ $cargo->mobile }}"
                                         onClick={() => makeOrder(cargo.id)}
                                         className="btn btn-primary btn-lg btn-block text-uppercase text-white"
                                         style={{
@@ -436,7 +407,7 @@ export default function List({ queryParams, cargos, provinces }) {
                                     >
                                         <i className="fas fa-phone-alt"></i>{' '}
                                         تماس با صاحب بار
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
