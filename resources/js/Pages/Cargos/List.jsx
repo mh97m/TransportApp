@@ -152,9 +152,10 @@ export default function List({ queryParams, cargos, provinces }) {
                                         </div>
 
                                         <div
-                                            className="w-100 position-relative mb-3"
+                                            className="w-100 position-relative mb-4"
                                             style={{
-                                                height: '50px', // Match the height to fit the road
+                                                // height: '50px', // Match the height to fit the road
+                                                // marginBottom: "10px",
                                             }}
                                         >
                                             <div className="position-absolute w-100 d-flex align-items-center justify-content-center">
@@ -165,7 +166,7 @@ export default function List({ queryParams, cargos, provinces }) {
 
                                                 <svg
                                                     height="50"
-                                                    viewBox="0 0 200 50"
+                                                    viewBox="0 0 225 50" /* Increased the width */
                                                     fill="none"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     style={{
@@ -177,7 +178,7 @@ export default function List({ queryParams, cargos, provinces }) {
                                                     <rect
                                                         x="0"
                                                         y="15"
-                                                        width="200"
+                                                        width="400"
                                                         height="20"
                                                         fill="#4e4e4ec9"
                                                     />
@@ -235,6 +236,54 @@ export default function List({ queryParams, cargos, provinces }) {
                                                         x1="180"
                                                         y1="25"
                                                         x2="200"
+                                                        y2="25"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <line
+                                                        x1="210"
+                                                        y1="25"
+                                                        x2="230"
+                                                        y2="25"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <line
+                                                        x1="240"
+                                                        y1="25"
+                                                        x2="260"
+                                                        y2="25"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <line
+                                                        x1="270"
+                                                        y1="25"
+                                                        x2="290"
+                                                        y2="25"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <line
+                                                        x1="300"
+                                                        y1="25"
+                                                        x2="320"
+                                                        y2="25"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <line
+                                                        x1="330"
+                                                        y1="25"
+                                                        x2="350"
+                                                        y2="25"
+                                                        stroke="white"
+                                                        strokeWidth="2"
+                                                    />
+                                                    <line
+                                                        x1="360"
+                                                        y1="25"
+                                                        x2="380"
                                                         y2="25"
                                                         stroke="white"
                                                         strokeWidth="2"
