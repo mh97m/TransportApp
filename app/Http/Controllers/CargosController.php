@@ -35,10 +35,18 @@ class CargosController extends Controller
             ]);
         }
 
-        $query->with(['originProvince', 'destinationProvince', 'carType', 'loaderType']);
+        $query->with([
+            'originProvince',
+            'destinationProvince',
+            'originCity',
+            'destinationCity',
+            'carType',
+            'loaderType',
+        ]);
 
-        $data = $query->orderBy($sortField, $sortDirection)
-            ->get();
+        $query->orderBy($sortField, $sortDirection);
+
+        $data = $query->get();
             // ->paginate(10)
             // ->onEachSide(1);
 
