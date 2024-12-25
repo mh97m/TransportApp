@@ -1,3 +1,4 @@
+import Pagination from '@/Components/Pagination';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
@@ -41,8 +42,10 @@ export default function List({ queryParams, cargos, provinces }) {
     };
 
     const makeOrder = (cargoId) => {
-        router.post(route('orders.create'), { cargo_id: cargoId });
+        console.log(route('cargos.createOrder', { cargo: cargoId }));
+        router.post(route('cargos.createOrder', { cargo: cargoId }));
     };
+
 
     return (
         <AuthenticatedLayout>
@@ -127,7 +130,7 @@ export default function List({ queryParams, cargos, provinces }) {
                 </div>
 
                 <div className="row mt-3">
-                    {cargos.map((cargo) => (
+                    {cargos.data.map((cargo) => (
                         <div
                             key={cargo.id}
                             className="col-lg-4 col-md-6 col-sm-12 mb-3"
@@ -325,7 +328,7 @@ export default function List({ queryParams, cargos, provinces }) {
                                                 ></i>
                                             </div>
 
-                                            <style jsx>{`
+                                            <style>{`
                                                 @keyframes moveCar {
                                                     0% {
                                                         transform: translate(
@@ -382,20 +385,36 @@ export default function List({ queryParams, cargos, provinces }) {
 
                                     <div className="text-muted mt-3">
                                         <p className="h4 d-flex justify-content-start align-items-center mb-2 pt-2">
-                                            <i
-                                                className="fas fa-weight text-secondary mb-1 mr-2"
+                                            {/* <i
+                                                className="fas fa-weight-hanging text-secondary mb-1 mr-2"
                                                 style={{ fontSize: '24px' }}
-                                            ></i>
+                                            ></i> */}
+                                            <div
+                                                style={{
+                                                    fontSize: '30px',
+                                                    transform: 'scaleX(-1)',
+                                                }}
+                                                >
+                                            📦
+                                            </div>
                                             {cargo.weight} تن
                                         </p>
                                         <p className="h4 d-flex justify-content-start align-items-center mb-2 pt-2">
-                                            <i
+                                            {/* <i
                                                 className="fas fa-car-side text-secondary mb-1 mr-2"
                                                 style={{
                                                     fontSize: '24px',
                                                     transform: 'scaleX(-1)',
                                                 }}
-                                            ></i>
+                                            ></i> */}
+                                            <div
+                                                style={{
+                                                    fontSize: '30px',
+                                                    transform: 'scaleX(-1)',
+                                                }}
+                                                >
+                                            🚛
+                                            </div>
                                             {cargo.car_type?.title} یخچالی
                                         </p>
                                         <p className="h4 d-flex justify-content-start align-items-center mb-2 pt-2">
@@ -422,8 +441,8 @@ export default function List({ queryParams, cargos, provinces }) {
                                 </div>
                                 <div className="card-footer0 p-0">
                                     <a
-                                        href="tel:{{ $cargo->mobile }}"
-                                        onClick={() => makeOrder(cargo.id)}
+                                        // href="tel:{{ $cargo->mobile }}"
+                                        onClick={() => makeOrder(cargo.ulid)}
                                         className="btn btn-primary btn-lg btn-block text-uppercase text-white"
                                         style={{
                                             borderRadius: '10px',
@@ -440,6 +459,8 @@ export default function List({ queryParams, cargos, provinces }) {
                         </div>
                     ))}
                 </div>
+
+                    <Pagination links={cargos.links} />
             </div>
         </AuthenticatedLayout>
     );

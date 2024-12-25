@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Cargo;
 use App\Models\CargoView;
 use App\Models\City;
+use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\Province;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -46,14 +48,13 @@ class CargosController extends Controller
 
         $query->orderBy($sortField, $sortDirection);
 
-        $data = $query->get();
-            // ->paginate(10)
-            // ->onEachSide(1);
+        $data = $query
+            ->paginate(2);
 
-        // $this->logCargoViews($data);
+        $this->logCargoViews($data);
 
         return inertia('Cargos/List', [
-            'provinces' => fn () => Province::select([
+            'provinces' => fn() => Province::select([
                 'id',
                 'title',
             ])->get(),
@@ -85,9 +86,35 @@ class CargosController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createOrder(Cargo $cargo)
     {
-        //
+        if (
+            Order::where([
+                'cargo_id' => $cargo->id,
+                'driver_id' => auth()->user()->id,
+            ])->exists()
+        ) {
+            return $this->flashAlert(
+                icon: 'error',
+                text: 'بار قبلا ثبت شده است',
+                timer: 3000,
+                confirmButtonText: 'تایید',
+            );
+        }
+
+        $order = Order::create([
+            'cargo_id' => $cargo->id,
+            'driver_id' => auth()->user()->id,
+            'order_status_id' => OrderStatus::where('slug', 'pending-decision')->first()->id,
+        ]);
+
+        return $this->flashAlert(
+            icon: 'error',
+            text: 'بار با موفقیت ثبت شده است',
+            timer: 3000,
+            confirmButtonText: 'تایید',
+            route: route('orders.set-status', ['order' => $order->ulid]),
+        );
     }
 
     /**

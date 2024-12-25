@@ -79,10 +79,15 @@ Route::group([
             Route::middleware([
                 'role:admin|owner',
             ])->group(function () {
-                Route::post('create', 'create')->name('create');
                 Route::get('{cargo:ulid}', 'index')->name('index');
                 Route::get('all', 'all')->name('all');
                 Route::delete('{cargo:ulid}', 'index')->name('index');
+            });
+
+            Route::middleware([
+                'role:admin|driver',
+            ])->group(function () {
+                Route::post('createOrder/{cargo:ulid}', 'createOrder')->name('createOrder');
             });
 
             Route::get('{cargo}/orders', 'orders')->name('orders');
