@@ -79,8 +79,9 @@ Route::group([
             Route::middleware([
                 'role:admin|owner',
             ])->group(function () {
-                Route::get('{cargo:ulid}', 'index')->name('index');
                 Route::get('all', 'all')->name('all');
+                Route::get('create', 'create')->name('create');
+                Route::get('{cargo:ulid}', 'index')->name('index');
                 Route::delete('{cargo:ulid}', 'index')->name('index');
             });
 
@@ -105,9 +106,9 @@ Route::group([
         ->prefix('/orders')
         ->name('orders.')
         ->group(function () {
-            Route::post('create', 'create')->name('create');
-            Route::get('{order:ulid}', 'index')->name('index');
             Route::get('all', 'all')->name('all');
+            Route::post('/create', 'create')->name('create');
+            Route::get('/{order:ulid}', 'index')->name('index');
         });
 
     //////////////////////////////////////////////////

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cargo;
+use App\Models\CargoType;
 use App\Models\CargoView;
+use App\Models\CarType;
+use App\Models\City;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Province;
@@ -174,9 +177,13 @@ class CargosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        //
+        return Inertia::render('Cargos/Create', [
+            'cities' => fn () => City::get(),
+            'carTypes' => fn () => CarType::get(),
+            'cargoTypes' => fn () => CargoType::get(),
+        ]);
     }
 
     /**

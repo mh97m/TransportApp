@@ -174,13 +174,13 @@ export default function Navbar() {
                             </Link>
 
                             {roles.includes('driver') && (
-                                <a
+                                <Link
                                     className="dropdown-item notify-item"
                                     href={route('orders.all')}
                                 >
                                     <i className="fe-settings"></i>
                                     <span>تاریخچه بار های من</span>
-                                </a>
+                                </Link>
                             )}
 
                             {roles.includes('owner') && (
@@ -197,6 +197,7 @@ export default function Navbar() {
 
                             <Link
                                 className="dropdown-item notify-item"
+                                method="post"
                                 href={route('logout')}
                             >
                                 <i className="fe-log-out"></i>

@@ -13,7 +13,18 @@ class OrdersController extends Controller
      */
     public function all()
     {
-        $query = Order::query();
+        // $query = auth()->user()->driverOrders();
+        $query = Order::where('driver_id', auth()->user()->id);
+
+        $query->with([
+            'cargo',
+            'cargo.originProvince',
+            'cargo.destinationProvince',
+            'cargo.originCity',
+            'cargo.destinationCity',
+            'cargo.carType',
+            'cargo.loaderType',
+        ]);
 
         $orders = $query
             ->paginate(20);
@@ -26,9 +37,11 @@ class OrdersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Order $order)
     {
-        //
+        return Inertia::render('Orders/Index', [
+            // 'orders' => $orders,
+        ]);
     }
 
     /**
