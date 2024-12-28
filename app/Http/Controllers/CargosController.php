@@ -49,7 +49,7 @@ class CargosController extends Controller
         $query->orderBy($sortField, $sortDirection);
 
         $data = $query
-            ->paginate(2);
+            ->paginate(20);
 
         $this->logCargoViews($data);
 

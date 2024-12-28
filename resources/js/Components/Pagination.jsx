@@ -7,7 +7,7 @@ export default function Pagination({ links }) {
                 <div
                     className="dataTables_info"
                     role="status"
-                    aria-live="polite"
+                    // aria-live="polite"
                 >
                     {/* Customize this part if you want to display additional meta information */}
                     نمایش صفحه {links.find((link) => link.active)?.label || 1}{' '}
@@ -15,7 +15,10 @@ export default function Pagination({ links }) {
                 </div>
             </div>
             <div className="col-sm-12 col-md-7">
-                <div className="dataTables_paginate paging_simple_numbers">
+                <div className="dataTables_paginate paging_simple_numbers" style={{
+                width : "100px !important",
+                height : "100px !important",
+            }}>
                     <ul className="pagination">
                         {links.map((link, index) => (
                             <li

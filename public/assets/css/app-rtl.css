@@ -2438,7 +2438,7 @@ div.dt-button-info {
   li.paginate_button.previous, li.paginate_button.next {
     display: inline-block; }
   li.paginate_button {
-    display: none; }
+    display: inline-block; }
   .dataTables_paginate ul {
     text-align: center;
     display: block;
