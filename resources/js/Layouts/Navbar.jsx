@@ -1,9 +1,10 @@
 import { Link, usePage } from '@inertiajs/react';
-import { useClickAway } from "@uidotdev/usehooks";
+import { useClickAway } from '@uidotdev/usehooks';
 import { useState } from 'react';
 
 export default function Navbar() {
     const user = usePage().props.auth.user;
+    const roles = usePage().props.auth.roles;
     const [showNotifications, setShowNotifications] = useState(false);
     const showNotificationsRef = useClickAway(() => {
         setShowNotifications(false);
@@ -73,7 +74,6 @@ export default function Navbar() {
     return (
         <div className="navbar-custom">
             <ul className="list-unstyled topnav-menu float-right mb-0">
-
                 <li className="dropdown notification-list">
                     <a
                         className="nav-link dropdown-toggle waves-effect waves-light"
@@ -86,7 +86,7 @@ export default function Navbar() {
                         </span>
                     </a>
                     {showNotifications && (
-                        <div className="dropdown-menu dropdown-menu-right dropdown-lg mt-1 show">
+                        <div className="dropdown-menu dropdown-menu-right dropdown-lg show mt-1">
                             <div className="dropdown-header noti-title">
                                 <h5 className="text-overflow m-0">
                                     <span className="float-right">
@@ -134,10 +134,12 @@ export default function Navbar() {
                     )}
                 </li>
 
-                <li className="dropdown notification-list">
+                <li
+                    className="dropdown notification-list"
+                    ref={showProfileDropdownRef}
+                >
                     <a
                         className="nav-link dropdown-toggle nav-user waves-effect waves-light mr-0"
-                        ref={showProfileDropdownRef}
                         onClick={() =>
                             setShowProfileDropdown(!showProfileDropdown)
                         }
@@ -154,7 +156,7 @@ export default function Navbar() {
                     </a>
                     {showProfileDropdown && (
                         <div
-                            className="dropdown-menu dropdown-menu-right profile-dropdown mt-1 show"
+                            className="dropdown-menu dropdown-menu-right profile-dropdown show mt-1"
                             style={{ width: '200px' }}
                         >
                             <div className="dropdown-header noti-title">
@@ -171,13 +173,15 @@ export default function Navbar() {
                                 <span>پروفایل</span>
                             </Link>
 
-                            <Link
-                                className="dropdown-item notify-item"
-                                href={route('orders.all')}
-                            >
-                                <i className="fe-settings"></i>
-                                <span>تاریخچه بار های من</span>
-                            </Link>
+                            {roles.includes('driver') && (
+                                <Link
+                                    className="dropdown-item notify-item"
+                                    href={route('orders.all')}
+                                >
+                                    <i className="fe-settings"></i>
+                                    <span>تاریخچه بار های من</span>
+                                </Link>
+                            )}
 
                             <div className="dropdown-divider"></div>
 

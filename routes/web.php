@@ -108,8 +108,6 @@ Route::group([
             Route::post('create', 'create')->name('create');
             Route::get('{order:ulid}', 'index')->name('index');
             Route::get('all', 'all')->name('all');
-
-            Route::get('{order:ulid}', 'setStatus')->name('set-status');
         });
 
     //////////////////////////////////////////////////
