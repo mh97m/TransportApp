@@ -9,14 +9,9 @@ use App\Models\City;
 use App\Models\DriverDetail;
 use App\Models\OwnerDetail;
 use App\Models\Plan;
-use App\Models\Province;
 use App\Models\User;
 use App\Services\LocationServiceFacade;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -74,7 +69,7 @@ class UserSeeder extends Seeder
             'plan_id' => 1,
         ]);
         $user->assignRole('owner');
-        for ($i=0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $originCity = City::inRandomOrder()->first();
             $destinationCity = City::inRandomOrder()->first();
             $carType = CarType::inRandomOrder()->first();

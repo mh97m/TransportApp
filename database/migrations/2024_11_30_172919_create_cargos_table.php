@@ -47,6 +47,7 @@ return new class extends Migration
         });
         Schema::create('order_statuses', function (Blueprint $table) {
             $table->id();
+            $table->ulid();
             $table->string('title')->unique();
             $table->string('slug')->unique();
             $table->string('description')->nullable();

@@ -8,14 +8,6 @@ abstract class Controller
 {
     /**
      * Flash an alert to the session.
-     *
-     * @param string $icon
-     * @param string $text
-     * @param int|null $timer
-     * @param string|null $title
-     * @param string|null $footer
-     * @param string|null $confirmButtonText
-     * @return void
      */
     protected function flashAlert(
         string $icon,
@@ -42,6 +34,6 @@ abstract class Controller
             session()->flash('confirmButtonText', $confirmButtonText);
         }
 
-        return $route ? redirect()->route($route) : redirect()->back();
+        return $route ? redirect()->to($route) : redirect()->back();
     }
 }

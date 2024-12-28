@@ -48,7 +48,7 @@ class LogService
 
     public static function new(): self
     {
-        return new self();
+        return new self;
     }
 
     public function format(string $format): self

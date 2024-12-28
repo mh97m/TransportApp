@@ -40,10 +40,10 @@ Route::group([
         $user = auth()->user();
         if ($user?->hasRole('driver')) {
             return to_route('cargos.list');
-        }
-        elseif ($user?->hasRole('owner')) {
+        } elseif ($user?->hasRole('owner')) {
             return to_route('cargos.create');
         }
+
         return view('home');
     })->name('home');
 
@@ -87,7 +87,9 @@ Route::group([
             Route::middleware([
                 'role:admin|driver',
             ])->group(function () {
-                Route::post('createOrder/{cargo:ulid}', 'createOrder')->name('createOrder');
+                Route::post('create-order/{cargo:ulid}', 'createOrder')->name('createOrder');
+                Route::get('edit-order-status/{order:ulid}', 'editOrderStatus')->name('editOrderStatus');
+                Route::post('update-order-status', 'updateOrderStatus')->name('updateOrderStatus');
             });
 
             Route::get('{cargo}/orders', 'orders')->name('orders');
@@ -107,7 +109,7 @@ Route::group([
             Route::get('{order:ulid}', 'index')->name('index');
             Route::get('all', 'all')->name('all');
 
-            Route::get('{order:ulid}', 'set-status')->name('set-status');
+            Route::get('{order:ulid}', 'setStatus')->name('set-status');
         });
 
     //////////////////////////////////////////////////

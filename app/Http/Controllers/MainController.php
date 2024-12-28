@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cargo;
-use App\Models\CargoView;
 use App\Models\City;
 use App\Models\Province;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class MainController extends Controller
 {

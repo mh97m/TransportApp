@@ -1,21 +1,9 @@
 <?php
 
-use App\Helpers\TokenGenerator;
-use App\Models\Policy;
-use App\Models\RetirementPolicy;
-use Modules\Installments\Services\CommisionService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Storage;
-use Spatie\Permission\Models\Role;
-
-use function Laravel\Prompts\info;
-use function Laravel\Prompts\intro;
-use function Laravel\Prompts\outro;
-use function Laravel\Prompts\spin;
 
 //##########################################################################
 //############################### CLEAR LOG ################################

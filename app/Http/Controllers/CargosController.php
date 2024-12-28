@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Cargo;
 use App\Models\CargoView;
-use App\Models\City;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Province;
@@ -53,8 +52,8 @@ class CargosController extends Controller
 
         $this->logCargoViews($data);
 
-        return inertia('Cargos/List', [
-            'provinces' => fn() => Province::select([
+        return Inertia::render('Cargos/List', [
+            'provinces' => fn () => Province::select([
                 'id',
                 'title',
             ])->get(),
@@ -108,12 +107,67 @@ class CargosController extends Controller
             'order_status_id' => OrderStatus::where('slug', 'pending-decision')->first()->id,
         ]);
 
+        return redirect()->route('cargos.editOrderStatus', ['order' => $order->ulid]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function editOrderStatus(Order $order)
+    {
+        abort_if(! $order->driver()->is(auth()->user()), 404);
+
+        $cargo = $order->cargo()->with([
+            'originProvince',
+            'originCity',
+            'destinationProvince',
+            'destinationCity',
+        ])->first();
+
+        return Inertia::render('Cargos/EditOrderStatus', [
+            'orderStatuses' => fn () => OrderStatus::select([
+                'ulid',
+                'color',
+                'slug',
+                'description',
+            ])->get(),
+            'cargo' => $cargo,
+            'order' => $order,
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function updateOrderStatus(Request $request)
+    {
+        $order = Order::where([
+            'ulid' => $request->orderId,
+        ])->first();
+
+        $orderStatus = OrderStatus::where([
+            'ulid' => $request->orderStatusId,
+        ])->first();
+
+        $abortCondition = ! $order ||
+            ! $orderStatus ||
+            ! $order->driver()->is(auth()->user());
+
+        abort_if(
+            $abortCondition,
+            404,
+        );
+
+        $order->update([
+            'order_status_id' => $orderStatus->id,
+        ]);
+
         return $this->flashAlert(
-            icon: 'error',
-            text: 'بار با موفقیت ثبت شده است',
+            icon: 'success',
+            text: 'بار با موفقیت ثبت شد',
             timer: 3000,
             confirmButtonText: 'تایید',
-            route: route('orders.set-status', ['order' => $order->ulid]),
+            route: route('cargos.list'),
         );
     }
 

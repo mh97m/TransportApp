@@ -4,7 +4,6 @@ namespace App\Services;
 
 class LocationService
 {
-
     // Earth's radius (mean value) in kilometers
     public $earthRadius = 6371.009;
 

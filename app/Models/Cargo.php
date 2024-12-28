@@ -44,7 +44,7 @@ class Cargo extends BaseModel
     public function description(): Attribute
     {
         return new Attribute(
-            get: fn($value) => Str::limit($value, 30, preserveWords: true),
+            get: fn ($value) => Str::limit($value, 30, preserveWords: true),
         );
     }
 
@@ -66,8 +66,6 @@ class Cargo extends BaseModel
 
     /**
      * Get the cargoType that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function cargoType(): BelongsTo
     {
@@ -76,8 +74,6 @@ class Cargo extends BaseModel
 
     /**
      * Get the carType that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function carType(): BelongsTo
     {
@@ -86,8 +82,6 @@ class Cargo extends BaseModel
 
     /**
      * Get the loaderType that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function loaderType(): BelongsTo
     {
@@ -96,8 +90,6 @@ class Cargo extends BaseModel
 
     /**
      * Get the destinationProvince that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function destinationProvince(): BelongsTo
     {
@@ -106,8 +98,6 @@ class Cargo extends BaseModel
 
     /**
      * Get the destinationCity that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function destinationCity(): BelongsTo
     {
@@ -116,8 +106,6 @@ class Cargo extends BaseModel
 
     /**
      * Get the originProvince that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function originProvince(): BelongsTo
     {
@@ -126,8 +114,6 @@ class Cargo extends BaseModel
 
     /**
      * Get the originCity that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function originCity(): BelongsTo
     {
@@ -136,8 +122,6 @@ class Cargo extends BaseModel
 
     /**
      * Get the user that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {

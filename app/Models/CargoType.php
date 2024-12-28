@@ -2,6 +2,4 @@
 
 namespace App\Models;
 
-class CargoType extends BaseModel
-{
-}
+class CargoType extends BaseModel {}

@@ -9,6 +9,14 @@ class OrdersController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function setStatus()
+    {
+        //
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         //

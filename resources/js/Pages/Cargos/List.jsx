@@ -42,10 +42,8 @@ export default function List({ queryParams, cargos, provinces }) {
     };
 
     const makeOrder = (cargoId) => {
-        console.log(route('cargos.createOrder', { cargo: cargoId }));
         router.post(route('cargos.createOrder', { cargo: cargoId }));
     };
-
 
     return (
         <AuthenticatedLayout>

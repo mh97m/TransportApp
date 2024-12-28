@@ -8,8 +8,6 @@ class DriverDetail extends BaseModel
 {
     /**
      * Get the carType that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function carType(): BelongsTo
     {
@@ -18,8 +16,6 @@ class DriverDetail extends BaseModel
 
     /**
      * Get the loaderType that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function loaderType(): BelongsTo
     {

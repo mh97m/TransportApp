@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
 
 class CargoView extends BaseModel
 {
@@ -18,8 +16,6 @@ class CargoView extends BaseModel
 
     /**
      * Get the user that owns the Cargo
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function driver(): BelongsTo
     {
