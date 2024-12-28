@@ -47,17 +47,17 @@ class CargosController extends Controller
 
         $query->orderBy($sortField, $sortDirection);
 
-        $data = $query
+        $cargos = $query
             ->paginate(20);
 
-        $this->logCargoViews($data);
+        $this->logCargoViews($cargos);
 
         return Inertia::render('Cargos/List', [
             'provinces' => fn () => Province::select([
                 'id',
                 'title',
             ])->get(),
-            'cargos' => $data,
+            'cargos' => $cargos,
             'queryParams' => request()->query() ?: null,
             // 'success' => session('success'),
         ]);

@@ -174,12 +174,22 @@ export default function Navbar() {
                             </Link>
 
                             {roles.includes('driver') && (
-                                <Link
+                                <a
                                     className="dropdown-item notify-item"
                                     href={route('orders.all')}
                                 >
                                     <i className="fe-settings"></i>
                                     <span>تاریخچه بار های من</span>
+                                </a>
+                            )}
+
+                            {roles.includes('owner') && (
+                                <Link
+                                    className="dropdown-item notify-item"
+                                    href={route('orders.all')}
+                                >
+                                    <i className="fe-settings"></i>
+                                    <span>تاریخچه اعلام بار های من</span>
                                 </Link>
                             )}
 

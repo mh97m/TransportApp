@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,7 +13,13 @@ class OrdersController extends Controller
      */
     public function all()
     {
-        return Inertia::render('Cargos/List', [
+        $query = Order::query();
+
+        $orders = $query
+            ->paginate(20);
+
+        return Inertia::render('Orders/All', [
+            'orders' => $orders,
         ]);
     }
 

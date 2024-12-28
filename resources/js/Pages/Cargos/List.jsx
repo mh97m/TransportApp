@@ -154,10 +154,12 @@ export default function List({ queryParams, cargos, provinces }) {
 
                                         <div
                                             className="w-100 position-relative mb-4"
-                                            style={{
-                                                // height: '50px', // Match the height to fit the road
-                                                // marginBottom: "10px",
-                                            }}
+                                            style={
+                                                {
+                                                    // height: '50px', // Match the height to fit the road
+                                                    // marginBottom: "10px",
+                                                }
+                                            }
                                         >
                                             <div className="position-absolute w-100 d-flex align-items-center justify-content-center">
                                                 <i
@@ -392,8 +394,8 @@ export default function List({ queryParams, cargos, provinces }) {
                                                     fontSize: '30px',
                                                     transform: 'scaleX(-1)',
                                                 }}
-                                                >
-                                            📦
+                                            >
+                                                📦
                                             </div>
                                             {cargo.weight} تن
                                         </p>
@@ -410,8 +412,8 @@ export default function List({ queryParams, cargos, provinces }) {
                                                     fontSize: '30px',
                                                     transform: 'scaleX(-1)',
                                                 }}
-                                                >
-                                            🚛
+                                            >
+                                                🚛
                                             </div>
                                             {cargo.car_type?.title} یخچالی
                                         </p>
@@ -458,7 +460,7 @@ export default function List({ queryParams, cargos, provinces }) {
                     ))}
                 </div>
 
-                    <Pagination links={cargos.links} />
+                <Pagination links={cargos.links} />
             </div>
         </AuthenticatedLayout>
     );
