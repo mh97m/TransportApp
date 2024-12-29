@@ -180,9 +180,24 @@ class CargosController extends Controller
     public function create(Request $request)
     {
         return Inertia::render('Cargos/Create', [
-            'cities' => fn () => City::get(),
-            'carTypes' => fn () => CarType::get(),
-            'cargoTypes' => fn () => CargoType::get(),
+            'cities' => fn () => City::get()->map(function ($item) {
+                return [
+                    'value' => $item->id,
+                    'label' => $item->title,
+                ];
+            }),
+            'carTypes' => fn () => CarType::get()->map(function ($item) {
+                return [
+                    'value' => $item->id,
+                    'label' => $item->title,
+                ];
+            }),
+            'cargoTypes' => fn () => CargoType::get()->map(function ($item) {
+                return [
+                    'value' => $item->id,
+                    'label' => $item->title,
+                ];
+            }),
         ]);
     }
 

@@ -1,19 +1,23 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import Select from "react-select";
 
-export default forwardRef(function Input(
+export default forwardRef(function SearchSelect(
     {
         label = '',
-        type = 'text',
-        id = 'inputId',
-        name = 'inputName',
+        id = 'selectId',
+        name = 'selectName',
         className = '',
         placeholder = '',
-        size = 'md',
+        size = 'lg',
         lgLength = 6,
         mdLength = 12,
         smLength = 12,
         isFocused = false,
         error = null,
+        options = [],
+        value = null,
+        onChange,
+        isDisabled = false,
         children,
         ...props
     },
@@ -31,7 +35,7 @@ export default forwardRef(function Input(
         }
     }, [isFocused]);
 
-    const inputClass = `form-control form-control-${size} ${
+    const selectClass = `form-control form-control-${size} ${
         error ? 'is-invalid' : ''
     } ${className}`;
 
@@ -41,12 +45,14 @@ export default forwardRef(function Input(
         >
             {children}
             <label htmlFor={id}>{label}</label>
-            <input
-                dir="rtl"
-                type={type}
+            <Select
                 id={id}
                 name={name}
-                className={inputClass}
+                value={value}
+                onChange={onChange}
+                options={options}
+                // className={selectClass}
+                isDisabled={isDisabled}
                 placeholder={placeholder}
                 ref={localRef}
                 {...props}

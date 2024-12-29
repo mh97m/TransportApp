@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function DatalistInput({
     size = 'lg',
-    lgLength = 12,
+    lgLength = 6,
     mdLength = 12,
     smLength = 12,
     label = '',
