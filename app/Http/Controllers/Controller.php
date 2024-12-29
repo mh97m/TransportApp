@@ -38,7 +38,7 @@ abstract class Controller
     }
 
     protected function searchSelectCollection($collection) {
-        $collection->map(fn ($item) => [
+        return $collection->map(fn ($item) => [
             'value' => $item->id,
             'label' => $item->title,
         ]);

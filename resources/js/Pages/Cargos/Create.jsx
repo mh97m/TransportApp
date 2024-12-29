@@ -1,34 +1,38 @@
 import Button from '@/Components/Button';
 import SearchSelect from '@/Components/SearchSelect';
-import SelectInput from '@/Components/SelectInput';
 import TextAreaInput from '@/Components/TextAreaInput';
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { router, usePage } from '@inertiajs/react';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 import { useState } from 'react';
 
-export default function RegisterForm({ cities, carTypes, cargoTypes }) {
+export default function RegisterForm({ cities, cargoTypes }) {
     const user = usePage().props.auth.user;
     const [form, setForm] = useState({
         mobile: user.mobile || '',
+        carTypeId: '',
         cargoTypeId: '',
         originCityId: '',
         destinationCityId: '',
-        carTypeId: '',
-        loaderTypeId: '',
         weight: '',
         price: '',
         description: '',
     });
 
     const handleChange = (e) => {
-        if (e?.target) {
-            // Handle regular inputs
-            setForm({ ...form, [e.target.name]: e.target.value });
+        if (e.target) {
+            // Handle regular input changes
+            const { name, value } = e.target;
+            setForm((prevForm) => ({ ...prevForm, [name]: value }));
+        } else if (Array.isArray(e)) {
+            // Handle Slider changes
+            setForm((prevForm) => ({ ...prevForm, temperatureRange: e }));
         } else {
-            // Handle react-select
-            const { name, value } = e; // Adjusted for SearchSelect's custom props
-            setForm({ ...form, [name]: value });
+            // Handle react-select changes
+            const { name, value } = e;
+            setForm((prevForm) => ({ ...prevForm, [name]: value }));
         }
     };
 
@@ -57,58 +61,43 @@ export default function RegisterForm({ cities, carTypes, cargoTypes }) {
                                     id="cargoTypeId"
                                     name="cargoTypeId"
                                     options={cargoTypes}
-                                    value={cargoTypes.find(
-                                        (option) =>
-                                            option.value === form.cargoTypeId,
-                                    )}
+                                    value={form.cargoTypeId}
                                     onChange={(selected) =>
                                         handleChange({
                                             name: 'cargoTypeId',
-                                            value: selected?.value,
+                                            value: selected,
                                         })
                                     }
                                 />
                             </div>
 
                             <div className="form-group row">
-                                <SelectInput
+                                <SearchSelect
                                     label="شهر مبدا"
                                     id="originCityId"
                                     name="originCityId"
                                     options={cities}
                                     value={form.originCityId}
-                                    onChange={handleChange}
+                                    onChange={(selected) =>
+                                        handleChange({
+                                            name: 'originCityId',
+                                            value: selected,
+                                        })
+                                    }
                                 />
-                                <SelectInput
+                                <SearchSelect
                                     label="شهر مقصد"
                                     id="destinationCityId"
                                     name="destinationCityId"
                                     options={cities}
                                     value={form.destinationCityId}
-                                    onChange={handleChange}
+                                    onChange={(selected) =>
+                                        handleChange({
+                                            name: 'destinationCityId',
+                                            value: selected,
+                                        })
+                                    }
                                 />
-                            </div>
-
-                            <div className="form-group row">
-                                <SelectInput
-                                    label="نوع ماشین"
-                                    id="carTypeId"
-                                    name="carTypeId"
-                                    options={carTypes}
-                                    value={form.carTypeId}
-                                    onChange={(e) => {
-                                        handleChange(e);
-                                        // loadLoaderTypes(e.target.value);
-                                    }}
-                                />
-                                {/* <SelectInput
-                                    label="نوع بارگیر"
-                                    id="loaderTypeId"
-                                    name="loaderTypeId"
-                                    options={loaderTypes}
-                                    value={form.loaderTypeId}
-                                    onChange={handleChange}
-                                /> */}
                             </div>
 
                             <div className="form-group row">
@@ -130,6 +119,54 @@ export default function RegisterForm({ cities, carTypes, cargoTypes }) {
                                 />
                             </div>
 
+                            <div className="form-group row">
+                                <div className="form-group col-12">
+                                    <label htmlFor="temperature">
+                                        محدوده دمایی
+                                    </label>
+                                    <Box className="col-12">
+                                        <Slider
+                                            getAriaLabel={() =>
+                                                'Temperature'
+                                            }
+                                            orientation="horizontal"
+                                            getAriaValueText={(value) =>
+                                                `${value}°C`
+                                            }
+                                            defaultValue={[-5,5]}
+                                            min={-25}
+                                            max={25}
+                                            value={form.temperatureRange}
+                                            onChange={(_, value) =>
+                                                handleChange(value)
+                                            }
+                                            valueLabelDisplay="auto"
+                                            marks={[
+                                                {
+                                                    value: -25,
+                                                    label: '25°C-',
+                                                },
+                                                {
+                                                    value: 25,
+                                                    label: '25°C',
+                                                },
+                                            ]}
+                                        />
+                                    </Box>
+                                </div>
+                                {/* <label
+                                    htmlFor="range_05"
+                                    className="col-sm-2 col-xs-12 control-label"
+                                >
+                                    <b>قدم</b>
+                                    <span className="d-block font-13 text-muted clearfix">
+                                        با استفاده از مرحله 250
+                                    </span>
+                                </label>
+                                <div className="col-sm-10 col-xs-12">
+                                    <input type="text" id="range_05" />
+                                </div> */}
+                            </div>
                             <div className="form-group row">
                                 <TextAreaInput
                                     label="توضیحات"

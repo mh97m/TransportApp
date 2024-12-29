@@ -11,6 +11,8 @@
 
         <link href="/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
+        <link href="/assets/libs/ion-rangeslider/ion.rangeSlider.css" rel="stylesheet" type="text/css"/>
+
         <!-- C3 Chart css -->
         {{-- <link href="/assets/libs/c3/c3.min.css" rel="stylesheet" type="text/css" /> --}}
 
