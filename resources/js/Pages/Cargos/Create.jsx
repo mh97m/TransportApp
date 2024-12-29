@@ -19,6 +19,7 @@ export default function RegisterForm({ cities, cargoTypes }) {
         weight: '',
         price: '',
         description: '',
+        temperatureRange: [-5, 5], // Initialize temperature range state
     });
 
     const handleChange = (e) => {
@@ -34,6 +35,10 @@ export default function RegisterForm({ cities, cargoTypes }) {
             const { name, value } = e;
             setForm((prevForm) => ({ ...prevForm, [name]: value }));
         }
+    };
+
+    const handleSliderChange = (_, newValue) => {
+        setForm((prevForm) => ({ ...prevForm, temperatureRange: newValue }));
     };
 
     const handleSubmit = (e) => {
@@ -133,13 +138,10 @@ export default function RegisterForm({ cities, cargoTypes }) {
                                             getAriaValueText={(value) =>
                                                 `${value}°C`
                                             }
-                                            defaultValue={[-5,5]}
                                             min={-25}
                                             max={25}
                                             value={form.temperatureRange}
-                                            onChange={(_, value) =>
-                                                handleChange(value)
-                                            }
+                                            onChange={handleSliderChange}
                                             valueLabelDisplay="auto"
                                             marks={[
                                                 {
@@ -154,19 +156,8 @@ export default function RegisterForm({ cities, cargoTypes }) {
                                         />
                                     </Box>
                                 </div>
-                                {/* <label
-                                    htmlFor="range_05"
-                                    className="col-sm-2 col-xs-12 control-label"
-                                >
-                                    <b>قدم</b>
-                                    <span className="d-block font-13 text-muted clearfix">
-                                        با استفاده از مرحله 250
-                                    </span>
-                                </label>
-                                <div className="col-sm-10 col-xs-12">
-                                    <input type="text" id="range_05" />
-                                </div> */}
                             </div>
+
                             <div className="form-group row">
                                 <TextAreaInput
                                     label="توضیحات"
