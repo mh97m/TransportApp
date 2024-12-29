@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useState } from 'react';
 
-export default function RegisterForm({ cities, cargoTypes }) {
+export default function RegisterForm({ cities, cargoTypes, carTypes }) {
     const user = usePage().props.auth.user;
     const [form, setForm] = useState({
         mobile: user.mobile || '',
@@ -43,6 +43,7 @@ export default function RegisterForm({ cities, cargoTypes }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(form)
         router.post(route('cargos.store'), form);
     };
 
@@ -55,6 +56,7 @@ export default function RegisterForm({ cities, cargoTypes }) {
                         <form onSubmit={handleSubmit}>
                             <div className="form-group row">
                                 <TextInput
+                                    lgLength="4"
                                     label="شماره موبایل"
                                     id="mobile"
                                     name="mobile"
@@ -62,6 +64,7 @@ export default function RegisterForm({ cities, cargoTypes }) {
                                     onChange={handleChange}
                                 />
                                 <SearchSelect
+                                    lgLength="4"
                                     label="نوع بار"
                                     id="cargoTypeId"
                                     name="cargoTypeId"
@@ -70,6 +73,20 @@ export default function RegisterForm({ cities, cargoTypes }) {
                                     onChange={(selected) =>
                                         handleChange({
                                             name: 'cargoTypeId',
+                                            value: selected,
+                                        })
+                                    }
+                                />
+                                <SearchSelect
+                                    lgLength="4"
+                                    label="نوع بار"
+                                    id="carTypeId"
+                                    name="carTypeId"
+                                    options={carTypes}
+                                    value={form.carTypeId}
+                                    onChange={(selected) =>
+                                        handleChange({
+                                            name: 'carTypeId',
                                             value: selected,
                                         })
                                     }

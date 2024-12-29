@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 export default forwardRef(function Input(
     {
@@ -20,6 +20,7 @@ export default forwardRef(function Input(
     ref,
 ) {
     const localRef = useRef(null);
+    const [isFocusedState, setIsFocusedState] = useState(isFocused);
 
     useImperativeHandle(ref, () => ({
         focus: () => localRef.current?.focus(),
@@ -30,6 +31,9 @@ export default forwardRef(function Input(
             localRef.current?.focus();
         }
     }, [isFocused]);
+
+    const handleFocus = () => setIsFocusedState(true);
+    const handleBlur = () => setIsFocusedState(false);
 
     const inputClass = `form-control form-control-${size} ${
         error ? 'is-invalid' : ''
@@ -42,6 +46,14 @@ export default forwardRef(function Input(
             {children}
             <label htmlFor={id}>{label}</label>
             <input
+                style={{
+                    minHeight: "38px",
+                    backgroundColor: "hsl(0, 0%, 100%)",
+                    borderColor: isFocusedState ? "#2684FF" : "hsl(0, 0%, 80%)",
+                    borderRadius: "4px",
+                    borderStyle: "solid",
+                    borderWidth: isFocusedState ? "2px" : "1px",
+                }}
                 dir="rtl"
                 type={type}
                 id={id}
@@ -49,6 +61,8 @@ export default forwardRef(function Input(
                 className={inputClass}
                 placeholder={placeholder}
                 ref={localRef}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 {...props}
             />
             {error && (

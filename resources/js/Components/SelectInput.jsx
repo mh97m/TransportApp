@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 export default forwardRef(function SelectInput(
     {
@@ -18,10 +18,20 @@ export default forwardRef(function SelectInput(
     ref,
 ) {
     const localRef = useRef(null);
+    const [isFocusedState, setIsFocusedState] = useState(isFocused);
 
     useImperativeHandle(ref, () => ({
         focus: () => localRef.current?.focus(),
     }));
+
+    useEffect(() => {
+        if (isFocused) {
+            localRef.current?.focus();
+        }
+    }, [isFocused]);
+
+    const handleFocus = () => setIsFocusedState(true);
+    const handleBlur = () => setIsFocusedState(false);
 
     const selectClass = `form-control form-control-${size} text-left ${
         error ? 'is-invalid' : ''
@@ -34,12 +44,22 @@ export default forwardRef(function SelectInput(
             {children}
             <label className="font-weight-bold text-dark text-2">{label}</label>
             <select
+                style={{
+                    minHeight: "38px",
+                    backgroundColor: "hsl(0, 0%, 100%)",
+                    borderColor: isFocusedState ? "#2684FF" : "hsl(0, 0%, 80%)",
+                    borderRadius: "4px",
+                    borderStyle: "solid",
+                    borderWidth: isFocusedState ? "2px" : "1px",
+                }}
                 dir="rtl"
                 id={id}
                 name={name}
                 className={selectClass}
                 disabled={disabled}
                 ref={localRef}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 {...props}
             >
                 <option value="">انتخاب کنید</option>
