@@ -36,4 +36,11 @@ abstract class Controller
 
         return $route ? redirect()->to($route) : redirect()->back();
     }
+
+    protected function searchSelectCollection($collection) {
+        $collection->map(fn ($item) => [
+            'value' => $item->id,
+            'label' => $item->title,
+        ]);
+    }
 }

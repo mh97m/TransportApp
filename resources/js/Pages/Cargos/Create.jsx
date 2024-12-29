@@ -21,12 +21,16 @@ export default function RegisterForm({ cities, carTypes, cargoTypes }) {
         description: '',
     });
 
-    const [loaderTypes, setLoaderTypes] = useState([]);
-
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        if (e?.target) {
+            // Handle regular inputs
+            setForm({ ...form, [e.target.name]: e.target.value });
+        } else {
+            // Handle react-select
+            const { name, value } = e; // Adjusted for SearchSelect's custom props
+            setForm({ ...form, [name]: value });
+        }
     };
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -53,8 +57,16 @@ export default function RegisterForm({ cities, carTypes, cargoTypes }) {
                                     id="cargoTypeId"
                                     name="cargoTypeId"
                                     options={cargoTypes}
-                                    value={form.cargoTypeId}
-                                    onChange={handleChange}
+                                    value={cargoTypes.find(
+                                        (option) =>
+                                            option.value === form.cargoTypeId,
+                                    )}
+                                    onChange={(selected) =>
+                                        handleChange({
+                                            name: 'cargoTypeId',
+                                            value: selected?.value,
+                                        })
+                                    }
                                 />
                             </div>
 
