@@ -31,6 +31,9 @@ return new class extends Migration
             // $table->foreignId('loader_type_id')->constrained('loader_types')->onDelete('cascade');
             $table->foreignId('cargo_type_id')->constrained('cargo_types')->onDelete('cascade');
 
+            $table->integer('temperature_min')->nullable();
+            $table->integer('temperature_max')->nullable();
+
             $table->unsignedInteger('weight')->nullable();
             $table->unsignedInteger('price');
             $table->text('description')->nullable();

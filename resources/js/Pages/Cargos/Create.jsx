@@ -24,6 +24,10 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
         temperatureRange: [-5, 5],
     });
 
+    const getOptionByValue = (options, value) => {
+        return options.find(option => option.value === value) || null;
+    };
+
     const handleChange = (e) => {
         if (e.target) {
             // Handle regular input changes
@@ -39,13 +43,16 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
         }
     };
 
+    const handleSelectChange = (name, selectedOption) => {
+        setData(name, selectedOption ? selectedOption.value : '');
+    };
+
     const handleSliderChange = (_, newValue) => {
         setData('temperatureRange', newValue);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(data)
         post(route('cargos.store')); // Use Inertia's post function to submit the form
     };
 
@@ -72,27 +79,21 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
                                     id="cargoTypeId"
                                     name="cargoTypeId"
                                     options={cargoTypes}
-                                    value={data.cargoTypeId}
+                                    value={getOptionByValue(cargoTypes, data.cargoTypeId)}
                                     onChange={(selected) =>
-                                        handleChange({
-                                            name: 'cargoTypeId',
-                                            value: selected,
-                                        })
+                                        handleSelectChange('cargoTypeId', selected)
                                     }
                                     error={errors.cargoTypeId}
                                 />
                                 <SearchSelect
                                     lgLength="4"
-                                    label="نوع بار"
+                                    label="نوع وسیله"
                                     id="carTypeId"
                                     name="carTypeId"
                                     options={carTypes}
-                                    value={data.carTypeId}
+                                    value={getOptionByValue(carTypes, data.carTypeId)}
                                     onChange={(selected) =>
-                                        handleChange({
-                                            name: 'carTypeId',
-                                            value: selected,
-                                        })
+                                        handleSelectChange('carTypeId', selected)
                                     }
                                     error={errors.carTypeId}
                                 />
@@ -104,12 +105,9 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
                                     id="originCityId"
                                     name="originCityId"
                                     options={cities}
-                                    value={data.originCityId}
+                                    value={getOptionByValue(cities, data.originCityId)}
                                     onChange={(selected) =>
-                                        handleChange({
-                                            name: 'originCityId',
-                                            value: selected,
-                                        })
+                                        handleSelectChange('originCityId', selected)
                                     }
                                     error={errors.originCityId}
                                 />
@@ -118,12 +116,9 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
                                     id="destinationCityId"
                                     name="destinationCityId"
                                     options={cities}
-                                    value={data.destinationCityId}
+                                    value={getOptionByValue(cities, data.destinationCityId)}
                                     onChange={(selected) =>
-                                        handleChange({
-                                            name: 'destinationCityId',
-                                            value: selected,
-                                        })
+                                        handleSelectChange('destinationCityId', selected)
                                     }
                                     error={errors.destinationCityId}
                                 />

@@ -202,7 +202,6 @@ class CargosController extends Controller
             'description' => ['required', 'string'],
             'temperatureRange' => ['required', 'array', 'min:2', 'max:2'],
         ]);
-        dd();
 
         // Get origin and destination cities
         $originCity = City::find($validated['originCityId']);
