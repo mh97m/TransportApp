@@ -3,14 +3,16 @@ import SearchSelect from '@/Components/SearchSelect';
 import TextAreaInput from '@/Components/TextAreaInput';
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { router, usePage } from '@inertiajs/react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { useState } from 'react';
+import { useForm } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 
 export default function RegisterForm({ cities, cargoTypes, carTypes }) {
     const user = usePage().props.auth.user;
-    const [form, setForm] = useState({
+
+    // Use Inertia's useForm hook to manage form state and submission
+    const { data, setData, post, processing, errors, reset } = useForm({
         mobile: user.mobile || '',
         carTypeId: '',
         cargoTypeId: '',
@@ -19,32 +21,32 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
         weight: '',
         price: '',
         description: '',
-        temperatureRange: [-5, 5], // Initialize temperature range state
+        temperatureRange: [-5, 5],
     });
 
     const handleChange = (e) => {
         if (e.target) {
             // Handle regular input changes
             const { name, value } = e.target;
-            setForm((prevForm) => ({ ...prevForm, [name]: value }));
+            setData(name, value);
         } else if (Array.isArray(e)) {
             // Handle Slider changes
-            setForm((prevForm) => ({ ...prevForm, temperatureRange: e }));
+            setData('temperatureRange', e);
         } else {
             // Handle react-select changes
             const { name, value } = e;
-            setForm((prevForm) => ({ ...prevForm, [name]: value }));
+            setData(name, value);
         }
     };
 
     const handleSliderChange = (_, newValue) => {
-        setForm((prevForm) => ({ ...prevForm, temperatureRange: newValue }));
+        setData('temperatureRange', newValue);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(form)
-        router.post(route('cargos.store'), form);
+        console.log(data)
+        post(route('cargos.store')); // Use Inertia's post function to submit the form
     };
 
     return (
@@ -60,8 +62,9 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
                                     label="شماره موبایل"
                                     id="mobile"
                                     name="mobile"
-                                    value={form.mobile}
+                                    value={data.mobile}
                                     onChange={handleChange}
+                                    error={errors.mobile}
                                 />
                                 <SearchSelect
                                     lgLength="4"
@@ -69,13 +72,14 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
                                     id="cargoTypeId"
                                     name="cargoTypeId"
                                     options={cargoTypes}
-                                    value={form.cargoTypeId}
+                                    value={data.cargoTypeId}
                                     onChange={(selected) =>
                                         handleChange({
                                             name: 'cargoTypeId',
                                             value: selected,
                                         })
                                     }
+                                    error={errors.cargoTypeId}
                                 />
                                 <SearchSelect
                                     lgLength="4"
@@ -83,13 +87,14 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
                                     id="carTypeId"
                                     name="carTypeId"
                                     options={carTypes}
-                                    value={form.carTypeId}
+                                    value={data.carTypeId}
                                     onChange={(selected) =>
                                         handleChange({
                                             name: 'carTypeId',
                                             value: selected,
                                         })
                                     }
+                                    error={errors.carTypeId}
                                 />
                             </div>
 
@@ -99,26 +104,28 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
                                     id="originCityId"
                                     name="originCityId"
                                     options={cities}
-                                    value={form.originCityId}
+                                    value={data.originCityId}
                                     onChange={(selected) =>
                                         handleChange({
                                             name: 'originCityId',
                                             value: selected,
                                         })
                                     }
+                                    error={errors.originCityId}
                                 />
                                 <SearchSelect
                                     label="شهر مقصد"
                                     id="destinationCityId"
                                     name="destinationCityId"
                                     options={cities}
-                                    value={form.destinationCityId}
+                                    value={data.destinationCityId}
                                     onChange={(selected) =>
                                         handleChange({
                                             name: 'destinationCityId',
                                             value: selected,
                                         })
                                     }
+                                    error={errors.destinationCityId}
                                 />
                             </div>
 
@@ -128,36 +135,36 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
                                     type="number"
                                     id="weight"
                                     name="weight"
-                                    value={form.weight}
+                                    value={data.weight}
                                     onChange={handleChange}
+                                    error={errors.weight}
                                 />
                                 <TextInput
                                     label="مبلغ"
                                     type="number"
                                     id="price"
                                     name="price"
-                                    value={form.price}
+                                    value={data.price}
                                     onChange={handleChange}
+                                    error={errors.price}
                                 />
                             </div>
 
                             <div className="form-group row">
                                 <div className="form-group col-12">
                                     <label htmlFor="temperature">
-                                        محدوده دمایی
+                                        محدوده دمایی: {data.temperatureRange && data.temperatureRange[0] + " تا " + data.temperatureRange[1]}
                                     </label>
                                     <Box className="col-12">
                                         <Slider
-                                            getAriaLabel={() =>
-                                                'Temperature'
-                                            }
+                                            getAriaLabel={() => 'Temperature'}
                                             orientation="horizontal"
                                             getAriaValueText={(value) =>
                                                 `${value}°C`
                                             }
                                             min={-25}
                                             max={25}
-                                            value={form.temperatureRange}
+                                            value={data.temperatureRange}
                                             onChange={handleSliderChange}
                                             valueLabelDisplay="auto"
                                             marks={[
@@ -180,12 +187,13 @@ export default function RegisterForm({ cities, cargoTypes, carTypes }) {
                                     label="توضیحات"
                                     id="description"
                                     name="description"
-                                    value={form.description}
+                                    value={data.description}
                                     onChange={handleChange}
+                                    error={errors.description}
                                 />
                             </div>
 
-                            <Button label="ذخیره" type="submit" />
+                            <Button label="ذخیره" type="submit" disabled={processing} />
                         </form>
                     </div>
                 </div>

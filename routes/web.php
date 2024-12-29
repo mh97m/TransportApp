@@ -43,8 +43,6 @@ Route::group([
         } elseif ($user?->hasRole('owner')) {
             return to_route('cargos.create');
         }
-
-        return view('home');
     })->name('home');
 
     //////////////////////////////////////////////////
@@ -79,6 +77,7 @@ Route::group([
             Route::middleware([
                 'role:admin|owner',
             ])->group(function () {
+                Route::post('store', 'store')->name('store');
                 Route::get('all', 'all')->name('all');
                 Route::get('create', 'create')->name('create');
                 Route::get('{cargo:ulid}', 'index')->name('index');

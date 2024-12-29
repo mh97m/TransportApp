@@ -10,7 +10,9 @@ use App\Models\City;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Province;
+use App\Services\LocationServiceFacade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CargosController extends Controller
@@ -184,6 +186,57 @@ class CargosController extends Controller
             'carTypes' => fn () => $this->searchSelectCollection(CarType::get()),
             'cargoTypes' => fn () => $this->searchSelectCollection(CargoType::get()),
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the request data
+        $validated = $request->validate([
+            'mobile' => ['required', 'string', 'regex:/^09\d{9}$/i'],
+            'cargoTypeId' => ['required', 'exists:cargo_types,id'],
+            'carTypeId' => ['required', 'exists:car_types,id'],
+            'originCityId' => ['required', 'exists:cities,id'],
+            'destinationCityId' => ['required', 'exists:cities,id'],
+            'weight' => ['required', 'integer'],
+            'price' => ['required', 'integer'],
+            'description' => ['required', 'string'],
+            'temperatureRange' => ['required', 'array', 'min:2', 'max:2'],
+        ]);
+        dd();
+
+        // Get origin and destination cities
+        $originCity = City::find($validated['originCityId']);
+        $destinationCity = City::find($validated['destinationCityId']);
+
+        // Calculate distance using the LocationService
+        $distance = LocationServiceFacade::getDistance($originCity, $destinationCity);
+
+        // Create a new cargo entry in the database
+        Cargo::create([
+            'mobile' => $validated['mobile'],
+            'origin_province_id' => $originCity?->province_id,
+            'origin_city_id' => $validated['originCityId'],
+            'destination_province_id' => $destinationCity?->province_id,
+            'destination_city_id' => $validated['destinationCityId'],
+            'distance' => $distance,
+            'car_type_id' => $validated['carTypeId'],
+            'cargo_type_id' => $validated['cargoTypeId'],
+            'weight' => $validated['weight'],
+            'price' => $validated['price'],
+            'description' => $validated['description'],
+            'temperature_min' => $validated['temperatureRange'][0],
+            'temperature_max' => $validated['temperatureRange'][1],
+            'user_id' => Auth::id(),
+        ]);
+
+        // Redirect or return a success message
+        return $this->flashAlert(
+            icon: 'success',
+            text: 'ثبت بار با موفقیت ثبت شد',
+            timer: 3000,
+            confirmButtonText: 'تایید',
+            // route: route('cargos.create'),
+        );
     }
 
     /**

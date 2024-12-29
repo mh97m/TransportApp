@@ -39,6 +39,19 @@ export default forwardRef(function SearchSelect(
         error ? 'is-invalid' : ''
     } ${className}`;
 
+    const customStyles = {
+        // option: (base, { isFocused }) => ({
+        //     ...base,
+        //     backgroundColor: isFocused ? '#014e2c' : base.backgroundColor,
+        //     textAlign: 'right',
+        // }),
+        // placeholder: (provided) => ({ ...provided, color: '#47404f' }),
+        control: (base) => ({
+            ...base,
+            borderColor: error ? "#f96a74" : "#dee2e6",
+        }),
+        // singleValue: (provided) => ({ ...provided, color: '#47404f' }),
+    };
     return (
         <div
             className={`form-group col-lg-${lgLength} col-md-${mdLength} col-sm-${smLength}`}
@@ -47,6 +60,7 @@ export default forwardRef(function SearchSelect(
             <label htmlFor={id}>{label}</label>
             <Select
                 id={id}
+                styles={customStyles}
                 name={name}
                 value={value}
                 onChange={onChange}

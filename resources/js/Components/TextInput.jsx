@@ -49,7 +49,7 @@ export default forwardRef(function Input(
                 style={{
                     minHeight: "38px",
                     backgroundColor: "hsl(0, 0%, 100%)",
-                    borderColor: isFocusedState ? "#2684FF" : "hsl(0, 0%, 80%)",
+                    borderColor: isFocusedState ? "#2684FF" : error ? "#f96a74" : "hsl(0, 0%, 80%)",
                     borderRadius: "4px",
                     borderStyle: "solid",
                     borderWidth: isFocusedState ? "2px" : "1px",
