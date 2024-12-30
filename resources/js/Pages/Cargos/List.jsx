@@ -133,7 +133,24 @@ export default function List({ queryParams, cargos, provinces }) {
                         <CargoCart
                             key={cargo.id}
                             cargo={cargo}
-                            makeOrder={makeOrder}
+                            footer={(
+                                <div className="card-footer0 p-0">
+                                    <a
+                                        href="tel:{{ $cargo->mobile }}"
+                                        onClick={() => makeOrder(cargo.ulid)}
+                                        className="btn btn-primary btn-lg btn-block text-uppercase text-white"
+                                        style={{
+                                            borderRadius: '10px',
+                                            borderTopLeftRadius: '0px',
+                                            borderTopRightRadius: '0px',
+                                            backgroundColor: '#598bc4',
+                                        }}
+                                    >
+                                        <i className="fas fa-phone-alt"></i>
+                                        تماس با صاحب بار
+                                    </a>
+                                </div>
+                            )}
                         />
                     ))}
                 </div>

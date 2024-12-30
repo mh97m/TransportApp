@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 export default function CargoCart({
     cargo,
-    makeOrder = null,
     isAnimate = false,
+    footer = null,
     children,
 }) {
     const [isHovered, setisHovered] = useState(isAnimate);
@@ -326,24 +326,7 @@ export default function CargoCart({
 
                     {children}
                 </div>
-                {makeOrder && (
-                    <div className="card-footer0 p-0">
-                        <a
-                            href="tel:{{ $cargo->mobile }}"
-                            onClick={() => makeOrder(cargo.ulid)}
-                            className="btn btn-primary btn-lg btn-block text-uppercase text-white"
-                            style={{
-                                borderRadius: '10px',
-                                borderTopLeftRadius: '0px',
-                                borderTopRightRadius: '0px',
-                                backgroundColor: '#598bc4',
-                            }}
-                        >
-                            <i className="fas fa-phone-alt"></i> تماس با صاحب
-                            بار
-                        </a>
-                    </div>
-                )}
+                {footer && (footer)}
             </div>
         </div>
     );
