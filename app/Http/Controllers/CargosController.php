@@ -272,6 +272,15 @@ class CargosController extends Controller
     public function index(Cargo $cargo)
     {
         abort_if(!$cargo->user()->is(auth()->user()), 404);
+
+        $cargo->load([
+            'originProvince',
+            'originCity',
+            'destinationProvince',
+            'destinationCity',
+            'carType',
+        ]);
+
         return Inertia::render('Cargos/Index', [
             'cargo' => $cargo,
         ]);

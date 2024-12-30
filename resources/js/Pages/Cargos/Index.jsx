@@ -40,7 +40,7 @@ export default function CargoDetails({ cargo }) {
                                     </tr>
                                     <tr>
                                         <td>تعداد بازدید</td>
-                                        <td>{cargo.viewsCount}</td>
+                                        <td>{cargo.views_count}</td>
                                     </tr>
                                     <tr>
                                         <td>مبدا</td>

@@ -28,18 +28,18 @@ class Cargo extends BaseModel
         return 'ulid';
     }
 
-    // protected $appends = [
-    //     'viewsCount',
-    // ];
+    public $appends = [
+        'views_count',
+    ];
 
-    // public function viewsCount(): Attribute
-    // {
-    //     return new Attribute(
-    //         get: fn () => CargoView::where([
-    //             'cargo_id' => $this->id,
-    //         ])->count(),
-    //     );
-    // }
+    public function viewsCount(): Attribute
+    {
+        return new Attribute(
+            get: fn () => CargoView::where([
+                'cargo_id' => $this->id,
+            ])->count(),
+        );
+    }
 
     public function description(): Attribute
     {
