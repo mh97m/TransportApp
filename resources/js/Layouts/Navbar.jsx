@@ -73,7 +73,7 @@ export default function Navbar() {
 
     return (
         <div className="navbar-custom">
-            <ul className="list-unstyled topnav-menu float-right mb-0">
+            <ul className="list-unstyled topnav-menu float-right m-0">
                 <li className="dropdown notification-list">
                     <a
                         className="nav-link dropdown-toggle waves-effect waves-light"
@@ -214,6 +214,14 @@ export default function Navbar() {
                             </Link>
                         </div>
                     )}
+                </li>
+            </ul>
+
+            <ul className="list-unstyled topnav-menu topnav-menu-left m-0">
+                <li>
+                    <Link className="button-menu-mobile waves-effect waves-light ml-2" href={route('home')}>
+                        <i className="fas fa-home h2 text-white"></i>
+                    </Link>
                 </li>
             </ul>
         </div>

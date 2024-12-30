@@ -44,7 +44,7 @@ class Cargo extends BaseModel
     public function description(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => Str::limit($value, 30, preserveWords: true),
+            get: fn ($value) => Str::limit($value, 20, preserveWords: true),
         );
     }
 
