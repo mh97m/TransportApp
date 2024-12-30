@@ -80,14 +80,6 @@ class CargosController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function createOrder(Cargo $cargo)
@@ -234,8 +226,55 @@ class CargosController extends Controller
             text: 'ثبت بار با موفقیت ثبت شد',
             timer: 3000,
             confirmButtonText: 'تایید',
-            // route: route('cargos.create'),
+            route: route('cargos.all'),
         );
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function all()
+    {
+        $query = Cargo::query();
+
+        // $query->where('user_id', auth()->user()->id);
+
+        $query->with([
+            'originProvince',
+            'destinationProvince',
+            'originCity',
+            'destinationCity',
+            'carType',
+            'loaderType',
+        ]);
+
+        $query->orderBy('created_at', 'desc');
+
+        $cargos = $query
+            ->paginate(20);
+
+        $this->logCargoViews($cargos);
+
+        return Inertia::render('Cargos/All', [
+            'provinces' => fn () => Province::select([
+                'id',
+                'title',
+            ])->get(),
+            'cargos' => $cargos,
+            'queryParams' => request()->query() ?: null,
+            // 'success' => session('success'),
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Cargo $cargo)
+    {
+        abort_if(!$cargo->user()->is(auth()->user()), 404);
+        return Inertia::render('Cargos/Index', [
+            'cargo' => $cargo,
+        ]);
     }
 
     /**

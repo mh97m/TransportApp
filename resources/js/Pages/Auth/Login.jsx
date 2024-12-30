@@ -52,6 +52,7 @@ export default function Login({ status, canResetPassword }) {
                                         >
                                             <div className="form-group row">
                                                 <TextInput
+                                                    lgLength="12"
                                                     label="شماره موبایل"
                                                     id="dataMobile"
                                                     name="mobile"
@@ -70,6 +71,7 @@ export default function Login({ status, canResetPassword }) {
 
                                             <div className="form-group row">
                                                 <TextInput
+                                                    lgLength="12"
                                                     label="رمز عبور"
                                                     type="password"
                                                     id="dataPassword"

@@ -184,13 +184,22 @@ export default function Navbar() {
                             )}
 
                             {roles.includes('owner') && (
-                                <Link
-                                    className="dropdown-item notify-item"
-                                    href={route('orders.all')}
-                                >
-                                    <i className="fe-settings"></i>
-                                    <span>تاریخچه اعلام بار های من</span>
-                                </Link>
+                                <>
+                                    <Link
+                                        className="dropdown-item notify-item"
+                                        href={route('cargos.all')}
+                                    >
+                                        <i className="fe-settings"></i>
+                                        <span>تاریخچه اعلام بار های من</span>
+                                    </Link>
+                                    <Link
+                                        className="dropdown-item notify-item"
+                                        href={route('cargos.create')}
+                                    >
+                                        <i className="fe-box"></i>
+                                        <span>اعلام بار</span>
+                                    </Link>
+                                </>
                             )}
 
                             <div className="dropdown-divider"></div>

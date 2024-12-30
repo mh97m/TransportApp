@@ -43,6 +43,7 @@ Route::group([
         } elseif ($user?->hasRole('owner')) {
             return to_route('cargos.create');
         }
+        return to_route('dashboard');
     })->name('home');
 
     //////////////////////////////////////////////////
@@ -81,7 +82,7 @@ Route::group([
                 Route::get('all', 'all')->name('all');
                 Route::get('create', 'create')->name('create');
                 Route::get('{cargo:ulid}', 'index')->name('index');
-                Route::delete('{cargo:ulid}', 'index')->name('index');
+                // Route::delete('{cargo:ulid}', 'index')->name('index');
             });
 
             Route::middleware([
