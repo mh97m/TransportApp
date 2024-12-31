@@ -206,10 +206,10 @@ export default function CargoCart({
                             <style>{`
                                 @keyframes moveCarHover {
                                     0% {
-                                        transform: translate(-330%, 0);
+                                        transform: translate(-50%, 0);
                                     }
                                     100% {
-                                        transform: translate(-5%, 0);
+                                        transform: translate(-330%, 0);
                                     }
                                 }
                             `}</style>
