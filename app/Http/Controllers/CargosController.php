@@ -311,6 +311,7 @@ class CargosController extends Controller
                 ],
                 'orderStatus' => $order->status,
                 'ownerStatus' => $order->owner_status,
+                'isSetOwnerStatus' => $order->owner_status === null,
             ];
         });
 

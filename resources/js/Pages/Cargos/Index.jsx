@@ -65,7 +65,7 @@ export default function CargoDetails({ cargo, orders }) {
                 {/* Driver Details */}
                 <div className="row">
                     {orders?.map((order) => (
-                        <div className="col-10">
+                        <div className="col-10" key={order.ulid}>
                             <div
                                 className="card-box"
                                 style={{
@@ -98,7 +98,7 @@ export default function CargoDetails({ cargo, orders }) {
                                         >
                                             {order?.orderStatus?.description}
                                         </div>
-                                        {order?.ownerStatus === null ? (
+                                        {order?.isSetOwnerStatus ? (
                                             <>
                                                 <button
                                                     className="btn btn-success mr-2 text-white"
@@ -125,13 +125,19 @@ export default function CargoDetails({ cargo, orders }) {
                                             </>
                                         ) : (
                                             <h4 className="d-flex justify-content-center">
-                                            <span
-                                                className={"badge badge-" + (order?.ownerStatus ? "success" : "error") + " col-8"}
-                                            >
-                                                {
-                                                order?.ownerStatus ? "بار تایید شده است" : "بار رد شده است"
-                                                }
-                                            </span>
+                                                <span
+                                                    className={
+                                                        'badge badge-' +
+                                                        (order?.ownerStatus
+                                                            ? 'success'
+                                                            : 'danger') +
+                                                        ' col-8'
+                                                    }
+                                                >
+                                                    {order?.ownerStatus
+                                                        ? 'بار تایید شده است'
+                                                        : 'بار رد شده است'}
+                                                </span>
                                             </h4>
                                         )}
                                     </div>
