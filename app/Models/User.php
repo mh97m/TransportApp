@@ -64,6 +64,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the details owned by the user.
+     */
+    public function driverDetails(): HasOne
+    {
+        return $this->hasOne(DriverDetail::class);
+    }
+
+    /**
+     * Get the details owned by the user.
+     */
+    public function ownerDetails(): HasOne
+    {
+        return $this->hasOne(OwnerDetail::class);
+    }
+
+    /**
      * Get the cargos owned by the user.
      */
     public function cargos(): HasMany

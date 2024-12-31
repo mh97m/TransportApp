@@ -308,7 +308,7 @@ export default function CargoCart({
                             >
                                 📋
                             </div>
-                            {cargo.description}
+                            {cargo.description.short}
                         </div>
                     </div>
 

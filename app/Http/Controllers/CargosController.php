@@ -273,16 +273,49 @@ class CargosController extends Controller
     {
         abort_if(!$cargo->user()->is(auth()->user()), 404);
 
-        $cargo->load([
-            'originProvince',
-            'originCity',
-            'destinationProvince',
-            'destinationCity',
-            'carType',
+        // Eager load only the necessary relationships and fields
+        $cargo = $cargo->load([
+            'originProvince:id,title',
+            'originCity:id,title',
+            'destinationProvince:id,title',
+            'destinationCity:id,title',
+            'carType:id,title',
+            'orders.driver:id,name,mobile',
+            'orders.driver.driverDetails:id,user_id,driver_id,car_type_id',
+            'orders.driver.driverDetails.carType:id,title',
+            'orders.status:id,order_status_id,color,description',
         ]);
 
+        $cargoData = [
+            'id' => $cargo->ulid,
+            'viewsCount' => $cargo->views_count,
+            'originProvince' => $cargo->originProvince->title ?? 'N/A',
+            'originCity' => $cargo->originCity->title ?? 'N/A',
+            'destinationProvince' => $cargo->destinationProvince->title ?? 'N/A',
+            'destinationCity' => $cargo->destinationCity->title ?? 'N/A',
+            'carType' => $cargo->carType->title ?? 'N/A',
+            'weight' => number_format($cargo->weight),
+            'description' => $cargo->description->full,
+        ];
+
+        $orders = $cargo->orders->map(function ($order) {
+            return [
+                'id' => $order->ulid,
+                'driver' => [
+                    'name' => $order->driver->name ?? 'ناموجود',
+                    'mobile' => $order->driver->mobile ?? 'ناموجود',
+                ],
+                'driverDetails' => [
+                    'carType' => $order->driver->driverDetails->carType->title ?? 'ناموجود',
+                ],
+                'orderStatus' => $order->status,
+                'ownerStatus' => $order->owner_status,
+            ];
+        });
+
         return Inertia::render('Cargos/Index', [
-            'cargo' => $cargo,
+            'cargo' => $cargoData,
+            'orders' => $orders,
         ]);
     }
 
