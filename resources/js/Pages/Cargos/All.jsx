@@ -14,7 +14,6 @@ export default function All({ cargos }) {
                             cargo={cargo}
                             footer={
                                 <>
-                                {cargo?.completed_at}
                                     {cargo?.completed_at && (
                                         <div className="d-flex justify-content-center">
                                             <span className="alert alert-success col-8 text-center">
