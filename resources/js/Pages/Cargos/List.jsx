@@ -1,11 +1,36 @@
 import Pagination from '@/Components/Pagination';
+import SearchSelect from '@/Components/SearchSelect';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import CargoCart from './CargoCart';
 
 export default function List({ queryParams, cargos, provinces }) {
+    const getOptionByValue = (options, value) => {
+        return options.find((option) => option.value === value) || null;
+    };
+
     const [queryParamsState, setQueryParamsState] = useState(queryParams || {});
+    const [originProvince, setOriginProvince] = useState(
+        getOptionByValue(provinces, parseInt(queryParams?.originProvinceId)) ||
+            null,
+    );
+    const [destinationProvince, setDestinationProvince] = useState(
+        getOptionByValue(
+            provinces,
+            parseInt(queryParams?.destinationProvinceId),
+        ) || null,
+    );
+
+    const handleSelectChange = (name, selectedOption) => {
+        setQueryParamsState((prev) => {
+            const updatedParams = { ...prev, [name]: selectedOption?.value };
+            if (!selectedOption?.value) {
+                delete updatedParams[name];
+            }
+            return updatedParams;
+        });
+    };
 
     const setQueryParams = (name, value) => {
         setQueryParamsState((prev) => {
@@ -45,7 +70,6 @@ export default function List({ queryParams, cargos, provinces }) {
     const makeOrder = (cargoId) => {
         router.post(route('cargos.createOrder', { cargo: cargoId }));
     };
-
     return (
         <AuthenticatedLayout>
             <div className="container-fluid">
@@ -58,7 +82,40 @@ export default function List({ queryParams, cargos, provinces }) {
                             }}
                         >
                             <div className="form-row">
-                                <div className="form-group col-6 mb-2">
+                                <SearchSelect
+                                    mdLength={6}
+                                    smLength={6}
+                                    label="استان مبدا"
+                                    id="originProvinceId"
+                                    name="originProvinceId"
+                                    options={provinces}
+                                    value={originProvince}
+                                    onChange={(selected) => {
+                                        setOriginProvince(selected);
+
+                                        handleSelectChange(
+                                            'originProvinceId',
+                                            selected,
+                                        );
+                                    }}
+                                />
+                                <SearchSelect
+                                    mdLength={6}
+                                    smLength={6}
+                                    label="استان مقصد"
+                                    id="destinationProvinceId"
+                                    name="destinationProvinceId"
+                                    options={provinces}
+                                    value={destinationProvince}
+                                    onChange={(selected) => {
+                                        setDestinationProvince(selected);
+                                        handleSelectChange(
+                                            'destinationProvinceId',
+                                            selected,
+                                        );
+                                    }}
+                                />
+                                {/* <div className="form-group col-6 mb-2">
                                     <label htmlFor="originProvince">
                                         استان مبدا
                                     </label>
@@ -113,7 +170,7 @@ export default function List({ queryParams, cargos, provinces }) {
                                             </option>
                                         ))}
                                     </select>
-                                </div>
+                                </div> */}
                                 <div className="form-group col-12 mb-2">
                                     <button
                                         type="submit"
@@ -131,9 +188,9 @@ export default function List({ queryParams, cargos, provinces }) {
                 <div className="row mt-3">
                     {cargos.data.map((cargo) => (
                         <CargoCart
-                            key={cargo.id}
+                            key={cargo.ulid}
                             cargo={cargo}
-                            footer={(
+                            footer={
                                 <div className="card-footer0 p-0">
                                     <a
                                         href="tel:{{ $cargo->mobile }}"
@@ -150,7 +207,7 @@ export default function List({ queryParams, cargos, provinces }) {
                                         تماس با صاحب بار
                                     </a>
                                 </div>
-                            )}
+                            }
                         />
                     ))}
                 </div>
