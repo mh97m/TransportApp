@@ -39,7 +39,7 @@ class OrdersController extends Controller
      */
     public function updateOrderStatus(Order $order, Request $request)
     {
-        abort_if(! $order->cargo->owner->is(auth()->user()), 404);
+        abort_if(! $order->cargo->owner->is(auth()->user()), 404);  
 
         $order->update([
             'owner_status' => $request->isAccepted,
