@@ -52,6 +52,11 @@ class OrdersController extends Controller
                     'cargo_id' => $order->cargo_id,
                 ])
                 ->delete();
+
+            $order->cargo->update([
+                'completed_at' => now(),
+            ]);
+
             return $this->flashAlert(
                 icon: 'success',
                 text: 'بار با موفقیت تایید شد',

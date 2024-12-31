@@ -237,7 +237,7 @@ class CargosController extends Controller
     {
         $query = Cargo::query();
 
-        // $query->where('user_id', auth()->user()->id);
+        $query->where('user_id', auth()->user()->id);
 
         $query->with([
             'originProvince',
@@ -256,13 +256,7 @@ class CargosController extends Controller
         $this->logCargoViews($cargos);
 
         return Inertia::render('Cargos/All', [
-            'provinces' => fn () => Province::select([
-                'id',
-                'title',
-            ])->get(),
             'cargos' => $cargos,
-            'queryParams' => request()->query() ?: null,
-            // 'success' => session('success'),
         ]);
     }
 
