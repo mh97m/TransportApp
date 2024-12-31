@@ -294,13 +294,14 @@ class CargosController extends Controller
             'destinationProvince' => $cargo->destinationProvince->title ?? 'N/A',
             'destinationCity' => $cargo->destinationCity->title ?? 'N/A',
             'carType' => $cargo->carType->title ?? 'N/A',
+            'price' => number_format($cargo->price),
             'weight' => number_format($cargo->weight),
             'description' => $cargo->description->full,
         ];
 
         $orders = $cargo->orders->map(function ($order) {
             return [
-                'id' => $order->ulid,
+                'ulid' => $order->ulid,
                 'driver' => [
                     'name' => $order->driver->name ?? 'ناموجود',
                     'mobile' => $order->driver->mobile ?? 'ناموجود',

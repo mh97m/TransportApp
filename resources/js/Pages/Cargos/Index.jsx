@@ -1,41 +1,28 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { useState } from 'react';
+import { router } from '@inertiajs/react';
 
 export default function CargoDetails({ cargo, orders }) {
-
-    const [sessionMessage, setSessionMessage] = useState(null);
-
     const handleChangeOrderStatus = (orderId, isAccepted) => {
-        const formData = {
-            isAccepted,
-        };
-
-        axios
-            .post(route('orders.changeStatus', orderId), formData)
-            .then((response) => {
-                setSessionMessage({
-                    message: response.data.message || 'وضعیت با موفقیت ثبت شد.',
-                    title: 'عالیه',
-                    color: 'success',
-                });
-            })
-            .catch((error) => {
-                console.error('Error updating status:', error);
-            });
+        router.post(route('orders.updateOrderStatus', orderId), {
+            isAccepted: isAccepted,
+        });
     };
 
     return (
         <AuthenticatedLayout>
             <div className="container">
                 {/* Cargo Details */}
-                <div className="row mt-4 mb-2 mb-lg-0">
+                <div className="row mb-lg-0 mb-2 mt-4">
                     <div className="col-12">
-                        <div className="card-box" style={{
-                            borderRadius: '10px',
-                            boxShadow: '0px 0px 7px rgba(0, 0, 0, 0.342)',
-                        }}>
-                            <h3 className="m-0 d-print-none">مشخصات بار</h3>
-                            <table className="table mt-4 table-centered">
+                        <div
+                            className="card-box"
+                            style={{
+                                borderRadius: '10px',
+                                boxShadow: '0px 0px 7px rgba(0, 0, 0, 0.342)',
+                            }}
+                        >
+                            <h3 className="d-print-none m-0">مشخصات بار</h3>
+                            <table className="table-centered mt-4 table">
                                 <tbody>
                                     <tr>
                                         <td>شناسه بار</td>
@@ -55,7 +42,7 @@ export default function CargoDetails({ cargo, orders }) {
                                     </tr>
                                     <tr>
                                         <td>قیمت</td>
-                                        <td>{new Intl.NumberFormat('fa-IR').format(cargo.price)} تومان</td>
+                                        <td>{cargo.price} تومان</td>
                                     </tr>
                                     <tr>
                                         <td>ماشین</td>
@@ -77,50 +64,81 @@ export default function CargoDetails({ cargo, orders }) {
 
                 {/* Driver Details */}
                 <div className="row">
-                {orders?.map((order) => (
-                    <div className="col-10">
-                        <div className="card-box" style={{
-                            borderRadius: '10px',
-                            boxShadow: '0px 0px 7px rgba(0, 0, 0, 0.342)',
-                        }}>
-                            <h4 className="m-0 d-print-none">مشخصات راننده</h4>
-                            <div className="clearfix pt-3">
-                                <h4 className="text-muted">
-                                    نام: {order?.driver?.name || 'ناموجود'}
+                    {orders?.map((order) => (
+                        <div className="col-10">
+                            <div
+                                className="card-box"
+                                style={{
+                                    borderRadius: '10px',
+                                    boxShadow:
+                                        '0px 0px 7px rgba(0, 0, 0, 0.342)',
+                                }}
+                            >
+                                <h4 className="d-print-none m-0">
+                                    مشخصات راننده
                                 </h4>
-                                <p className="text-muted">
-                                    شماره همراه: {order?.driver?.mobile || 'ناموجود'}
-                                </p>
-                                <p className="text-muted">
-                                    نوع ماشین: {order?.driverDetails?.carType || 'ناموجود'}
-                                </p>
-                            </div>
-                            <div className="hidden-print mt-4">
-                                <div className="text-right d-print-none">
-                                    <div className={`alert alert-${order?.orderStatus?.color} col-12 d-flex justify-content-center`}>
-                                        {order?.orderStatus?.description}
+                                <div className="clearfix pt-3">
+                                    <h4 className="text-muted">
+                                        نام: {order?.driver?.name || 'ناموجود'}
+                                    </h4>
+                                    <p className="text-muted">
+                                        شماره همراه:{' '}
+                                        {order?.driver?.mobile || 'ناموجود'}
+                                    </p>
+                                    <p className="text-muted">
+                                        نوع ماشین:{' '}
+                                        {order?.driverDetails?.carType ||
+                                            'ناموجود'}
+                                    </p>
+                                </div>
+                                <div className="hidden-print mt-4">
+                                    <div className="d-print-none text-right">
+                                        <div
+                                            className={`alert alert-${order?.orderStatus?.color} col-12 d-flex justify-content-center`}
+                                        >
+                                            {order?.orderStatus?.description}
+                                        </div>
+                                        {order?.ownerStatus === null ? (
+                                            <>
+                                                <button
+                                                    className="btn btn-success mr-2 text-white"
+                                                    onClick={() =>
+                                                        handleChangeOrderStatus(
+                                                            order.ulid,
+                                                            true,
+                                                        )
+                                                    }
+                                                >
+                                                    قبول درخواست
+                                                </button>
+                                                <button
+                                                    className="btn btn-danger text-white"
+                                                    onClick={() =>
+                                                        handleChangeOrderStatus(
+                                                            order.ulid,
+                                                            false,
+                                                        )
+                                                    }
+                                                >
+                                                    رد درخواست
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <h4 className="d-flex justify-content-center">
+                                            <span
+                                                className={"badge badge-" + (order?.ownerStatus ? "success" : "error") + " col-8"}
+                                            >
+                                                {
+                                                order?.ownerStatus ? "بار تایید شده است" : "بار رد شده است"
+                                                }
+                                            </span>
+                                            </h4>
+                                        )}
                                     </div>
-                                    {order?.ownerStatus === null && (
-                                        <>
-                                            <button
-                                                className="btn btn-success text-white mr-2"
-                                                onClick={() => handleChangeOrderStatus(order.id, true)}
-                                            >
-                                                قبول درخواست
-                                            </button>
-                                            <button
-                                                className="btn btn-danger text-white"
-                                                onClick={() => handleChangeOrderStatus(order.id, false)}
-                                            >
-                                                رد درخواست
-                                            </button>
-                                        </>
-                                    )}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
                 </div>
             </div>
         </AuthenticatedLayout>

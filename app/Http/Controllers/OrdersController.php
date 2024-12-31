@@ -37,6 +37,40 @@ class OrdersController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function updateOrderStatus(Order $order, Request $request)
+    {
+        abort_if(! $order->cargo->owner->is(auth()->user()), 404);
+
+        $order->update([
+            'owner_status' => $request->isAccepted,
+        ]);
+
+        if ($request->isAccepted) {
+            Order::query()
+                ->where('ulid', '!=', $order->ulid)
+                ->where([
+                    'cargo_id' => $order->cargo_id,
+                ])
+                ->delete();
+            return $this->flashAlert(
+                icon: 'success',
+                text: 'بار با موفقیت تایید شد',
+                timer: 3000,
+                confirmButtonText: 'تایید',
+            );
+        }
+
+        return $this->flashAlert(
+            icon: 'error',
+            text: 'بار با موفقیت رد شد',
+            timer: 3000,
+            confirmButtonText: 'تایید',
+        );
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Order $order)
     {
         return Inertia::render('Orders/Index', [

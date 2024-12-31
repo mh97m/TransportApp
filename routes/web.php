@@ -109,6 +109,7 @@ Route::group([
             Route::get('all', 'all')->name('all');
             Route::post('/create', 'create')->name('create');
             Route::get('/{order:ulid}', 'index')->name('index');
+            Route::post('update-order-status/{order:ulid}', 'updateOrderStatus')->name('updateOrderStatus');
         });
 
     //////////////////////////////////////////////////
