@@ -26,6 +26,8 @@ class CargosController extends Controller
 
         $query->whereNull('completed_at');
 
+        $query->where('car_type_id', auth()->user()->driverDetails->car_type_id);
+
         $sortField = request('sort_field', 'created_at');
         $sortDirection = request('sort_direction', 'desc');
 
