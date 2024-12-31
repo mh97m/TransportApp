@@ -98,6 +98,9 @@ class UserSeeder extends Seeder
 
                 'description' => fake()->address(),
 
+                'temperature_min' => round(0, 20),
+                'temperature_max' => round(-20, 0),
+
                 'user_id' => $user->id,
             ]);
         }
