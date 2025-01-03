@@ -1,36 +1,113 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
-import DeleteUserForm from './Partials/DeleteUserForm';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
+import TextInput from '@/Components/TextInput';
+import Button from '@/Components/Button';
+import SearchSelect from '@/Components/SearchSelect';
+import { useForm } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
 
-export default function Edit({ mustVerifyEmail, status }) {
+export default function Edit({ carTypes, userDetails }) {
+    const getOptionByValue = (options, value) => {
+        return options.find((option) => option.value === value) || null;
+    };
+
+    const user = usePage().props.auth.user;
+
+    const { data, setData, patch, processing, errors } = useForm({
+        name: user.name || '',
+        mobile: user.mobile || '',
+        nationalCode: user.national_code || '',
+        carTypeId: userDetails?.car_type_id || '',
+        plaque: userDetails?.plaque || '',
+        license: userDetails?.license || '',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData(name, value);
+    };
+
+    const handleSelectChange = (name, selectedOption) => {
+        setData(name, selectedOption ? selectedOption.value : '');
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        patch(route('profile.update')); // Use Inertia's patch method for updating data
+    };
+
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                    Profile
-                </h2>
-            }
-        >
-            <Head title="Profile" />
+        <AuthenticatedLayout>
+            <div className="row">
+                <div className="col-12">
+                    <div className="card-box">
+                        <h3 className="mb-4">ویرایش پروفایل</h3>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group row">
+                                <TextInput
+                                    label="نام"
+                                    id="name"
+                                    name="name"
+                                    value={data.name}
+                                    onChange={handleChange}
+                                    error={errors.name}
+                                />
+                                <TextInput
+                                    label="شماره موبایل"
+                                    id="mobile"
+                                    name="mobile"
+                                    value={data.mobile}
+                                    onChange={handleChange}
+                                    error={errors.mobile}
+                                />
+                                <TextInput
+                                    label="کد ملی"
+                                    id="nationalCode"
+                                    name="nationalCode"
+                                    value={data.nationalCode}
+                                    onChange={handleChange}
+                                    error={errors.nationalCode}
+                                />
+                            </div>
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800">
-                        <UpdateProfileInformationForm
-                            mustVerifyEmail={mustVerifyEmail}
-                            status={status}
-                            className="max-w-xl"
-                        />
-                    </div>
+                            {userDetails && (
+                                <>
+                                    <div className="form-group row">
+                                        <SearchSelect
+                                            label="نوع وسیله"
+                                            id="carTypeId"
+                                            name="carTypeId"
+                                            options={carTypes}
+                                            value={getOptionByValue(carTypes, data.carTypeId)}
+                                            onChange={(selected) =>
+                                                handleSelectChange('carTypeId', selected)
+                                            }
+                                            error={errors.carTypeId}
+                                        />
+                                        <TextInput
+                                            label="پلاک"
+                                            id="plaque"
+                                            name="plaque"
+                                            value={data.plaque}
+                                            onChange={handleChange}
+                                            error={errors.plaque}
+                                        />
+                                    </div>
+                                    <div className="form-group row">
+                                        <TextInput
+                                            label="گواهینامه"
+                                            id="license"
+                                            name="license"
+                                            value={data.license}
+                                            onChange={handleChange}
+                                            error={errors.license}
+                                        />
+                                    </div>
+                                </>
+                            )}
 
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800">
-                        <UpdatePasswordForm className="max-w-xl" />
-                    </div>
-
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800">
-                        <DeleteUserForm className="max-w-xl" />
+                            <Button label="ذخیره" type="submit" disabled={processing} />
+                        </form>
                     </div>
                 </div>
             </div>
